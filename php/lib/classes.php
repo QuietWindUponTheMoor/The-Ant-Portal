@@ -73,7 +73,9 @@ class SystemChecks {
         $col = $this->profileImageColumnName;
         $res = $this->db->select("SELECT $col FROM users WHERE userID=?;", "i", $this->userID);
         if ($res->num_rows > 0) {
-            $this->userPFP = mysqli_fetch_assoc($res)[$col];
+            $row = mysqli_fetch_assoc($res);
+            $pfp = $row[$col];
+            $this->userPFP = $pfp;
         } else {
             $this->userPFP = "Profile image not found or there was an error.";
         }
@@ -285,7 +287,9 @@ class Register {
         if ($result == true) {
             $this->hashPassword();
         }
-
+        if ($this->pfpPath === null) {
+            $this->pfpPath = "/web_images/defaults/default_pfp.jpg";
+        }
         $this->db->insert("INSERT INTO users (username, email, `password`, `image`, joined, time) VALUES (?, ?, ?, ?, ?, ?);", "ssssss", $this->username, $this->email, $this->hashedPass, $this->pfpPath, $this->date, $this->time);
         if ($result == true) {
             echo "<p class='reg-success'>You have successfully registered with us! You are free to sign in.</p>";

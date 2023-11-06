@@ -47,7 +47,6 @@ function dateCalc($i) {
 }
 
 
-
 // If setSession is active
 if (isset($_GET["setSession"])) {
     $data = array_filter($_GET);
