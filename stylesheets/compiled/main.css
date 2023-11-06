@@ -121,8 +121,23 @@ input, select {
   cursor: pointer;
   color: #FDFDFD;
   box-shadow: 0 1px 0 0 #FDFDFD inset;
+  padding: 0.5rem;
 }
 .btn-main:hover {
+  opacity: 0.75;
+}
+
+.btn-cancel {
+  padding: 1%;
+  background-color: lightgray;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  color: black;
+  box-shadow: 0 1px 0 0 #FDFDFD inset;
+  padding: 0.5rem;
+}
+.btn-cancel:hover {
   opacity: 0.75;
 }
 
@@ -156,7 +171,6 @@ input, select {
 }
 .create-post-button-container a, .create-post-button-container button {
   font-size: 90%;
-  padding: 0.5%;
 }
 
 #change-username-modal {
@@ -197,6 +211,18 @@ input, select {
 }
 #change-username-modal form input {
   width: 75%;
+}
+
+.input-main {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid #bdbdbd;
+  border-radius: 5px;
+  outline: none;
+}
+
+input, textarea {
+  font-family: "Nunito", sans-serif;
 }
 
 .navbar {
@@ -524,47 +550,49 @@ input, select {
 .create-post-container {
   flex-direction: column;
   justify-self: center;
-  border: 1px solid black;
+  border: 1px solid #bdbdbd;
   border-radius: 5px;
   padding: 2rem;
+  width: 650px;
+}
+.create-post-container .title {
+  margin-bottom: 0 !important;
 }
 .create-post-container .create-post-form {
   margin-top: 2rem;
-  display: flex;
   flex-direction: column;
   align-self: center;
   gap: 2rem;
+  width: 100%;
 }
-.create-post-container .create-post-form .textbox {
+.create-post-container .create-post-form .section {
   flex-direction: column;
   gap: 0.1rem;
 }
-.create-post-container .create-post-form .textbox input {
-  width: 30rem;
+.create-post-container .create-post-form .section label {
+  font-size: 80%;
 }
-.create-post-container .create-post-form .textbox textarea {
+.create-post-container .create-post-form .section .body-text {
   resize: vertical;
+  height: 155px;
+  min-height: 155px;
 }
-.create-post-container .create-post-form .textbox #content {
-  height: 5rem;
+.create-post-container .create-post-form .section .tags-list {
+  gap: 10px;
+}
+.create-post-container .create-post-form .section .tags-list .tag {
+  padding: 0.3rem;
+  background-color: #bffaaf;
+  border-radius: 5px;
+  border: 1px solid #bffaaf;
+  cursor: pointer;
+}
+.create-post-container .create-post-form .section .tags-list .tag:hover {
+  opacity: 0.75;
+  border: 1px solid #2AA00A;
 }
 .create-post-container .create-post-form .buttons {
+  flex-direction: row;
   align-self: flex-end;
   gap: 0.5rem;
-}
-.create-post-container .create-post-form .buttons button {
-  padding: 0.5rem 1rem 0.5rem 1rem;
-  border: none;
-  font-size: 0.86rem;
-  border-radius: 5px;
-  text-decoration: none;
-}
-.create-post-container .create-post-form .buttons .btn-cancel {
-  padding: 0.5rem 1rem 0.5rem 1rem;
-  text-decoration: none;
-  text-align: center;
-  border: none;
-  font-size: 0.86rem;
-  background-color: lightgray;
-  color: black;
 }/*# sourceMappingURL=main.css.map */

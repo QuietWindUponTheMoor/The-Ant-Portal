@@ -14,7 +14,7 @@ require($nav);
 
         <div class="create-post-button-container">
             <p class="title">Questions</p>
-            <a class="btn-main" href="/questions/create/">Ask A Question</a>
+            <a class="btn-main" href="/create_post/">Create Post</a>
         </div>
 
         <div class="posts-container">

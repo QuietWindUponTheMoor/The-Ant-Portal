@@ -97,6 +97,20 @@ input, select {
     cursor: pointer;
     color: $theme-60;
     box-shadow: 0 1px 0 0 $theme-60 inset;
+    padding: 0.5rem;
+    &:hover {
+        opacity: $hover-opacity;
+    }
+}
+.btn-cancel {
+    padding: 1%;
+    background-color: lightgray;
+    border-radius: $b-med;
+    border: none;
+    cursor: pointer;
+    color: black;
+    box-shadow: 0 1px 0 0 $theme-60 inset;
+    padding: 0.5rem;
     &:hover {
         opacity: $hover-opacity;
     }
@@ -125,7 +139,6 @@ input, select {
     justify-content: space-between;
     a, button {
         font-size: 90%;
-        padding: 0.5%;
     }
 }
 #change-username-modal {
@@ -167,7 +180,19 @@ input, select {
         }
     }
 }
+.input-main {
+    width: 100%;
+    padding: 0.5rem;
+    border: 2px solid $theme-60-hover-ultradark;
+    border-radius: $b-med;
+    outline: none;
+}
+input, textarea {
+    font-family: $theme-font;
+}
 // Done with misc
+
+// Groups:
 
 .navbar {
     flex-direction: row;
@@ -499,51 +524,49 @@ input, select {
 .create-post-container {
     flex-direction: column;
     justify-self: center;
-    border: 1px solid black;
-    border-radius: 5px;
-    padding:2rem;
+    border: 1px solid $theme-60-hover-ultradark;
+    border-radius: $b-med;
+    padding: 2rem;
+    width: 650px;
+    .title {
+        margin-bottom: 0 !important;
+    }
     .create-post-form {
         margin-top: 2rem;
-        display: flex;
         flex-direction: column;
         align-self: center;
-        gap:2rem;
-        .textbox {
-            // display: flex;
+        gap: 2rem;
+        width: 100%;
+        .section {
             flex-direction: column;
-            gap:0.1rem;
-            input {
-                width:30rem;
-            } 
-            textarea {
+            gap: 0.1rem;
+            label {
+                font-size: 80%;
+            }
+            .body-text {
                 resize: vertical;
+                height: 155px;
+                min-height: 155px;
             }
-            #content {
-                height:5rem;        
-            } 
+            .tags-list {
+                gap: 10px;
+                .tag {
+                    padding: 0.3rem;
+                    background-color: $theme-10-hover-ultra-ultralight;
+                    border-radius: $b-med;
+                    border: 1px solid $theme-10-hover-ultra-ultralight;
+                    cursor: pointer;
+                    &:hover {
+                        opacity: 0.75;
+                        border: 1px solid $theme-10;
+                    }
+                }
+            }
         }
-        
         .buttons {
+            flex-direction: row;
             align-self: flex-end;
-            gap:0.5rem;
-            button {
-                padding:0.5rem 1rem 0.5rem 1rem;
-                // height: 0.86rem;
-                // text-align: center;
-                border: none;
-                font-size: 0.86rem;
-                border-radius: 5px;
-                text-decoration: none;
-            }
-            .btn-cancel {
-                padding:0.5rem 1rem 0.5rem 1rem;
-                text-decoration: none;
-                text-align: center;
-                border: none;
-                font-size: 0.86rem;
-                background-color: lightgray;
-                color: black;
-            }
+            gap: 0.5rem;
         }
     }
 }
