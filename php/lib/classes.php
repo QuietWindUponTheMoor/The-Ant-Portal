@@ -442,3 +442,46 @@ class Login {
         }
     }
 }
+
+class TimeFormats {
+    private string $defaultTimezone;
+    public string $date;
+    public string $timezone;
+    public string $time;
+    public string $formattedTime;
+
+    public function __construct($select="f", $defaultTimezone=null) {
+        if ($defaultTimezone === null) {
+            $this->defaultTimezone = date_default_timezone_get();
+        } else {
+            $this->defaultTimezone = date_default_timezone_get($defaultTimezone);
+        }
+        $this->date = date("M d, Y");
+        $timezone = new DateTime('now', new DateTimeZone($this->defaultTimezone));
+        $this->timezone = $timezone->format('T');
+        $this->time = date("h:ia");
+        $this->formattedTime = "$time ($this->timezone)";
+
+        if ($select === "f") {
+            return "$this->date @ $this->formattedTime";
+        } else if ($select === "t") {
+            return $this->time;
+        } else if ($select === "t:timezome") {
+            return $this->formattedTime;
+        } else if ($select === "d") {
+            return $this->date;
+        } else if ($select === "tz:default") {
+            return $this->defaultTimezone;
+        } else if ($select === "*") {
+            return [
+                $this->defaultTimzone,
+                $this->date,
+                $this->timezone,
+                $this->time,
+                $this->formattedTime
+            ];
+        }
+    }
+
+
+}
