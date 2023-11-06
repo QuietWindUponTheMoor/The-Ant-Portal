@@ -524,4 +524,47 @@ input, select {
 .create-post-container {
   flex-direction: column;
   justify-self: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 2rem;
+}
+.create-post-container .create-post-form {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: 2rem;
+}
+.create-post-container .create-post-form .textbox {
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.create-post-container .create-post-form .textbox input {
+  width: 30rem;
+}
+.create-post-container .create-post-form .textbox textarea {
+  resize: vertical;
+}
+.create-post-container .create-post-form .textbox #content {
+  height: 5rem;
+}
+.create-post-container .create-post-form .buttons {
+  align-self: flex-end;
+  gap: 0.5rem;
+}
+.create-post-container .create-post-form .buttons button {
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border: none;
+  font-size: 0.86rem;
+  border-radius: 5px;
+  text-decoration: none;
+}
+.create-post-container .create-post-form .buttons .btn-cancel {
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  text-decoration: none;
+  text-align: center;
+  border: none;
+  font-size: 0.86rem;
+  background-color: lightgray;
+  color: black;
 }/*# sourceMappingURL=main.css.map */
