@@ -166,8 +166,12 @@ input, select {
 
 .create-post-button-container {
   flex-direction: row;
-  align-items: center;
+  align-items: center !important;
   justify-content: space-between;
+  margin-bottom: 2rem;
+}
+.create-post-button-container > * {
+  margin: 0 !important;
 }
 .create-post-button-container a, .create-post-button-container button {
   font-size: 90%;

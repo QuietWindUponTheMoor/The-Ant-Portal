@@ -12,7 +12,10 @@ require($nav);
 <body>
     <div class="container">
 
-        <p class="title">Recent Activity</p>
+        <div class="create-post-button-container">
+            <p class="title">Recent Activity</p>
+            <a class="btn-main" href="/create_post/">Create Post</a>
+        </div>
 
         <div class="posts-container">
             <div class="post">
