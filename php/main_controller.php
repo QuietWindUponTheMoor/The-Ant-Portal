@@ -79,3 +79,8 @@ if ($isLoggedIn === true) {
     $userID = $SYSTEM_CHECKS->userID;
     $userPFP = $SYSTEM_CHECKS->userPFP;
 }
+
+// Do database health checks
+$dbHealth = $_SERVER["DOCUMENT_ROOT"];
+$dbHealth .= "/php/lib/database_health/table_checks.php";
+require($dbHealth);

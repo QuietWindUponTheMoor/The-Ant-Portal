@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS tables_schema (
+    tableID BIGINT(22) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    `name` VARCHAR(64) NOT NULL,
+    `rows` TEXT(30000) NOT NULL,
+    `extras` TEXT(100000)
+);

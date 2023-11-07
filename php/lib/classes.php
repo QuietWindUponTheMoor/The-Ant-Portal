@@ -130,6 +130,47 @@ class Database {
         return $this->conn;
     }
 
+    public function tableCreate($QUERY) {
+        $sql = $QUERY;
+        $stmt = mysqli_stmt_init($this->conn)
+            or die("Could not initiate a connection.");
+        mysqli_stmt_prepare($stmt, $sql)
+            or die("Could not prepare SQL statement.");
+        mysqli_stmt_execute($stmt)
+            or die("Could not execute SQL sequence.");
+        mysqli_stmt_close($stmt)
+            or die("Could not close SQL connection.");
+        
+        return true;
+    }
+
+    public function modifyTable($QUERY) {
+        $sql = $QUERY;
+        $stmt = mysqli_stmt_init($this->conn)
+            or die("Could not initiate a connection.");
+        mysqli_stmt_prepare($stmt, $sql)
+            or die("Could not prepare SQL statement.");
+        mysqli_stmt_execute($stmt)
+            or die("Could not execute SQL sequence.");
+        mysqli_stmt_close($stmt)
+            or die("Could not close SQL connection.");
+        return true;
+    }
+
+    public function dropTable($tableToDrop) {
+        $sql = "DROP TABLE IF EXISTS $tableToDrop";
+        $stmt = mysqli_stmt_init($this->conn)
+            or die("Could not initiate a connection.");
+        mysqli_stmt_prepare($stmt, $sql)
+            or die("Could not prepare SQL statement.");
+        mysqli_stmt_execute($stmt)
+            or die("Could not execute SQL sequence.");
+        mysqli_stmt_close($stmt)
+            or die("Could not close SQL connection.");
+        
+        return true;
+    }
+
     public function insert($QUERY, ...$bind_data) {
         $sql = $QUERY;
         $stmt = mysqli_stmt_init($this->conn)
