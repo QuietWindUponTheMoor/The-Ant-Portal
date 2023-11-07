@@ -9,6 +9,11 @@ $sqlFiles = [
     "/users.sql"
 ];
 
+// Create tables_schema if not exists
+$schema_table_contents = file_get_contents($root.$sqlFiles[0]);
+$db->tableCreate($schema_table_contents);
+
+// Iterate over tables
 foreach ($sqlFiles as $file) {
     // Get name of table:
     $tableName = str_replace("/", "", str_replace(".sql", "", $file));
