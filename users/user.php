@@ -58,20 +58,25 @@ require($forms);
         </div>
         <div class="profile-bottom">
             <!-- This will contain everything else in the profile -->
-            <div class="profile-settings">
-                <div class="settings-sub">
-                    <a class="setting" id="change-username" onclick="$('#change-username-modal').css('display', 'flex');">Change Username</a>
-                    <a class="setting unfinished" id="" href="#">Setting 2</a>
-                    <a class="setting unfinished" id="" href="#">Setting 3</a>
-                    <a class="setting unfinished" id="" href="#">Setting 4</a>
-                    <a class="setting unfinished" id="delete-account" href="#">Delete Account</a>
-                    <a class="setting" id="profile-signout" href="/users/logout/">Sign Out</a>
+            <?php
+            if ($isOwner === true) {
+                echo
+                '
+                <div class="profile-settings">
+                    <div class="settings-sub">
+                        <a class="setting" id="change-username" onclick="$(\'#change-username-modal\').css(\'display\', \'flex\');">Change Username</a>
+                        <a class="setting unfinished" id="" href="#">Setting 2</a>
+                        <a class="setting unfinished" id="" href="#">Setting 3</a>
+                        <a class="setting unfinished" id="" href="#">Setting 4</a>
+                        <a class="setting unfinished" id="delete-account" href="#">Delete Account</a>
+                        <a class="setting" id="profile-signout" href="/users/logout/">Sign Out</a>
+                    </div>
                 </div>
-            </div>
+                ';
+            }
+            ?>
             <div class="profile-feed">
                 <div class="feed-sub">
-
-
                     <?php
                     $res = $db->select("SELECT * FROM posts WHERE userID=? ORDER BY postID DESC;", "i", $_GET["userID"]);
                     if ($res->num_rows > 0) {
@@ -142,93 +147,6 @@ require($forms);
                         }
                     }
                     ?>
-
-
-                    <!--<div class="post">
-                        <div class="content">
-                            <a class="post-title ellipsis" href="#">This is an example post.</a>
-                            <p class="text-preview twoline-ellipsis">Here's an example of a post's text content preview.</p>
-                        </div>
-                        <div class="meta">
-                            <p class="meta-info" id="post-type">Question</p>
-                        </div>
-                        <div class="meta">
-                            <p class="meta-info" id="views">? views</p>
-                            <p class="meta-info" id="upvotes">? upvotes</p>
-                            <p class="meta-info" id="downvotes">? downvotes</p>
-                            <p class="meta-info" id="answers">? answers</p>
-                            <a href="#"><div class="user">
-                                <div class="user-image-container"><img class="user-image" src="/users/uploads/profile_images/QuietWind01_user_profile_image_7147288035.jpg"/></div>
-                                <p class="username">username</p>
-                                <p class="time">posted on ?</p>
-                            </div></a>
-                        </div>
-                    </div>
-
-                    <div class="post">
-                        <div class="content">
-                            <a class="post-title ellipsis" href="#">This is an example post.</a>
-                            <p class="text-preview twoline-ellipsis">Here's an example of a post's text content preview.</p>
-                        </div>
-                        <div class="meta">
-                            <p class="meta-info" id="post-type">Sighting</p>
-                        </div>
-                        <div class="meta">
-                            <p class="meta-info" id="views">? views</p>
-                            <p class="meta-info" id="upvotes">? upvotes</p>
-                            <p class="meta-info" id="downvotes">? downvotes</p>
-                            <p class="meta-info" id="answers">? answers</p>
-                            <a href="#"><div class="user">
-                                <div class="user-image-container"><img class="user-image" src="/users/uploads/profile_images/QuietWind01_user_profile_image_7147288035.jpg"/></div>
-                                <p class="username">username</p>
-                                <p class="time">posted on ?</p>
-                            </div></a>
-                        </div>
-                    </div>
-
-                    <div class="post">
-                        <div class="content">
-                            <a class="post-title ellipsis" href="#">This is an example post.</a>
-                            <p class="text-preview twoline-ellipsis">Here's an example of a post's text content preview.</p>
-                        </div>
-                        <div class="meta">
-                            <p class="meta-info" id="post-type">Nuptial Flight</p>
-                        </div>
-                        <div class="meta">
-                            <p class="meta-info" id="views">? views</p>
-                            <p class="meta-info" id="upvotes">? upvotes</p>
-                            <p class="meta-info" id="downvotes">? downvotes</p>
-                            <p class="meta-info" id="answers">? answers</p>
-                            <a href="#"><div class="user">
-                                <div class="user-image-container"><img class="user-image" src="/users/uploads/profile_images/QuietWind01_user_profile_image_7147288035.jpg"/></div>
-                                <p class="username">username</p>
-                                <p class="time">posted on ?</p>
-                            </div></a>
-                        </div>
-                    </div>
-
-                    <div class="post">
-                        <div class="content">
-                            <a class="post-title ellipsis" href="#">This is an example post.</a>
-                            <p class="text-preview twoline-ellipsis">Here's an example of a post's text content preview.</p>
-                        </div>
-                        <div class="meta">
-                            <p class="meta-info" id="post-type">Care Sheet</p>
-                        </div>
-                        <div class="meta">
-                            <p class="meta-info" id="views">? views</p>
-                            <p class="meta-info" id="upvotes">? upvotes</p>
-                            <p class="meta-info" id="downvotes">? downvotes</p>
-                            <p class="meta-info" id="answers">? answers</p>
-                            <a href="#"><div class="user">
-                                <div class="user-image-container"><img class="user-image" src="/users/uploads/profile_images/QuietWind01_user_profile_image_7147288035.jpg"/></div>
-                                <p class="username">username</p>
-                                <p class="time">posted on ?</p>
-                            </div></a>
-                        </div>
-                    </div>-->
-
-
                 </div>
             </div>
         </div>
