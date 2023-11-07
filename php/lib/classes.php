@@ -221,7 +221,7 @@ class FileUpload {
             $ext = pathinfo($fileName, PATHINFO_EXTENSION); //. Get file extension
             $randNumber = rand(9999, 9999999999);
             $new_file_name = $this->new_file_name."_".$randNumber; //File name without extension, add randnum string to end of name
-            $target = $_SERVER['DOCUMENT_ROOT'].$this->upload_path."/".$new_file_name.".$ext"; // Final and total path of file
+            $target = $_SERVER["DOCUMENT_ROOT"].$this->upload_path."/".$new_file_name.".$ext"; // Final and total path of file
             $displayPath = $this->upload_path."/".$new_file_name.".$ext"; // Path to return upon successful file upload
             
             if (!file_exists($target)) {
@@ -231,6 +231,8 @@ class FileUpload {
                     die($this->single_file_die_error);
                 }
             }
+        } else {
+            echo null;
         }
     }
 }
@@ -460,10 +462,13 @@ class TimeFormats {
         $timezone = new DateTime('now', new DateTimeZone($this->defaultTimezone));
         $this->timezone = $timezone->format('T');
         $this->time = date("h:ia");
-        $this->formattedTime = "$time ($this->timezone)";
+        $this->formattedTime = "$this->time ($this->timezone)";
 
+        echo $select;
         if ($select === "f") {
-            return "$this->date @ $this->formattedTime";
+            $date = $this->date;
+            $formattedTime = $this->formattedTime;
+            return "$date @ $formattedTime";
         } else if ($select === "t") {
             return $this->time;
         } else if ($select === "t:timezome") {
@@ -482,6 +487,116 @@ class TimeFormats {
             ];
         }
     }
+}
 
+class CreatePost {
+    private object $db;
+    private string $title;
+    private string $body;
+    private string $tags;
+    private int $userID;
+    private int $postType;
+    private string $datetime;
 
+    public function __construct() {
+        // Get data "d" short for data
+        $d = array_filter($_POST);
+        $this->db = new Database($d["database"], "root", "", "main");
+        $this->title = $d["title"];
+        $this->tags = $d["final-tags"];
+        $this->body = $d["data-body"];
+        $this->userID = $d["user_id"];
+        $this->postType = $d["postType"];
+
+        // Get datetime
+        $date = date("M d, Y");
+        $timezone = new DateTime('now', new DateTimeZone(date_default_timezone_get()));
+        $timezone = $timezone->format('T');
+        $time = date("h:ia");
+        $time = "$time ($timezone)";
+        $this->datetime = "$date @ $time";
+    }
+
+    public function execute() {
+        if ($this->db->insert("INSERT INTO posts (userID, `type`, title, `text`, `datetime`) VALUES (?, ?, ?, ?, ?);", "iisss", $this->userID, $this->postType, $this->title, $this->body, $this->datetime)) {
+            // If post was successfully inserted into database
+            // Get file name
+            $fileName = preg_replace("/[^A-Za-z0-9 ]/", '', $this->title);
+
+            // Iterate over files, if exist
+            // Initialize pathArray
+            $pathArray = [];
+            //print_r($_FILES);
+            error_reporting(E_ALL);
+            set_time_limit(0);
+            ini_set('upload_max_filesize', '500M');
+            ini_set('post_max_size', '500M');
+            ini_set('max_input_time', 4000); // Play with the values
+            ini_set('max_execution_time', 4000); // Play with the values
+            if (!empty($_FILES["images"]["tmp_name"])) {
+                // Count total files:
+                $total = count($_FILES["images"]["name"]);
+                for ($i = 0; $i < $total; $i++) {
+                    // Get current file
+                    $tmpFilePath = $_FILES["images"]["tmp_name"][$i];
+                    // Get file extension
+                    $ext = pathinfo($_FILES["images"]["name"][$i], PATHINFO_EXTENSION);
+                    // Get path
+                    $displayPath = "/users/uploads/posts/"."$i-".$fileName.".$ext";
+                    // Get full path (target)
+                    $target = $_SERVER["DOCUMENT_ROOT"].$displayPath;
+                    // Upload file
+                    if (!file_exists($target)) {
+                        if (move_uploaded_file($tmpFilePath, $target)) {
+                            array_push($pathArray, $displayPath);
+                        } else {
+                            die("SOMETHING WENT WRONG UPLOADING ONE OR MORE OF YOUR IMAGES!");
+                        }
+                    } else {
+                        die("AN IMAGE ALREADY EXISTS BY THE NAME OF '$target'!!!");
+                    }
+                }
+                // Upload paths to database (with UPDATE statement)
+                $images = implode(", ", $pathArray);
+                if ($this->db->insert("UPDATE posts SET imageArray=? WHERE title=?;", "ss", $images, $this->title)) {
+                    // If image path(s) uploaded to database correctly and everything went smoothly up until this point
+                    // Upload tags
+                    if ($this->tagsUpload()) {
+                        // Redirect user if all is successful
+                        $this->redirectUser();
+                    }
+                }
+            }
+        }
+    }
+
+    private function tagsUpload() {
+        $c = 1;
+        foreach (explode(", ", $this->tags) as $tag) {
+            if ($c === 1) {
+                $col = "tagOne";
+            } else if ($c === 2) {
+                $col = "tagTwo";
+            } else if ($c === 3) {
+                $col = "tagThree";
+            } else if ($c === 4) {
+                $col = "tagFour";
+            } else if ($c === 5) {
+                $col = "tagFive";
+            }
+            $this->db->insert("UPDATE posts SET $col=? WHERE title=?;", "ss", $tag, $this->title);
+            $c++;
+        }
+        return true;
+    }
+
+    private function redirectUser() {
+        $res = $this->db->select("SELECT postID FROM posts WHERE title=? ORDER BY postID DESC LIMIT 1;", "s", $this->title);
+        if ($res->num_rows > 0) {
+            $postID = mysqli_fetch_assoc($res)["postID"];
+            echo $postID;
+        } else {
+            echo -1;
+        }
+    }
 }

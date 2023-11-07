@@ -127,7 +127,7 @@ input, select {
   opacity: 0.75;
 }
 
-.btn-cancel {
+.btn-secondary {
   padding: 1%;
   background-color: lightgray;
   border-radius: 5px;
@@ -137,7 +137,7 @@ input, select {
   box-shadow: 0 1px 0 0 #FDFDFD inset;
   padding: 0.5rem;
 }
-.btn-cancel:hover {
+.btn-secondary:hover {
   opacity: 0.75;
 }
 
@@ -223,6 +223,10 @@ input, select {
 
 input, textarea {
   font-family: "Nunito", sans-serif;
+}
+
+.hidden {
+  display: none !important;
 }
 
 .navbar {
@@ -588,8 +592,14 @@ input, textarea {
   cursor: pointer;
 }
 .create-post-container .create-post-form .section .tags-list .tag:hover {
-  opacity: 0.75;
   border: 1px solid #2AA00A;
+}
+.create-post-container .create-post-form .section .tags-list {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid #bdbdbd;
+  border-radius: 5px;
+  height: 50px;
 }
 .create-post-container .create-post-form .buttons {
   flex-direction: row;

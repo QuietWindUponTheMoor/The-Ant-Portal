@@ -60,9 +60,11 @@ if (isset($_GET["setSession"])) {
 if (gethostname() === "DESKTOP-HVA05O2" || gethostname() === "3080RBMS39") {
     // If it's Caleb and Caleb ONLY connecting.
     $SYSTEM_CHECKS = new SystemChecks("main", "image", "main");
+    $dbHost = "localhost";
 } else {
     // Mostly for devs, as Caleb needs to connect to the "localhost" domain whereas all other devs need to connect to the external redirect for the database host.
-    $SYSTEM_CHECKS = new SystemChecks("main", "image", "main", "127.0.0.1:3306");
+    $dbHost = "127.0.0.1:3306";
+    $SYSTEM_CHECKS = new SystemChecks("main", "image", "main", $dbHost);
 }
 
 

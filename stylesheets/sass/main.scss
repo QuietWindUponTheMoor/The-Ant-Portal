@@ -102,7 +102,7 @@ input, select {
         opacity: $hover-opacity;
     }
 }
-.btn-cancel {
+.btn-secondary {
     padding: 1%;
     background-color: lightgray;
     border-radius: $b-med;
@@ -189,6 +189,9 @@ input, select {
 }
 input, textarea {
     font-family: $theme-font;
+}
+.hidden {
+    display: none !important;
 }
 // Done with misc
 
@@ -557,10 +560,16 @@ input, textarea {
                     border: 1px solid $theme-10-hover-ultra-ultralight;
                     cursor: pointer;
                     &:hover {
-                        opacity: 0.75;
                         border: 1px solid $theme-10;
                     }
                 }
+            }
+            .tags-list {
+                width: 100%;
+                padding: 0.5rem;
+                border: 2px solid $theme-60-hover-ultradark;
+                border-radius: $b-med;
+                height: 50px;
             }
         }
         .buttons {

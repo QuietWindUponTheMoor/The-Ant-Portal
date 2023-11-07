@@ -14,3 +14,14 @@ function previewImageBeforeUpload(OnChangeEl, previewContainer, previewContainer
     });
 }
 
+async function sendAJAX(url, dataObj, method, processData, contentType, __callback) {
+    // Execute AJAX
+    await $.ajax({  
+        type: method,  
+        url: url, 
+        data: dataObj,
+        processData: processData,
+        contentType: contentType,
+        success: __callback
+    });
+}
