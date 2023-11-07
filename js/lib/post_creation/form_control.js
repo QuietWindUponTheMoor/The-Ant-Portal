@@ -38,6 +38,7 @@ $("#create-post-form").submit(async (event) => {
 
     // Execute AJAX
     await sendAJAX("/php/lib/posts/create.php", formData, "POST", false, false, function (response) {
+        console.log(response)
         if (response === -1) {
             console.error("Something went wrong with redirecting you.");
         } else {

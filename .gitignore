@@ -1,4 +1,4 @@
-/users/uploads/
+!/users/uploads/posts/*
+!/users/uploads/profile_images/*
 reference.php
 color_scheme.php
-#sql/
