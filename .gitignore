@@ -1,4 +1,6 @@
-/users/uploads/posts/*
-/users/uploads/profile_images/*
+users/uploads/posts/*
+!users/uploads/posts/.gitkeep
+users/uploads/profile_images/*
+!users/uploads/profile_images/.gitkeep
 reference.php
 color_scheme.php
