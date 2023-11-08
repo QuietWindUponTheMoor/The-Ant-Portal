@@ -6,7 +6,7 @@ $theme-60: #FDFDFD; // #FDFDFD
 $theme-30: #313535; // #313535
 //$theme-10: #036AF7; // #036AF7
 $theme-10: #2AA00A; // #2AA00A
-$error: #C50101;
+$error: #EA0303;
 $success: #04D007;
 $warning: gold;
 $link: lighten($theme-10, 10%);
@@ -20,8 +20,9 @@ $theme-10-hover: darken($theme-10, 25%);
 $theme-10-hover-ultralight: lighten($theme-10, 25%);
 $theme-10-hover-ultra-ultralight: lighten($theme-10-hover-ultralight, 25%);
 $theme-30-hover-light: lighten($theme-30, 45%);
-$navbar-color: darken($theme-60, 3%);
+$navbar-color: darken($theme-60, 3%); // Old
 $link-hover: lighten($link, 10%);
+$navbar-color: darken($theme-30, 10%);
 
 // Fonts
 //$font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;

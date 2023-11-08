@@ -28,34 +28,8 @@
   display: flex;
 }
 
-html {
-  flex-direction: column;
-  width: 100%;
-  max-width: 100%;
-  margin: 0;
-  padding: 0;
-  color: #313535;
-  background-color: #FDFDFD;
-  font-family: "Nunito", sans-serif;
-}
-html body {
-  flex-direction: column;
-  flex-wrap: wrap;
-  width: 100%;
-  max-width: 100%;
-  margin: 0;
-  padding-bottom: 500px;
-}
-html body .container {
-  flex-direction: column;
-  justify-content: center;
-  margin: 0;
-  margin-inline: auto;
-  padding: 1rem;
-}
-
 #logout-button, #profile-signout {
-  color: #C50101;
+  color: gold;
   text-decoration: underline;
 }
 
@@ -240,6 +214,34 @@ input, textarea {
   margin-bottom: 2rem;
 }
 
+html {
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  color: #313535;
+  background-color: #FDFDFD;
+  font-family: "Nunito", sans-serif;
+}
+html body {
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  margin: 0;
+}
+html body .container {
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0;
+  margin-inline: auto;
+  padding: 1rem;
+  min-height: 90vh;
+  flex: 3;
+}
+
 .navbar {
   flex-direction: row;
   flex-wrap: wrap;
@@ -262,18 +264,18 @@ input, textarea {
   padding: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  background-color: whitesmoke;
-  color: black;
+  background-color: #191b1b;
+  color: #FDFDFD;
 }
 .navbar .navbar-layer .home-link {
   font-weight: 600 !important;
   font-size: 110% !important;
-  border: 1px solid whitesmoke !important;
+  border: 1px solid #191b1b !important;
   color: #2AA00A !important;
 }
 .navbar .navbar-layer .home-link:hover {
   border: 1px solid #2AA00A !important;
-  background-color: #FDFDFD !important;
+  background-color: #191b1b !important;
 }
 .navbar .navbar-layer .main-button {
   font-weight: 300;
@@ -282,7 +284,7 @@ input, textarea {
   border-radius: 500px;
 }
 .navbar .navbar-layer .main-button:hover {
-  background-color: #e4e4e4;
+  background-color: black;
 }
 .navbar .navbar-layer .reg-button {
   font-weight: 300;
@@ -291,7 +293,7 @@ input, textarea {
   border-radius: 500px;
 }
 .navbar .navbar-layer .reg-button:hover {
-  background-color: #e4e4e4;
+  background-color: black;
 }
 .navbar .navbar-layer .profile-button {
   flex-direction: row;
@@ -302,7 +304,7 @@ input, textarea {
   border-radius: 500px;
 }
 .navbar .navbar-layer .profile-button:hover {
-  background-color: #e4e4e4;
+  background-color: black;
 }
 .navbar .navbar-layer .profile-button .profile-image-container {
   width: 25px;
@@ -318,6 +320,53 @@ input, textarea {
   font-weight: 300;
   font-size: 80%;
   color: #2AA00A;
+}
+
+.footer {
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  background-color: #313535;
+  margin: 0;
+  padding: 5rem;
+  min-height: 250px;
+  flex: 1;
+  color: #FDFDFD;
+  justify-content: center;
+  align-items: center;
+}
+.footer .footer-sub {
+  width: 75%;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 5rem;
+}
+.footer .footer-sub .footer-section {
+  flex-direction: column;
+  gap: 1rem;
+}
+.footer .footer-sub .footer-section .item-title {
+  font-size: 100%;
+  text-decoration: underline;
+}
+.footer .footer-sub .footer-section .item {
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: center;
+}
+.footer .footer-sub .footer-section .item:hover {
+  text-decoration: underline;
+}
+.footer .footer-sub .footer-section .item .item-image-container {
+  width: 15px;
+  height: 15px;
+}
+.footer .footer-sub .footer-section .item .item-image-container .item-image {
+  width: 100%;
+  height: 100%;
+}
+.footer .footer-sub .footer-section .item .item-content {
+  font-size: 80% !important;
 }
 
 .registration-form {
@@ -339,7 +388,7 @@ input, textarea {
   font-size: 90%;
 }
 .registration-form .section .reg-error {
-  color: #C50101;
+  color: #EA0303;
 }
 .registration-form .section .reg-success {
   color: #04D007;
@@ -542,7 +591,7 @@ input, textarea {
   color: white;
 }
 .profile-container .profile-bottom .profile-settings .settings-sub #delete-account:hover {
-  background-color: #C50101 !important;
+  background-color: #EA0303 !important;
   color: white !important;
 }
 .profile-container .profile-bottom .profile-settings .settings-sub #profile-signout:hover {
@@ -560,7 +609,7 @@ input, textarea {
   align-items: flex-start;
   gap: 35px;
   padding: 1rem;
-  height: 2500px;
+  max-height: 2500px;
   overflow: scroll;
 }
 .profile-container .profile-bottom .profile-feed .feed-sub::-webkit-scrollbar {

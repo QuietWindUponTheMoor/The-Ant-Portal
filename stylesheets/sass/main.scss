@@ -9,39 +9,9 @@
     display: flex;
 }
 
-
-
-html {
-    flex-direction: column;
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
-    color: $theme-30;
-    background-color: $theme-60;
-    font-family: $theme-font;
-    body {
-        flex-direction: column;
-        flex-wrap: wrap;
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-        padding-bottom: 500px;
-        .container {
-            flex-direction: column;
-            justify-content: center;
-            margin: 0;
-            margin-inline: auto;
-            padding: 1rem;
-            //border-inline: 1px solid black;
-        }
-    }
-}
-
-
 // Misc
 #logout-button, #profile-signout {
-    color: $error;
+    color: $warning;
     text-decoration: underline;
 }
 .unfinished {
@@ -205,7 +175,36 @@ input, textarea {
 }
 // Done with misc
 
+
 // Groups:
+html {
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    color: $theme-30;
+    background-color: $theme-60;
+    font-family: $theme-font;
+    body {
+        flex-direction: column;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        margin: 0;
+        .container {
+            flex-direction: column;
+            justify-content: flex-start;
+            margin: 0;
+            margin-inline: auto;
+            padding: 1rem;
+            min-height: 90vh;
+            flex: 3;
+            //border-inline: 1px solid black;
+        }
+    }
+}
 
 .navbar {
     flex-direction: row;
@@ -228,8 +227,9 @@ input, textarea {
         padding: 1rem;
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
+        //background-color: $navbar-color;
         background-color: $navbar-color;
-        color: black;
+        color: $theme-60;
         .home-link {
             font-weight: 600 !important;
             font-size: 110% !important;
@@ -237,7 +237,7 @@ input, textarea {
             color: $theme-10 !important;
             &:hover {
                 border: 1px solid $theme-10 !important;
-                background-color: $theme-60 !important;
+                background-color: $navbar-color !important;
             }
         }
         .main-button {
@@ -246,7 +246,7 @@ input, textarea {
             font-size: 95%;
             border-radius: $circle;
             &:hover {
-                background-color: $theme-60-hover;
+                background-color: $theme-30-hover;
             }
         }
         .reg-button {
@@ -255,7 +255,7 @@ input, textarea {
             font-size: 95%;
             border-radius: $circle;
             &:hover {
-                background-color: $theme-60-hover;
+                background-color: $theme-30-hover;
             }
         }
         .profile-button {
@@ -266,7 +266,7 @@ input, textarea {
             padding: 0.5rem;
             border-radius: $circle;
             &:hover {
-                background-color: $theme-60-hover;
+                background-color: $theme-30-hover;
             }
             .profile-image-container {
                 width: 25px;
@@ -282,6 +282,53 @@ input, textarea {
                 font-weight: 300;
                 font-size: 80%;
                 color: $theme-10;
+            }
+        }
+    }
+}
+
+.footer {
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    background-color: $theme-30;
+    margin: 0;
+    padding: 5rem;
+    min-height: 250px;
+    flex: 1;
+    color: $theme-60;
+    justify-content: center;
+    align-items: center;
+    .footer-sub {
+        width: 75%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 5rem;
+        .footer-section {
+            flex-direction: column;
+            gap: 1rem;
+            .item-title {
+                font-size: 100%;
+                text-decoration: underline;
+            }
+            .item {
+                gap: 10px;
+                align-items: flex-start;
+                justify-content: center;
+                &:hover {
+                    text-decoration: underline;
+                }
+                .item-image-container {
+                    width: 15px;
+                    height: 15px;
+                    .item-image {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+                .item-content {
+                    font-size: 80% !important;
+                }
             }
         }
     }
@@ -529,7 +576,7 @@ input, textarea {
                 align-items: flex-start;
                 gap: 35px;
                 padding: 1rem;
-                height: 2500px;
+                max-height: 2500px;
                 overflow: scroll;
                 &::-webkit-scrollbar {
                     width: 0;
