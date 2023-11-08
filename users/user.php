@@ -83,6 +83,7 @@ require($forms);
                     $res = $db->select("SELECT * FROM posts WHERE userID=? ORDER BY postID DESC;", "i", $_GET["userID"]);
                     if ($res->num_rows > 0) {
                         while ($d = mysqli_fetch_assoc($res)) {
+                            $postID = $d["postID"];
                             $fromUserID = $d["userID"];
                             $type = $d["type"];
                             $title = $d["title"];
@@ -114,7 +115,7 @@ require($forms);
                             '
                             <div class="post">
                                 <div class="content">
-                                    <a class="post-title ellipsis" href="#">'.$title.'</a>
+                                    <a class="post-title ellipsis" href="/posts?postID='.$postID.'">'.$title.'</a>
                                     <p class="text-preview twoline-ellipsis">'.$body.'</p>
                                 </div>
                                 <div class="meta">
