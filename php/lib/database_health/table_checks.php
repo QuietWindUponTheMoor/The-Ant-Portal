@@ -66,11 +66,11 @@ foreach ($sqlFiles as $file) {
                 if ($firstSpacePos !== false) {
                     $colName = substr($col, 0, $firstSpacePos);
                     $newDataType = str_replace($colName." ", "", $col);
-                    echo $colName." ".$newDataType;
                 } else {
                     // Nothing, because this theoretically should never get triggered.
                 }
 
+                // Finally, alter the table if need be:
                 $db->addOrModifyColumn($colName, $newDataType, $tableName);
             }
             $i++;
