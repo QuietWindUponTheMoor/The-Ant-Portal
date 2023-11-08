@@ -1,3 +1,8 @@
+<script type="text/javascript">
+const isLoggedIn = <?php if ($isLoggedIn === true) {echo "true";} else {echo "false";}; ?>;
+</script>
+
+
 <div class="navbar">
     <div class="navbar-layer layer-one">
         <a class="main-button home-link" href="/">THE ANT PORTAL</a>
