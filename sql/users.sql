@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(128) NOT NULL,
     password VARCHAR(128) NOT NULL,
     image text(30000) DEFAULT "/web_images/defaults/default_pfp.jpg" NOT NULL,
+    banner text(30000) DEFAULT "/web_images/defaults/banner_default.png" NOT NULL,
     seeds BIGINT(44) DEFAULT 5 NOT NULL,
     posts BIGINT(44) DEFAULT 0 NOT NULL,
     replies BIGINT(44) DEFAULT 0 NOT NULL,

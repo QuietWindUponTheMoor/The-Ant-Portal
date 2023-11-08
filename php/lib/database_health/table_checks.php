@@ -61,9 +61,17 @@ foreach ($sqlFiles as $file) {
             // Ignore first column that has PRIMARY KEY
             if ($i !== 0) {
                 // Get string
-                $string = "ALTER TABLE $tableName MODIFY $col;";
-                // Modify the column
-                $db->modifyTable($string);
+                // Get new col name:
+                $firstSpacePos = strpos($col, " ");
+                if ($firstSpacePos !== false) {
+                    $colName = substr($col, 0, $firstSpacePos);
+                    $newDataType = str_replace($colName." ", "", $col);
+                    echo $colName." ".$newDataType;
+                } else {
+                    // Nothing, because this theoretically should never get triggered.
+                }
+
+                $db->addOrModifyColumn($colName, $newDataType, $tableName);
             }
             $i++;
         }

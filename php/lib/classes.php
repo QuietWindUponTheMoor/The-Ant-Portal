@@ -130,6 +130,42 @@ class Database {
         return $this->conn;
     }
 
+    public function addOrModifyColumn($columnName, $dataType, $tableName) {
+        $sql = "SELECT COUNT(*) as column_exists
+                FROM information_schema.COLUMNS
+                WHERE TABLE_NAME = ? AND COLUMN_NAME = ?";
+        
+        $stmt = mysqli_stmt_init($this->conn);
+        mysqli_stmt_prepare($stmt, $sql);
+        
+        mysqli_stmt_bind_param($stmt, "ss", $tableName, $columnName);
+        
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $columnExists);
+        mysqli_stmt_fetch($stmt);
+        
+        mysqli_stmt_close($stmt);
+    
+        if ($columnExists == 0) {
+            // The column does not exist, so add it
+            $sql = "ALTER TABLE $tableName ADD $columnName $dataType";
+        } else {
+            // The column already exists, so modify it
+            $sql = "ALTER TABLE $tableName MODIFY COLUMN $columnName $dataType";
+        }
+    
+        $stmt = mysqli_stmt_init($this->conn);
+        mysqli_stmt_prepare($stmt, $sql);
+    
+        if (mysqli_stmt_execute($stmt)) {
+            mysqli_stmt_close($stmt);
+            return true;
+        } else {
+            mysqli_stmt_close($stmt);
+            return false;
+        }
+    }
+
     public function tableCreate($QUERY) {
         $sql = $QUERY;
         $stmt = mysqli_stmt_init($this->conn)
