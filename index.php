@@ -10,7 +10,7 @@ require($nav);
 ?>
 
 <body>
-    <div class="container">
+    <div class="container main-feed-container">
 
         <div class="create-post-button-container">
             <p class="title">Recent Activity</p>
@@ -18,26 +18,77 @@ require($nav);
         </div>
 
         <div class="posts-container">
-            <div class="post">
-                <div class="content">
-                    <a class="post-title ellipsis" href="#">This is an example post.</a>
-                    <p class="text-preview twoline-ellipsis">Here's an example of a post's text content preview.</p>
-                </div>
-                <div class="meta">
-                    <p class="meta-info" id="post-type">Question</p>
-                </div>
-                <div class="meta">
-                    <p class="meta-info" id="views">? views</p>
-                    <p class="meta-info" id="upvotes">? upvotes</p>
-                    <p class="meta-info" id="downvotes">? downvotes</p>
-                    <p class="meta-info" id="answers">? answers</p>
-                    <a href="#"><div class="user">
-                        <div class="user-image-container"><img class="user-image" src="/users/uploads/profile_images/QuietWind01_user_profile_image_7147288035.png"/></div>
-                        <p class="username">username</p>
-                        <p class="time">posted on ?</p>
-                    </div></a>
-                </div>
-            </div>
+            <?php
+            $res = $db->selectAll("SELECT * FROM posts ORDER BY postID DESC LIMIT 20;");
+            if ($res->num_rows > 0) {
+                while ($d = mysqli_fetch_assoc($res)) {
+                    $postID = $d["postID"];
+                    $fromUserID = $d["userID"];
+                    $type = $d["type"];
+                    $title = $d["title"];
+                    $body = $d["text"];
+                    $views = $d["views"];
+                    $upvotes = $d["upvotes"];
+                    $downvotes = $d["downvotes"];
+                    $datetime = $d["datetime"];
+                    $tagOne = $d["tagOne"];
+                    $tagTwo = $d["tagTwo"];
+                    $tagThree = $d["tagThree"];
+                    $tagFour = $d["tagFour"];
+                    $tagFive = $d["tagFive"];
+            
+                    if ($type === 1) {
+                        $type = "Question";
+                    } else if ($type === 2) {
+                        $type = "Sighting";
+                    } else if ($type === 3) {
+                        $type = "Nuptial Flight";
+                    } else {
+                        $type = $type;
+                    }
+                    $userdata = getUserData($fromUserID, $db);
+                    $username = $userdata[0];
+                    $userImage = $userdata[1];
+            
+                    echo
+                    '
+                    <div class="post">
+                        <div class="content">
+                            <a class="post-title ellipsis" href="/posts?postID='.$postID.'">'.$title.'</a>
+                            <p class="text-preview twoline-ellipsis">'.$body.'</p>
+                        </div>
+                        <div class="meta">
+                            <p class="meta-info" id="post-type">'.$type.'</p>
+                        </div>
+                        <div class="meta">
+                            <p class="meta-info" id="upvotes">'.$upvotes.' upvotes</p>
+                            <p class="meta-info" id="downvotes">'.$downvotes.' downvotes</p>
+                            <p class="meta-info" id="answers">? answers</p>
+                            <p class="meta-info" id="views">'.$views.' views</p>
+                        </div>
+
+                        <div class="meta">
+                            <div class="user">
+                                <div class="user-image-container"><img class="user-image" src="'.$userImage.'"/></div>
+                                <a class="username" href="/users/user?userID='.$fromUserID.'">'.$username.'</a>
+                                <p class="time">posted on '.$datetime.'</p>
+                            </div>
+                        </div>
+                    </div>
+                    ';
+                }
+            }
+
+            function getUserData($userID, $db) {
+                $res = $db->select("SELECT * FROM users WHERE userID=?;", "i", $userID);
+                if ($res->num_rows > 0) {
+                    $d = mysqli_fetch_assoc($res);
+                    $username = $d["username"];
+                    $image = $d["image"];
+                    return [$username, $image];
+                }
+            }
+            ?>
         </div>
 
     </div>

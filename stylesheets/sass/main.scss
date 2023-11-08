@@ -201,7 +201,9 @@ html {
             padding: 1rem;
             min-height: 90vh;
             flex: 3;
-            //border-inline: 1px solid black;
+        }
+        .main-feed-container {
+            padding-bottom: 0 !important;
         }
     }
 }
@@ -383,6 +385,9 @@ html {
     flex-direction: column;
     border-inline: 1px solid $theme-30-hover-light;
     width: 550px;
+    &:last-child {
+        border-bottom: 1px solid $theme-30-hover-light;
+    }
 }
 // General posts
 .post {
@@ -454,6 +459,14 @@ html {
     align-self: center;
     width: 100%;
     background-color: $theme-60-hover;
+    #profile-top-minimized {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 100px;
+        border: none;
+        background-color: $theme-30 !important;
+    }
     .profile-top {
         position: relative;
         flex-direction: column;

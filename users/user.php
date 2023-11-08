@@ -28,7 +28,7 @@ require($forms);
 
 <body>
     <div class="profile-container">
-        <div class="profile-top" id="banner-container">
+        <div class="profile-top profile-top-maximized" id="banner-container">
             <div class="profile-top-content">
                 <?php
                 if ($isOwner === true) {
@@ -58,6 +58,11 @@ require($forms);
             </div>
 
         </div>
+        
+        <!--<div class="profile-top" id="profile-top-minimized">
+            
+        </div>-->
+
         <div class="profile-bottom">
             <!-- This will contain everything else in the profile -->
             <?php
@@ -186,5 +191,6 @@ if (rankBefore === 1) {
 
 $("#banner-container").css("background-image", "url('<?php echo $banner; ?>')");
 </script>
+<script type="text/javascript" src="/js/lib/page_control/profile.js"></script>
 
 <?php require($footer); ?>

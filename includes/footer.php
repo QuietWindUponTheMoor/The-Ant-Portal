@@ -35,3 +35,5 @@ if (isLoggedIn === false) {
     $("#create-post-button").hide();
 }
 </script>
+
+<!--<script type="text/javascript">$(".footer").css("margin-bottom", "8000px");</script> --> <!-- testing! -->

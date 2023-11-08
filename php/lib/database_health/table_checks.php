@@ -6,7 +6,8 @@ $root = $_SERVER["DOCUMENT_ROOT"]."/sql";
 $sqlFiles = [
     "/tables_schema.sql", // Shall ALWAYS be the first in this array/list!!!!
     "/posts.sql",
-    "/users.sql"
+    "/users.sql",
+    "/answers.sql"
 ];
 
 // Create tables_schema if not exists
