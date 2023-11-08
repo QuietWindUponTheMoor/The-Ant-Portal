@@ -37,12 +37,6 @@ require($forms);
                     echo '<div class="profile-image"><img class="main-image" src="'.$profileImage.'"/></div>';
                 }
                 ?>
-                <p class="profile-name"><?php echo $thisUsername; ?></p>
-                <div class="profile-meta">
-                    <p class="meta" id="creation-date">Profile created <?php echo "$date $time"; ?></p>
-                    <p class="meta" id="rank"><?php echo $rank; ?></p>
-                    <p class="meta" id="seeds"><?php echo $seeds; ?> seeds</p>
-                </div>
             </div>
             <!-- Change username form modal -->
             <div class="profile-modal" id="change-username-modal">
@@ -65,23 +59,22 @@ require($forms);
 
         <div class="profile-bottom">
             <!-- This will contain everything else in the profile -->
-            <?php
-            if ($isOwner === true) {
-                echo
-                '
-                <div class="profile-settings">
-                    <div class="settings-sub">
-                        <a class="setting" id="change-username" onclick="$(\'#change-username-modal\').css(\'display\', \'flex\');">Change Username</a>
-                        <a class="setting" id="change-banner" onclick="$(\'#banner\').click();">Change Banner</a>
-                        <a class="setting unfinished" id="" href="#">Setting 3</a>
-                        <a class="setting unfinished" id="" href="#">Setting 4</a>
-                        <a class="setting unfinished" id="delete-account" href="#">Delete Account</a>
-                        <a class="setting" id="profile-signout" href="/users/logout/">Sign Out</a>
+            <div class="profile-meta">
+                <div class="profile-meta-sub">
+                    <div class="meta-section" id="username-section">
+                        <p id="profile-name"><?php echo $thisUsername; ?></p>
+                        <p id="rank"><?php echo $rank; ?></p>
+                    </div>
+                    <div class="meta-section">
+                        <p class="meta-label">Profile created: </p>
+                        <p class="meta-item"><?php echo "$date $time"; ?></p>
+                    </div>
+                    <div class="meta-section">
+                        <p class="meta-label">User seeds: </p>
+                        <p class="meta-item"><?php echo $seeds; ?> seeds</p>
                     </div>
                 </div>
-                ';
-            }
-            ?>
+            </div>
             <div class="profile-feed">
                 <div class="feed-sub">
                     <?php
@@ -115,6 +108,12 @@ require($forms);
                             $userdata = getUserData($_GET["userID"], $db);
                             $username = $userdata[0];
                             $userImage = $userdata[1];
+
+                            // Temporary
+                            $editedUserID = "-1";
+                            $editedUsername = "?";
+                            $editedProfileImage = "/web_images/defaults/default_pfp.jpg";
+                            $editedTime = "{date} @ {time} (Timezone)";
                     
                             echo
                             '
@@ -132,12 +131,18 @@ require($forms);
                                     <p class="meta-info" id="answers">? answers</p>
                                     <p class="meta-info" id="views">'.$views.' views</p>
                                 </div>
-
-                                <div class="meta">
+                                <div class="meta" id="posted-by-user">
                                     <div class="user">
                                         <div class="user-image-container"><img class="user-image" src="'.$userImage.'"/></div>
                                         <a class="username" href="/users/user?userID='.$fromUserID.'">'.$username.'</a>
                                         <p class="time">posted on '.$datetime.'</p>
+                                    </div>
+                                </div>
+                                <div class="meta"id="edited-by-user">
+                                    <div class="user">
+                                        <p class="time">edited on '.$editedTime.' by</p>
+                                        <div class="user-image-container"><img class="user-image" src="'.$editedProfileImage.'"/></div>
+                                        <a class="username" href="/users/user?userID='.$editedUserID.'">'.$editedUsername.'</a>
                                     </div>
                                 </div>
                             </div>
@@ -157,6 +162,24 @@ require($forms);
                     ?>
                 </div>
             </div>
+            <?php
+            if ($isOwner === true) {
+                echo
+                '
+                <div class="profile-settings">
+                    <div class="settings-sub">
+                        <a class="setting" id="title">Options</a>
+                        <a class="setting" id="change-username" onclick="$(\'#change-username-modal\').css(\'display\', \'flex\');">Change Username</a>
+                        <a class="setting" id="change-banner" onclick="$(\'#banner\').click();">Change Banner</a>
+                        <a class="setting unfinished" id="" href="#">Setting 3</a>
+                        <a class="setting unfinished" id="" href="#">Setting 4</a>
+                        <a class="setting unfinished" id="delete-account" href="#">Delete Account</a>
+                        <a class="setting" id="profile-signout" href="/users/logout/">Sign Out</a>
+                    </div>
+                </div>
+                ';
+            }
+            ?>
         </div>
 
         <!-- Forms & controls -->
@@ -183,10 +206,12 @@ require($forms);
 let rankBefore = <?php echo $rankBefore; ?>;
 if (rankBefore === 1) {
     // User is moderator
-    $("#rank").css("color", "white").css("background-color", "blue");
+    $("#rank").addClass("rank-mod");
 } else if (rankBefore === 2) {
     // User is administrator
-    $("#rank").css("color", "white").css("background-color", "gold");
+    $("#rank").addClass("rank-admin");
+} else if (rankBefore === 0) {
+    $("#rank").addClass("rank-user");
 }
 
 $("#banner-container").css("background-image", "url('<?php echo $banner; ?>')");

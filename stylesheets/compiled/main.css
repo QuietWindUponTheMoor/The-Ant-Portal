@@ -214,6 +214,21 @@ input, textarea {
   margin-bottom: 2rem;
 }
 
+.rank-admin {
+  color: white;
+  background-color: gold;
+}
+
+.rank-mod {
+  color: white;
+  background-color: blue;
+}
+
+.rank-user {
+  color: white;
+  background-color: #2AA00A;
+}
+
 html {
   flex-direction: column;
   width: 100%;
@@ -447,6 +462,12 @@ html body .main-feed-container {
 .post .content .text-preview {
   font-size: 90%;
 }
+.post #edited-by-user {
+  justify-content: flex-end !important;
+}
+.post #edited-by-user .user .username {
+  color: darkorange;
+}
 .post .meta {
   gap: 12px;
   align-items: center;
@@ -463,6 +484,9 @@ html body .main-feed-container {
   align-items: center;
   gap: 8px;
   justify-self: flex-end;
+  border: 1px solid #2AA00A;
+  border-radius: 5px;
+  padding: 0.25rem;
   cursor: pointer;
 }
 .post .meta .user .user-image-container {
@@ -506,12 +530,12 @@ html body .main-feed-container {
   position: relative;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 15px;
   padding: 2rem;
   width: 100%;
   border-bottom: 8px solid #2AA00A;
-  border-bottom-left-radius: 20%;
+  border-bottom-right-radius: 20%;
   background-color: #FDFDFD;
   background-position: center;
   background-repeat: no-repeat;
@@ -523,10 +547,6 @@ html body .main-feed-container {
   align-items: center;
   gap: 15px;
   padding: 1rem;
-  background-color: #FDFDFD;
-  border-radius: 10px;
-  border: 2px solid #bdbdbd;
-  box-shadow: 0 0px 5px 5px #FDFDFD;
 }
 .profile-container .profile-top .profile-top-content .profile-image {
   width: 250px;
@@ -544,41 +564,108 @@ html body .main-feed-container {
   border-radius: 15px;
   box-shadow: 0 0 2px 5px #bffaaf, 0 0 5px 5px #bffaaf, 0 0 2px 5px #bffaaf;
 }
-.profile-container .profile-top .profile-top-content .profile-name {
-  font-size: 180%;
-}
-.profile-container .profile-top .profile-top-content .profile-meta {
-  flex-direction: row;
-  gap: 1.5rem;
-}
-.profile-container .profile-top .profile-top-content .profile-meta #rank {
-  font-weight: bold;
-  border-radius: 5px;
-}
-.profile-container .profile-top .profile-top-content .profile-meta .meta {
-  font-size: 70%;
-  padding: 5px;
-}
 .profile-container .profile-bottom {
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
   gap: 15px;
   padding: 2rem;
+  padding-top: 0;
   width: 100%;
+}
+.profile-container .profile-bottom .profile-meta {
+  flex-direction: column;
+  justify-content: center;
+  flex: 2;
+  width: 100% !important;
+}
+.profile-container .profile-bottom .profile-meta .profile-meta-sub {
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 1rem;
+  box-shadow: 0 0px 5px 5px #bdbdbd;
+  border-radius: 10px;
+  padding: 0;
+  gap: 0;
+}
+.profile-container .profile-bottom .profile-meta .profile-meta-sub #username-section {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top: none !important;
+  background-color: #313535;
+  color: white;
+  justify-content: space-between;
+}
+.profile-container .profile-bottom .profile-meta .profile-meta-sub .meta-section {
+  gap: 15px;
+  background-color: #FDFDFD;
+  width: 100%;
+  padding: 0.5rem;
+}
+.profile-container .profile-bottom .profile-meta .profile-meta-sub .meta-section:last-child {
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.profile-container .profile-bottom .profile-meta .profile-meta-sub .meta-section #profile-name {
+  font-size: 180%;
+}
+.profile-container .profile-bottom .profile-meta .profile-meta-sub .meta-section #rank {
+  font-size: 90%;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+.profile-container .profile-bottom .profile-meta .profile-meta-sub .meta-section .meta-label {
+  font-weight: bold;
+}
+.profile-container .profile-bottom .profile-feed {
+  flex-direction: column;
+  justify-content: center;
+  flex: 3;
+}
+.profile-container .profile-bottom .profile-feed .feed-sub {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100% !important;
+  gap: 35px;
+  padding: 1rem;
+  max-height: 2500px;
+  overflow: scroll;
+}
+.profile-container .profile-bottom .profile-feed .feed-sub::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.profile-container .profile-bottom .profile-feed .feed-sub .post {
+  flex-direction: column;
+  width: 100% !important;
+  padding: 1rem;
+  box-shadow: 0 0px 5px 5px #bdbdbd;
+  border-radius: 10px;
+  background-color: #FDFDFD;
 }
 .profile-container .profile-bottom .profile-settings {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex: 1;
+  flex: 2;
+  width: 100% !important;
 }
 .profile-container .profile-bottom .profile-settings .settings-sub {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 1rem;
   box-shadow: 0 0px 5px 5px #bdbdbd;
   border-radius: 10px;
+  width: 100% !important;
+}
+.profile-container .profile-bottom .profile-settings .settings-sub #title:hover {
+  background-color: #313535;
+  cursor: default;
 }
 .profile-container .profile-bottom .profile-settings .settings-sub .setting {
   flex-direction: row;
@@ -595,6 +682,8 @@ html body .main-feed-container {
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   border-top: none !important;
+  background-color: #313535;
+  color: white;
 }
 .profile-container .profile-bottom .profile-settings .settings-sub .setting:last-child {
   border-bottom-right-radius: 10px;
@@ -613,32 +702,6 @@ html body .main-feed-container {
 .profile-container .profile-bottom .profile-settings .settings-sub #profile-signout:hover {
   background-color: gold !important;
   color: white !important;
-}
-.profile-container .profile-bottom .profile-feed {
-  flex-direction: column;
-  justify-content: center;
-  flex: 2;
-}
-.profile-container .profile-bottom .profile-feed .feed-sub {
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 35px;
-  padding: 1rem;
-  max-height: 2500px;
-  overflow: scroll;
-}
-.profile-container .profile-bottom .profile-feed .feed-sub::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
-.profile-container .profile-bottom .profile-feed .feed-sub .post {
-  flex-direction: column;
-  width: 500px;
-  padding: 1rem;
-  box-shadow: 0 0px 5px 5px #bdbdbd;
-  border-radius: 10px;
-  background-color: #FDFDFD;
 }
 
 .create-post-container {

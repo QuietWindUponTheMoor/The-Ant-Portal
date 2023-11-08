@@ -49,6 +49,12 @@ require($nav);
                     $userdata = getUserData($fromUserID, $db);
                     $username = $userdata[0];
                     $userImage = $userdata[1];
+
+                    // Temporary
+                    $editedUserID = "-1";
+                    $editedUsername = "?";
+                    $editedProfileImage = "/web_images/defaults/default_pfp.jpg";
+                    $editedTime = "{date} @ {time} (Timezone)";
             
                     echo
                     '
@@ -66,12 +72,18 @@ require($nav);
                             <p class="meta-info" id="answers">? answers</p>
                             <p class="meta-info" id="views">'.$views.' views</p>
                         </div>
-
-                        <div class="meta">
+                        <div class="meta" id="posted-by-user">
                             <div class="user">
                                 <div class="user-image-container"><img class="user-image" src="'.$userImage.'"/></div>
                                 <a class="username" href="/users/user?userID='.$fromUserID.'">'.$username.'</a>
                                 <p class="time">posted on '.$datetime.'</p>
+                            </div>
+                        </div>
+                        <div class="meta"id="edited-by-user">
+                            <div class="user">
+                                <p class="time">edited on '.$editedTime.' by</p>
+                                <div class="user-image-container"><img class="user-image" src="'.$editedProfileImage.'"/></div>
+                                <a class="username" href="/users/user?userID='.$editedUserID.'">'.$editedUsername.'</a>
                             </div>
                         </div>
                     </div>
