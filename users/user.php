@@ -28,19 +28,21 @@ require($forms);
 
 <body>
     <div class="profile-container">
-        <div class="profile-top">
-            <?php
-            if ($isOwner === true) {
-                echo '<div class="profile-image"><img class="main-image main-image-on-hover" src="'.$profileImage.'"/></div>';
-            } else {
-                echo '<div class="profile-image"><img class="main-image" src="'.$profileImage.'"/></div>';
-            }
-            ?>
-            <p class="profile-name"><?php echo $thisUsername; ?></p>
-            <div class="profile-meta">
-                <p class="meta" id="creation-date">Profile created <?php echo "$date $time"; ?></p>
-                <p class="meta" id="rank"><?php echo $rank; ?></p>
-                <p class="meta" id="seeds"><?php echo $seeds; ?> seeds</p>
+        <div class="profile-top" id="banner-container">
+            <div class="profile-top-content">
+                <?php
+                if ($isOwner === true) {
+                    echo '<div class="profile-image"><img class="main-image main-image-on-hover" src="'.$profileImage.'"/></div>';
+                } else {
+                    echo '<div class="profile-image"><img class="main-image" src="'.$profileImage.'"/></div>';
+                }
+                ?>
+                <p class="profile-name"><?php echo $thisUsername; ?></p>
+                <div class="profile-meta">
+                    <p class="meta" id="creation-date">Profile created <?php echo "$date $time"; ?></p>
+                    <p class="meta" id="rank"><?php echo $rank; ?></p>
+                    <p class="meta" id="seeds"><?php echo $seeds; ?> seeds</p>
+                </div>
             </div>
             <!-- Change username form modal -->
             <div class="profile-modal" id="change-username-modal">
@@ -65,7 +67,7 @@ require($forms);
                 <div class="profile-settings">
                     <div class="settings-sub">
                         <a class="setting" id="change-username" onclick="$(\'#change-username-modal\').css(\'display\', \'flex\');">Change Username</a>
-                        <a class="setting unfinished" id="" href="#">Setting 2</a>
+                        <a class="setting" id="change-banner" onclick="$(\'#banner\').click();">Change Banner</a>
                         <a class="setting unfinished" id="" href="#">Setting 3</a>
                         <a class="setting unfinished" id="" href="#">Setting 4</a>
                         <a class="setting unfinished" id="delete-account" href="#">Delete Account</a>
@@ -161,6 +163,10 @@ require($forms);
             <input type="file" id="image" name="image" accept="images/*" required/>
             <input type="hidden" name="type" value="profile-image"/>
         </form>
+        <form id="change-profile-banner-form" style="display: none;" action="" method="POST" enctype="multipart/form-data">
+            <input type="file" id="banner" name="banner" accept="images/*" required/>
+            <input type="hidden" name="type" value="banner-image"/>
+        </form>
 
 
     </div>
@@ -176,6 +182,8 @@ if (rankBefore === 1) {
     // User is administrator
     $("#rank").css("color", "white").css("background-color", "gold");
 }
+
+$("#banner-container").css("background-image", "url('<?php echo $banner; ?>')");
 </script>
 
 <?php require($footer); ?>

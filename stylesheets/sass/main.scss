@@ -410,38 +410,52 @@ input, textarea {
         border-bottom: 8px solid $theme-10;
         border-bottom-left-radius: 20%;
         background-color: $theme-60;
-        .profile-image {
-            width: 250px;
-            aspect-ratio: 1 / 1;
-            .main-image-on-hover {
-                cursor: pointer;
-                &:hover {
-                    opacity: 0.75;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        .profile-top-content {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            padding: 1rem;
+            background-color: $theme-60;
+            border-radius: $b-lg;
+            border: 2px solid $theme-60-hover-ultradark;
+            box-shadow: 0 0px 5px 5px $theme-60;
+            .profile-image {
+                width: 250px;
+                aspect-ratio: 1 / 1;
+                .main-image-on-hover {
+                    cursor: pointer;
+                    &:hover {
+                        opacity: 0.75;
+                    }
+                }
+                .main-image {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: $b-xlg;
+                    box-shadow: 
+                        0 0 2px 5px $theme-10-hover-ultra-ultralight,
+                        0 0 5px 5px $theme-10-hover-ultra-ultralight,
+                        0 0 2px 5px $theme-10-hover-ultra-ultralight;
                 }
             }
-            .main-image {
-                width: 100%;
-                height: 100%;
-                border-radius: $b-xlg;
-                box-shadow: 
-                    0 0 2px 5px $theme-10-hover-ultra-ultralight,
-                    0 0 5px 5px $theme-10-hover-ultra-ultralight,
-                    0 0 2px 5px $theme-10-hover-ultra-ultralight;
+            .profile-name {
+                font-size: 180%;
             }
-        }
-        .profile-name {
-            font-size: 180%;
-        }
-        .profile-meta {
-            flex-direction: row;
-            gap: 1.5rem;
-            #rank {
-                font-weight: bold;
-                border-radius: $b-med;
-            }
-            .meta {
-                font-size: 70%;
-                padding: 5px;
+            .profile-meta {
+                flex-direction: row;
+                gap: 1.5rem;
+                #rank {
+                    font-weight: bold;
+                    border-radius: $b-med;
+                }
+                .meta {
+                    font-size: 70%;
+                    padding: 5px;
+                }
             }
         }
     }

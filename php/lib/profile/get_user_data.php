@@ -14,6 +14,7 @@ if ($res->num_rows > 0) {
     $answersCount = $data["username"];
     $date = $data["joined"];
     $time = $data["time"];
+    $banner = $data["banner"];
 } else {
     die("There was an error collecting this user's profile image. Please try again or contact an administrator.");
 }

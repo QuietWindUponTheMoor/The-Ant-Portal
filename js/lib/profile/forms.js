@@ -4,8 +4,13 @@ $(".main-image-on-hover").on("click", () => {
     $("#image").click();
 });
 
-// If user selects an image
+// If user selects a new profile image
 $("#image").on("change", () => {
     // Submit the form
     $("#change-profile-image-form").submit();
+});
+// If user selects a new banner image
+$("#banner").on("change", () => {
+    // Submit the form
+    $("#change-profile-banner-form").submit();
 });
