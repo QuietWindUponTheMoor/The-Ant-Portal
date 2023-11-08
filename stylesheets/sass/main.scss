@@ -197,6 +197,12 @@ input, textarea {
 .hidden {
     display: none !important;
 }
+#logout-response {
+    font-size: 90%;
+    font-weight: bold;
+    color: $success;
+    margin-bottom: 2rem;
+}
 // Done with misc
 
 // Groups:
@@ -558,42 +564,42 @@ input, textarea {
         align-self: center;
         gap: 2rem;
         width: 100%;
-        .section {
-            flex-direction: column;
-            gap: 0.1rem;
-            label {
-                font-size: 80%;
+    }
+}
+.section {
+    flex-direction: column;
+    gap: 0.1rem;
+    label {
+        font-size: 80%;
+    }
+    .body-text {
+        resize: vertical;
+        height: 155px;
+        min-height: 155px;
+    }
+    .tags-list {
+        gap: 10px;
+        .tag {
+            padding: 0.3rem;
+            background-color: $theme-10-hover-ultra-ultralight;
+            border-radius: $b-med;
+            border: 1px solid $theme-10-hover-ultra-ultralight;
+            cursor: pointer;
+            &:hover {
+                border: 1px solid $theme-10;
             }
-            .body-text {
-                resize: vertical;
-                height: 155px;
-                min-height: 155px;
-            }
-            .tags-list {
-                gap: 10px;
-                .tag {
-                    padding: 0.3rem;
-                    background-color: $theme-10-hover-ultra-ultralight;
-                    border-radius: $b-med;
-                    border: 1px solid $theme-10-hover-ultra-ultralight;
-                    cursor: pointer;
-                    &:hover {
-                        border: 1px solid $theme-10;
-                    }
-                }
-            }
-            .tags-list {
-                width: 100%;
-                padding: 0.5rem;
-                border: 2px solid $theme-60-hover-ultradark;
-                border-radius: $b-med;
-                height: 50px;
-            }
-        }
-        .buttons {
-            flex-direction: row;
-            align-self: flex-end;
-            gap: 0.5rem;
         }
     }
+    .tags-list {
+        width: 100%;
+        padding: 0.5rem;
+        border: 2px solid $theme-60-hover-ultradark;
+        border-radius: $b-med;
+        height: 50px;
+    }
+}
+.buttons {
+    flex-direction: row !important;
+    align-self: flex-end !important;
+    gap: 0.5rem;
 }

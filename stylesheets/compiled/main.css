@@ -233,6 +233,13 @@ input, textarea {
   display: none !important;
 }
 
+#logout-response {
+  font-size: 90%;
+  font-weight: bold;
+  color: #04D007;
+  margin-bottom: 2rem;
+}
+
 .navbar {
   flex-direction: row;
   flex-wrap: wrap;
@@ -587,40 +594,42 @@ input, textarea {
   gap: 2rem;
   width: 100%;
 }
-.create-post-container .create-post-form .section {
+
+.section {
   flex-direction: column;
   gap: 0.1rem;
 }
-.create-post-container .create-post-form .section label {
+.section label {
   font-size: 80%;
 }
-.create-post-container .create-post-form .section .body-text {
+.section .body-text {
   resize: vertical;
   height: 155px;
   min-height: 155px;
 }
-.create-post-container .create-post-form .section .tags-list {
+.section .tags-list {
   gap: 10px;
 }
-.create-post-container .create-post-form .section .tags-list .tag {
+.section .tags-list .tag {
   padding: 0.3rem;
   background-color: #bffaaf;
   border-radius: 5px;
   border: 1px solid #bffaaf;
   cursor: pointer;
 }
-.create-post-container .create-post-form .section .tags-list .tag:hover {
+.section .tags-list .tag:hover {
   border: 1px solid #2AA00A;
 }
-.create-post-container .create-post-form .section .tags-list {
+.section .tags-list {
   width: 100%;
   padding: 0.5rem;
   border: 2px solid #bdbdbd;
   border-radius: 5px;
   height: 50px;
 }
-.create-post-container .create-post-form .buttons {
-  flex-direction: row;
-  align-self: flex-end;
+
+.buttons {
+  flex-direction: row !important;
+  align-self: flex-end !important;
   gap: 0.5rem;
 }/*# sourceMappingURL=main.css.map */
