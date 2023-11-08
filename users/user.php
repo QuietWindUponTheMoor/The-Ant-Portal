@@ -73,9 +73,27 @@ require($forms);
                         <p class="meta-label">User seeds: </p>
                         <p class="meta-item"><?php echo $seeds; ?> seeds</p>
                     </div>
+                    <div class="meta-section">
+                        <p class="meta-label">User posts: </p>
+                        <p class="meta-item"><?php echo $postsCount; ?> posts</p>
+                    </div>
+                    <div class="meta-section">
+                        <p class="meta-label">User answers: </p>
+                        <p class="meta-item"><?php echo $answersCount; ?> answers</p>
+                    </div>
+                    <div class="meta-section">
+                        <p class="meta-label">User seeds: </p>
+                        <p class="meta-item"><?php echo $repliesCount; ?> replies</p>
+                    </div>
                 </div>
             </div>
             <div class="profile-feed">
+                <div class="feed-meta">
+                    <div class="feed-meta-sub">
+                        <p class="content feed-meta-title"><?php echo $username; ?>'s Posts</p>
+                        <p class="content feed-meta-description">Lorem ipsum dolor sit amet.</p>
+                    </div>
+                </div>
                 <div class="feed-sub">
                     <?php
                     $res = $db->select("SELECT * FROM posts WHERE userID=? ORDER BY postID DESC;", "i", $_GET["userID"]);

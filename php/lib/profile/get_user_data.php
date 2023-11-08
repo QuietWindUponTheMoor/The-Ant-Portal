@@ -11,7 +11,7 @@ if ($res->num_rows > 0) {
     $postsCount = $data["posts"];
     $repliesCount = $data["replies"];
     $questionsCount = $data["questions"];
-    $answersCount = $data["username"];
+    $answersCount = $data["answers"];
     $date = $data["joined"];
     $time = $data["time"];
     $banner = $data["banner"];

@@ -448,7 +448,6 @@ html {
             border: 1px solid $theme-10;
             border-radius: $b-med;
             padding: 0.25rem;
-            cursor: pointer;
             .user-image-container {
                 width: 16px;
                 aspect-ratio: 1 / 1;
@@ -565,6 +564,10 @@ html {
                     background-color: $theme-60;
                     width: 100%;
                     padding: 0.5rem;
+                    border-top: 1px solid $theme-60-hover-ultradark;
+                    &:first-child {
+                        border-top: none;
+                    }
                     &:last-child {
                         border-bottom-right-radius: $b-lg;
                         border-bottom-left-radius: $b-lg;
@@ -591,6 +594,43 @@ html {
             flex-direction: column;
             justify-content: center;
             flex: 3;
+            .feed-meta {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                flex: 2;
+                width: 100% !important;
+                padding: 1rem;
+                .feed-meta-sub {
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    box-shadow: 0 0px 5px 5px $theme-60-hover-ultradark;
+                    width: 100% !important;
+                    border-top-right-radius: $b-lg;
+                    border-top-left-radius: $b-lg;
+                    .feed-meta-title {
+                        border-top-right-radius: $b-lg;
+                        border-top-left-radius: $b-lg;
+                        border-top: none !important;
+                        background-color: $theme-30 !important;
+                        font-size: 180%;
+                        padding: 0.5rem !important;
+                        color: white;
+                    }
+                    .feed-meta-description {
+                        background-color: $theme-60;
+                        width: 100%;
+                        padding: 0.5rem !important;
+                    }
+                    .content {
+                        flex-direction: row;
+                        justify-content: center;
+                        padding: 1rem;
+                        width: 100%;
+                    }
+                }
+            }
             .feed-sub {
                 flex-direction: column;
                 justify-content: flex-start;
@@ -620,15 +660,17 @@ html {
             align-items: center;
             flex: 2;
             width: 100% !important;
+            padding: 1rem;
             .settings-sub {
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                margin: 1rem;
                 box-shadow: 0 0px 5px 5px $theme-60-hover-ultradark;
                 border-radius: $b-lg;
                 width: 100% !important;
                 #title {
+                    font-size: 180%;
+                    padding: 0.5rem;
                     &:hover {
                         background-color: $theme-30;
                         cursor: default;

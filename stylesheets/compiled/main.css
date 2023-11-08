@@ -487,7 +487,6 @@ html body .main-feed-container {
   border: 1px solid #2AA00A;
   border-radius: 5px;
   padding: 0.25rem;
-  cursor: pointer;
 }
 .post .meta .user .user-image-container {
   width: 16px;
@@ -603,6 +602,10 @@ html body .main-feed-container {
   background-color: #FDFDFD;
   width: 100%;
   padding: 0.5rem;
+  border-top: 1px solid #bdbdbd;
+}
+.profile-container .profile-bottom .profile-meta .profile-meta-sub .meta-section:first-child {
+  border-top: none;
 }
 .profile-container .profile-bottom .profile-meta .profile-meta-sub .meta-section:last-child {
   border-bottom-right-radius: 10px;
@@ -624,6 +627,43 @@ html body .main-feed-container {
   flex-direction: column;
   justify-content: center;
   flex: 3;
+}
+.profile-container .profile-bottom .profile-feed .feed-meta {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 2;
+  width: 100% !important;
+  padding: 1rem;
+}
+.profile-container .profile-bottom .profile-feed .feed-meta .feed-meta-sub {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0px 5px 5px #bdbdbd;
+  width: 100% !important;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+.profile-container .profile-bottom .profile-feed .feed-meta .feed-meta-sub .feed-meta-title {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top: none !important;
+  background-color: #313535 !important;
+  font-size: 180%;
+  padding: 0.5rem !important;
+  color: white;
+}
+.profile-container .profile-bottom .profile-feed .feed-meta .feed-meta-sub .feed-meta-description {
+  background-color: #FDFDFD;
+  width: 100%;
+  padding: 0.5rem !important;
+}
+.profile-container .profile-bottom .profile-feed .feed-meta .feed-meta-sub .content {
+  flex-direction: row;
+  justify-content: center;
+  padding: 1rem;
+  width: 100%;
 }
 .profile-container .profile-bottom .profile-feed .feed-sub {
   flex-direction: column;
@@ -653,15 +693,19 @@ html body .main-feed-container {
   align-items: center;
   flex: 2;
   width: 100% !important;
+  padding: 1rem;
 }
 .profile-container .profile-bottom .profile-settings .settings-sub {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 1rem;
   box-shadow: 0 0px 5px 5px #bdbdbd;
   border-radius: 10px;
   width: 100% !important;
+}
+.profile-container .profile-bottom .profile-settings .settings-sub #title {
+  font-size: 180%;
+  padding: 0.5rem;
 }
 .profile-container .profile-bottom .profile-settings .settings-sub #title:hover {
   background-color: #313535;
