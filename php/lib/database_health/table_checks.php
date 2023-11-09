@@ -1,4 +1,6 @@
 <?php
+// Schedules
+require("schedules.php");
 
 // Get root, then get file contents of .sql files
 $root = $_SERVER["DOCUMENT_ROOT"]."/sql";

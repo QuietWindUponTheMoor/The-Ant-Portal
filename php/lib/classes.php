@@ -130,6 +130,14 @@ class Database {
         return $this->conn;
     }
 
+    public function createEvent($QUERY) {
+        $sql = $QUERY;
+        mysqli_query($this->conn, $sql)
+            or die("Could not execute SQL sequence.");
+        
+        return true;
+    }
+
     public function addOrModifyColumn($columnName, $dataType, $tableName) {
         $sql = "SELECT COUNT(*) as column_exists
                 FROM information_schema.COLUMNS
