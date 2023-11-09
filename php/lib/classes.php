@@ -31,6 +31,7 @@ class SystemChecks {
         } else {
             $this->isLoggedIn = false;
             $this->isAdmin = false;
+            $this->isModerator = false;
         }
     }
 
@@ -62,7 +63,7 @@ class SystemChecks {
     }
 
     private function isLoggedIn() {
-        if (isset($_SESSION["userID"])) {
+        if (isset($_SESSION["userID"]) && $_SESSION["userID"] !== 0) {
             return true;
         } else {
             return false;
@@ -134,6 +135,32 @@ class Database {
         $sql = $QUERY;
         mysqli_query($this->conn, $sql)
             or die("Could not execute SQL sequence.");
+        
+        return true;
+    }
+
+    public function transferTableData($archiveTable, $sourceTable, $where) {
+        // Transfer data
+        $sql = "INSERT INTO $archiveTable SELECT * FROM $sourceTable WHERE $where;";
+        $stmt = mysqli_stmt_init($this->conn)
+            or die("Could not initiate a connection.");
+        mysqli_stmt_prepare($stmt, $sql)
+            or die("Could not prepare SQL statement.");
+        mysqli_stmt_execute($stmt)
+            or die("Could not execute SQL sequence.");
+        mysqli_stmt_close($stmt)
+            or die("Could not close SQL connection.");
+
+        // Delete old record
+        $sql = "DELETE FROM $sourceTable WHERE $where;";
+        $stmt = mysqli_stmt_init($this->conn)
+            or die("Could not initiate a connection.");
+        mysqli_stmt_prepare($stmt, $sql)
+            or die("Could not prepare SQL statement.");
+        mysqli_stmt_execute($stmt)
+            or die("Could not execute SQL sequence.");
+        mysqli_stmt_close($stmt)
+            or die("Could not close SQL connection.");
         
         return true;
     }

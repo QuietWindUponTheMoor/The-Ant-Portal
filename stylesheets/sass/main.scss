@@ -85,6 +85,19 @@ input, select {
         opacity: $hover-opacity;
     }
 }
+.btn-warning {
+    padding: 1%;
+    background-color: $error;
+    border-radius: $b-med;
+    border: none;
+    cursor: pointer;
+    color: white;
+    box-shadow: 0 1px 0 0 $theme-60 inset;
+    padding: 0.5rem;
+    &:hover {
+        opacity: $hover-opacity;
+    }
+}
 .blurred {
     filter: blur(2rem);
     user-select: none;
@@ -115,7 +128,7 @@ input, select {
         font-size: 90%;
     }
 }
-#change-username-modal {
+.profile-modal {
     display: none;
     position: fixed;
     flex-direction: column;
@@ -583,9 +596,6 @@ html {
                     }
                     .meta-label {
                         font-weight: bold;
-                    }
-                    .meta-item {
-
                     }
                 }
             }

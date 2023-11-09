@@ -7,7 +7,8 @@ $sqlFiles = [
     "/tables_schema.sql", // Shall ALWAYS be the first in this array/list!!!!
     "/posts.sql",
     "/users.sql",
-    "/answers.sql"
+    "/answers.sql",
+    "/users_archive.sql"
 ];
 
 // Create tables_schema if not exists

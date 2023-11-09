@@ -115,6 +115,20 @@ input, select {
   opacity: 0.75;
 }
 
+.btn-warning {
+  padding: 1%;
+  background-color: #EA0303;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  box-shadow: 0 1px 0 0 #FDFDFD inset;
+  padding: 0.5rem;
+}
+.btn-warning:hover {
+  opacity: 0.75;
+}
+
 .blurred {
   filter: blur(2rem);
   -webkit-user-select: none;
@@ -151,7 +165,7 @@ input, select {
   font-size: 90%;
 }
 
-#change-username-modal {
+.profile-modal {
   display: none;
   position: fixed;
   flex-direction: column;
@@ -164,30 +178,30 @@ input, select {
   transform: translate(-50%, -50%);
   box-shadow: 0 0 50000px 50px black;
 }
-#change-username-modal .modal-top {
+.profile-modal .modal-top {
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
   margin-bottom: 20px;
 }
-#change-username-modal .modal-top .title {
+.profile-modal .modal-top .title {
   margin: 0 !important;
 }
-#change-username-modal .modal-top .cancel {
+.profile-modal .modal-top .cancel {
   margin: 0 !important;
   cursor: pointer;
 }
-#change-username-modal .modal-top .cancel:hover {
+.profile-modal .modal-top .cancel:hover {
   opacity: 0.75;
 }
-#change-username-modal form {
+.profile-modal form {
   justify-content: center;
   width: 100%;
   gap: 10px;
   align-items: center;
   padding: 1rem;
 }
-#change-username-modal form input {
+.profile-modal form input {
   width: 75%;
 }
 

@@ -13,5 +13,6 @@ CREATE TABLE IF NOT EXISTS posts (
     tagTwo VARCHAR(50),
     tagThree VARCHAR(50),
     tagFour VARCHAR(50),
-    tagFive VARCHAR(50)
+    tagFive VARCHAR(50),
+    editedByUserID BIGINT(44) DEFAULT 0
 );

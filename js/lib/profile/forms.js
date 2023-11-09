@@ -14,3 +14,8 @@ $("#banner").on("change", () => {
     // Submit the form
     $("#change-profile-banner-form").submit();
 });
+// If user chooses to delete profile
+$("#confirm-delete-profile").on("click", () => {
+    // Submit the form
+    $("#delete-profile-form").submit();
+});

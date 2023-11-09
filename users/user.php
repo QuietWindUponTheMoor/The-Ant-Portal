@@ -50,6 +50,14 @@ require($forms);
                     <button class="btn-main" id="submit-username" type="submit">Change Username</submit>
                 </form>
             </div>
+            <div class="profile-modal" id="delete-profile-modal">
+                <div class="modal-top">
+                    <p class="title">Are you sure you want to delete your profile?</p>
+                    <p class="cancel" id="cancel-username" onclick="$('#delete-profile-modal').css('display', 'none');">X</p>
+                </div>
+                <button class="btn-secondary" type="button" onclick="$('#delete-profile-modal').css('display', 'none');">No! Take me back</button>
+                <button class="btn-warning" type="button" id="confirm-delete-profile">Yes! Delete my account</button>
+            </div>
 
         </div>
         
@@ -90,8 +98,8 @@ require($forms);
             <div class="profile-feed">
                 <div class="feed-meta">
                     <div class="feed-meta-sub">
-                        <p class="content feed-meta-title"><?php echo $username; ?>'s Posts</p>
-                        <p class="content feed-meta-description">Lorem ipsum dolor sit amet.</p>
+                        <p class="content feed-meta-title"><?php echo $thisUsername; ?>'s Posts</p>
+                        <p class="content feed-meta-description">Most recent posts</p>
                     </div>
                 </div>
                 <div class="feed-sub">
@@ -191,7 +199,7 @@ require($forms);
                         <a class="setting" id="change-banner" onclick="$(\'#banner\').click();">Change Banner</a>
                         <a class="setting unfinished" id="" href="#">Setting 3</a>
                         <a class="setting unfinished" id="" href="#">Setting 4</a>
-                        <a class="setting unfinished" id="delete-account" href="#">Delete Account</a>
+                        <a class="setting unfinished" onclick="$(\'#delete-profile-modal\').css(\'display\', \'flex\');">Delete Account</a>
                         <a class="setting" id="profile-signout" href="/users/logout/">Sign Out</a>
                     </div>
                 </div>
@@ -213,6 +221,10 @@ require($forms);
         <form id="change-profile-banner-form" style="display: none;" action="" method="POST" enctype="multipart/form-data">
             <input type="file" id="banner" name="banner" accept="images/*" required/>
             <input type="hidden" name="type" value="banner-image"/>
+        </form>
+        <form id="delete-profile-form" style="display: none;" action="" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="userID" value="<?php echo $_GET["userID"]; ?>"/>
+            <input type="hidden" name="type" value="delete-profile"/>
         </form>
 
 

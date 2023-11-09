@@ -47,7 +47,11 @@ function dateCalc($i) {
     }
 }
 
-
+// If session needs to be destroyed
+if (isset($_GET["destroySession"])) {
+    $_SESSION["userID"] = null;
+    destroy_session();
+}
 // If setSession is active
 if (isset($_GET["setSession"])) {
     $data = array_filter($_GET);
@@ -71,6 +75,7 @@ if (gethostname() === "DESKTOP-HVA05O2" || gethostname() === "3080RBMS39") {
 
 $isLoggedIn = $SYSTEM_CHECKS->isLoggedIn;
 $isAdmin = $SYSTEM_CHECKS->isAdmin;
+$isMod = $SYSTEM_CHECKS->isModerator;
 // Assign database
 $db = $SYSTEM_CHECKS->db;
 

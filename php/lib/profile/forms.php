@@ -54,5 +54,12 @@ if (isset($_POST["type"])) {
             or die("Could not execute SQL sequence.");
         mysqli_stmt_close($stmt)
             or die("Could not close SQL connection.");
+    } else if ($type === "delete-profile") {
+        // User chooses to delete profile
+        // Warning, sensitive actions ahead:
+        $userIDToDelete = $_POST["userID"];
+        if ($db->transferTableData("users_archive", "users", "userID=$userIDToDelete")) {
+            // If successfully deleted (soft-delete) profile/account
+        }
     }
 }
