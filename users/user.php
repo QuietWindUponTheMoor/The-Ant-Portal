@@ -95,7 +95,7 @@ require($forms);
                     </div>
                 </div>
             </div>
-            <div class="profile-feed">
+            <div class="profile-feed" <?php if ($isOwner === false) {echo 'style="flex: 2;"';} ?>>
                 <div class="feed-meta">
                     <div class="feed-meta-sub">
                         <p class="content feed-meta-title"><?php echo $thisUsername; ?>'s Posts</p>
