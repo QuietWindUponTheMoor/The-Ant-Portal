@@ -1,4 +1,5 @@
 <?php
+$root = $_SERVER["DOCUMENT_ROOT"];
 session_start();
 date_default_timezone_set(date_default_timezone_get());
 
@@ -81,6 +82,8 @@ if ($isLoggedIn === true) {
 }
 
 // Do database health checks
-$dbHealth = $_SERVER["DOCUMENT_ROOT"];
-$dbHealth .= "/php/lib/database_health/table_checks.php";
+
+$dbHealth = $root."/php/lib/database_health/table_checks.php";
+$dbScheduler = $root."/php/lib/database_health/schedules.php";
 require($dbHealth);
+require($dbScheduler);
