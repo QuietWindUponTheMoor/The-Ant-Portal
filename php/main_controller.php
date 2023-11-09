@@ -79,6 +79,9 @@ if ($isLoggedIn === true) {
     $username = $SYSTEM_CHECKS->username;
     $userID = $SYSTEM_CHECKS->userID;
     $userPFP = $SYSTEM_CHECKS->userPFP;
+} else {
+    // 0 userID is automatically invalid but assigns the variable a value at least
+    $userID = 0;
 }
 
 // Do database health checks
