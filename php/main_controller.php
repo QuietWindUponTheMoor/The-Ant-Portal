@@ -3,10 +3,6 @@ $root = $_SERVER["DOCUMENT_ROOT"];
 session_start();
 date_default_timezone_set(date_default_timezone_get());
 
-$classes = $_SERVER["DOCUMENT_ROOT"];
-$classes .= "/php/lib/classes.php";
-require($classes);
-
 // If session needs to be destroyed
 if (isset($_GET["destroySession"])) {
     $_SESSION["userID"] = null;

@@ -1,4 +1,11 @@
 <?php
+$classes = $_SERVER["DOCUMENT_ROOT"];
+$classes .= "/php/lib/classes.php";
+require($classes);
+
+// Website link:
+$websiteLink = "http://173.25.108.108";
+
 
 // Caleb's version of the hostname
 $cHost = "localhost";
