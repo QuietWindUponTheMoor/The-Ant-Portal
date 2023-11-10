@@ -7,46 +7,6 @@ $classes = $_SERVER["DOCUMENT_ROOT"];
 $classes .= "/php/lib/classes.php";
 require($classes);
 
-function dateCalc($i) {
-    date_default_timezone_set(date_default_timezone_get());
-    $c = time();
-    $dif = $c - $i;
-    if ($dif < (60)) {
-        if ($dif < 1) {return $dif.' second ago';}
-        else {return $dif.' seconds ago';}
-    }
-    if ($dif > (60) && $dif < (3600)) {
-        $r = floor($dif/60);
-        if ($r < 1) {return $r.' minute ago';}
-        else {return $r.' minutes ago';}
-    }
-    if ($dif > (3600) && $dif < (86400)) {
-        $r = floor($dif/(3600));
-        if ($r < 2) {return $r.' hour ago';}
-        else {return $r.' hours ago';}
-    }
-    if ($dif > (86400) && $dif < (604800)) {
-        $r = floor($dif/(86400));
-        if ($r < 2) {return $r.' day ago';}
-        else {return $r.' days ago';}
-    }
-    if ($dif > (604800) && $dif < (2419200)) {
-        $r = floor($dif/(604800));
-        if ($r < 2) {return $r.' week ago';}
-        else {return $r.' weeks ago';}
-    }
-    if ($dif > (2419200) && $dif < (29030400)) {
-        $r = floor($dif/(2419200));
-        if ($r < 2) {return $r.' month ago';}
-        else {return $r.' months ago';}
-    }
-    if ($dif > (29030400)) {
-        $r = floor($dif/(29030400));
-        if ($r < 2) {return $r.' year ago';}
-        else {return $r.' years ago';}
-    }
-}
-
 // If session needs to be destroyed
 if (isset($_GET["destroySession"])) {
     $_SESSION["userID"] = null;
