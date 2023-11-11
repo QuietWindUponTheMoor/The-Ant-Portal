@@ -1,7 +1,8 @@
 <?php
 
 // Turn on event scheduler
-$db->conn->query("SET GLOBAL event_scheduler = ON;");
+mysqli_query($db->conn, "SET GLOBAL event_scheduler = ON;")
+    or die("Could not execute SQL sequence.");
 
 // Event name
 $events = [
