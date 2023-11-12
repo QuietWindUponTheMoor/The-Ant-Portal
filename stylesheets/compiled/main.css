@@ -51,6 +51,9 @@
 .form-main .form-section .form-title, .form-main .final-section .form-title {
   font-size: 120%;
 }
+.form-main .form-section .main-label, .form-main .final-section .main-label {
+  font-weight: bold;
+}
 .form-main .form-section label, .form-main .final-section label {
   font-size: 80%;
 }

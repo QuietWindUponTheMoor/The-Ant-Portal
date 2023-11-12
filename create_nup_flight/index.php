@@ -19,52 +19,59 @@ require($root."/includes/navbar.php");
                         <p class="form-title">Submit A Nuptial Flight Observation</p>
                     </div>
                     <div class="form-section">
-                        <label for="species">What species did you observe? Make sure the species is spelled/formatted correctly.</label>
+                        <label class="main-label" for="species">What species did you observe? Make sure the species is spelled/formatted correctly.</label>
                         <label>The first word (genus) should be capitalized, followed by a space; the second word (species) should be all-lowercased.</label>
                         <input class="input-main" type="text" id="species" name="species" minlength="5" maxlength="256" placeholder="Example: Lasius neoniger" required/>
                     </div>
                     <div class="form-section">
-                        <label for="body">Describe this flight and any relevant details.</label>
+                        <label class="main-label" for="body">Describe this flight and any relevant details.</label>
                         <textarea class="input-main" id="body" name="body" minlength="5" maxlength="30000" placeholder="Example: It was sunny and about 78 degrees fahrenheit (F) outside with little wind." required></textarea>
                     </div>
                     <div class="form-section">
-                        <label for="date">Enter the date of the observation.</label>
+                        <label class="main-label" for="date">Enter the date of the observation.</label>
                         <label>Please use the formatt YYYY-DD-MM, like shown below:</label>
                         <input class="input-main" type="text" id="date" name="date" minlength="10" maxlength="10" placeholder="Example: 2023-16-06" required/>
                     </div>
                     <div class="form-section">
-                        <label for="time">Enter the time of the observation.</label>
+                        <label class="main-label" for="time">Enter the time of the observation.</label>
                         <label>Please use the formatt HH:MMam/pm, like shown below:</label>
                         <input class="input-main" type="text" id="time" name="time" minlength="10" maxlength="10" placeholder="Example: 06:43pm" required/>
                     </div>
                     <div class="form-section">
-                        <label for="time">Enter the outdoor temperature at the time of the observation.</label>
+                        <label class="main-label" for="time">Enter the outdoor temperature at the time of the observation.</label>
                         <label>You can use C or F for either celcius or fahrenheit. Please format like shown below (this recording will be translated to celcius or fahrenheit):</label>
                         <input class="input-main" type="text" id="time" name="time" minlength="10" maxlength="10" placeholder="Example: 76F" required/>
                     </div>
                     <div class="form-section">
-                        <label for="time">Please enter the wind speed during the observation.</label>
+                        <label class="main-label" for="wind-speed">Please enter the wind speed during the observation.</label>
                         <label>Enter the wind speed as just a number in mph (miles-per-hour). If there was no wind during the observation, please enter "0". Or, if you'd like to opt out, please enter "n/a".</label>
                         <label>You can use a conversion tool below:</label>
                         <label><a class="label-link" href="https://www.unitconverters.net/speed/mph-to-kph.htm" target="_blank">mph -> kmph conversion tool</a></label>
                         <input class="input-main" type="text" id="wind-speed" name="wind-speed" minlength="1" maxlength="2" placeholder="Example: 76F" required/>
                     </div>
                     <div class="form-section">
-                        <label for="time">Enter the moon cycle at the time of the observation.</label>
+                        <label class="main-label" for="moon-cycle">Enter the moon cycle at the time of the observation.</label>
                         <label>Please use the format of "waning-gibbous" and not "waning gibbous" as examples.</label>
+                        <label>Please enter "n/a" if you don't know, or want to opt out. Additionally, you can use the tool below to find out:</label>
+                        <label><a class="label-link" href="https://nineplanets.org/moon/phase/today/" target="_blank">What is the moon cycle today?</a></label>
                         <input class="input-main" type="text" id="moon-cycle" name="moon-cycle" minlength="5" maxlength="50" placeholder="Example: waning-gibbous" required/>
                     </div>
-
+                    <div class="form-section">
+                        <label class="main-label" for="images">Select any images you have of the observation. (Optional)</label>
+                        <input class="hidden" type="file" id="images" name="images[]" accept="image/*" multiple/>
+                        <button class="btn-secondary" type="button" id="select-images" onclick="$('#images').click();">Add Images</button>
+                    </div>
+                    
 
                     <div class="form-section" id="tags-container">
-                        <label for="tags">Enter relevant tags (separated by spaces or commas):</label>
+                        <label class="main-label" for="tags">Enter relevant tags (separated by spaces or commas):</label>
                         <label>Tags cannot contain non-alphabetical [a-Z] characters.</label>
                         <!-- Max of 5 tags -->
                         <input class="input-main" type="text" id="tags" name="tagsBefore" placeholder="Example: observation, tetramorium"/>
                         <input class="hidden" type="text" id="hidden-tags" name="final-tags" value="null"/>
                     </div>
                     <div class="form-section">
-                        <label for="selected-tags">Selected tags. Click to delete.</label>
+                        <label class="main-label" for="selected-tags">Selected tags. Click to delete.</label>
                         <div class="tags-list" id="selected-tags"></div>
                     </div>
 
