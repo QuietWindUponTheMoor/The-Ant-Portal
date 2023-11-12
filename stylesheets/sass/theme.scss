@@ -12,6 +12,8 @@ $error: #EA0303;
 $success: #04D007;
 $warning: gold;
 $link: lighten($theme-10, 10%);
+$post-it: #EAE9C4;
+$post-it-dark: darken($post-it, 20%);
 
 // Hover colors
 $hover-opacity: 0.75; 
@@ -25,6 +27,7 @@ $theme-30-hover-light: lighten($theme-30, 45%);
 $navbar-color: darken($theme-60, 3%); // Old
 $link-hover: lighten($link, 10%);
 $navbar-color: darken($theme-30, 10%);
+$post-it-border: 1px solid $post-it-dark;
 
 // Fonts
 //$font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;

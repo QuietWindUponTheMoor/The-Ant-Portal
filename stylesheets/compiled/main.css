@@ -243,6 +243,10 @@ input, textarea {
   background-color: #2AA00A;
 }
 
+li {
+  display: list-item;
+}
+
 html {
   flex-direction: column;
   width: 100%;
@@ -268,10 +272,98 @@ html body .container {
   margin-inline: auto;
   padding: 1rem;
   min-height: 90vh;
+  width: 100%;
   flex: 3;
+}
+html body .container .container_sub {
+  flex-direction: row;
+  width: 100%;
+  flex: 1;
+  flex-wrap: wrap;
+}
+html body .container .container_sub .container_left, html body .container .container_sub .container_right {
+  flex: 1;
+  flex-direction: column;
+  padding: 0.5rem;
+}
+html body .container .container_sub .container_main {
+  flex: 1.5;
+  border-inline: 1px solid #a2a9a9;
 }
 html body .main-feed-container {
   padding-bottom: 0 !important;
+}
+
+#news-top {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 0;
+}
+
+#news-bottom {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.news {
+  flex-direction: column;
+  width: 100%;
+  padding: 0.5rem;
+  padding-inline: 0;
+  padding-top: 0;
+  background-color: #EAE9C4;
+  border-radius: 10px;
+  border: 1px solid #cfcd79;
+  position: sticky;
+}
+.news .collapse {
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+.news .collapse .title {
+  margin: 0.25rem;
+  padding-inline: 0.5rem;
+}
+.news .collapse #news-collapse {
+  color: #a7a43b;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.news .news_item {
+  width: 100%;
+  flex-direction: column;
+  border-top: 1px solid #cfcd79;
+  padding: 0.5rem;
+  gap: 0.5rem;
+}
+.news .news_item .top, .news .news_item .bottom {
+  padding-inline: 0.5rem;
+}
+.news .news_item .top {
+  flex-direction: row;
+  gap: 5px;
+}
+.news .news_item .top .item_title, .news .news_item .top .item_date {
+  font-weight: bold;
+  font-size: 90%;
+}
+.news .news_item .bottom {
+  gap: 1rem;
+  flex-direction: column;
+  padding-inline: 1rem;
+}
+.news .news_item .bottom .section .section-title {
+  font-size: 85%;
+  font-weight: bold;
+}
+.news .news_item .bottom .section ol {
+  flex-direction: column;
+  list-style-type: disc;
+  font-size: 75%;
 }
 
 .navbar {

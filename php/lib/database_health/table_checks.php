@@ -1,7 +1,7 @@
 <?php
 
 // Get root, then get file contents of .sql files
-$root = $_SERVER["DOCUMENT_ROOT"]."/sql";
+$tmp_root = $_SERVER["DOCUMENT_ROOT"]."/sql";
 // File contents of tables
 $sqlFiles = [
     "/tables_schema.sql", // Shall ALWAYS be the first in this array/list!!!!
@@ -12,7 +12,7 @@ $sqlFiles = [
 ];
 
 // Create tables_schema if not exists
-$schema_table_contents = file_get_contents($root.$sqlFiles[0]);
+$schema_table_contents = file_get_contents($tmp_root.$sqlFiles[0]);
 $db->tableCreate($schema_table_contents);
 
 // Iterate over tables
@@ -33,7 +33,7 @@ foreach ($sqlFiles as $file) {
     $firstRemoval = "CREATE TABLE IF NOT EXISTS $tableName (";
     $secondRemoval = ");";
     // Get contents of file
-    $query = file_get_contents($root.$file);
+    $query = file_get_contents($tmp_root.$file);
     // Remove those strings
     $cols = str_replace($firstRemoval, "", $query);
     $cols = str_replace($secondRemoval, "", $cols);

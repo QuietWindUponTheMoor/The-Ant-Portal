@@ -198,6 +198,9 @@ input, textarea {
     color: white;
     background-color: $theme-10;
 }
+li {
+    display: list-item;
+}
 // Done with misc
 
 
@@ -225,10 +228,96 @@ html {
             margin-inline: auto;
             padding: 1rem;
             min-height: 90vh;
+            width: 100%;
             flex: 3;
+            .container_sub {
+                flex-direction: row;
+                width: 100%;
+                flex: 1;
+                flex-wrap: wrap;
+                .container_left, .container_right {
+                    flex: 1;
+                    flex-direction: column;
+                    padding: 0.5rem;
+                }
+                .container_main {
+                    flex: 1.5;
+                    border-inline: 1px solid $theme-30-hover-light;
+                }
+            }
         }
         .main-feed-container {
             padding-bottom: 0 !important;
+        }
+    }
+}
+
+#news-top {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding: 0;
+}
+#news-bottom {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.news {
+    flex-direction: column;
+    width: 100%;
+    padding: 0.5rem;
+    padding-inline: 0;
+    padding-top: 0;
+    background-color: $post-it;
+    border-radius: $b-lg;
+    border: $post-it-border;
+    position: sticky;
+    .collapse {
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+        .title {
+            margin: 0.25rem;
+            padding-inline: 0.5rem;
+        }
+        #news-collapse {
+            color: darken($post-it-dark, 20%);
+            cursor: pointer;
+            user-select: none;
+        }
+    }
+    .news_item {
+        width: 100%;
+        flex-direction: column;
+        border-top: $post-it-border;
+        padding: 0.5rem;
+        gap: 0.5rem;
+        .top, .bottom {
+            padding-inline: 0.5rem;
+        }
+        .top {
+            flex-direction: row;
+            gap: 5px;
+            .item_title, .item_date {
+                font-weight: bold;
+                font-size: 90%;
+            }
+        }
+        .bottom {
+            gap: 1rem;
+            flex-direction: column;
+            padding-inline: 1rem;
+            .section {
+                .section-title {
+                    font-size: 85%;
+                    font-weight: bold;
+                }
+                ol {
+                    flex-direction: column;
+                    list-style-type: disc;
+                    font-size: 75%;
+                }
+            }
         }
     }
 }
