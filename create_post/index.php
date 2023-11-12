@@ -59,6 +59,6 @@ require($nav);
 
     </div>
 </body>
-<script type="text/javascript" src="/js/lib/post_creation/form_control.js"></script>
+<script type="text/javascript" src="/js/lib/post_creation/reg_posts.js"></script>
 
 <?php require($footer); ?>

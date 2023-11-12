@@ -5,9 +5,24 @@
     width: 100%;
     padding: 1rem;
     gap: 1rem;
+    .final-section {
+        flex-wrap: wrap;
+    }
     .form-section, .final-section {
         flex-direction: column;
         gap: 8px;
+        .response {
+            font-weight: bold;
+        }
+        #error {
+            color: $error;
+        }
+        #warning {
+            color: $warning;
+        }
+        #success {
+            color: $success;
+        }
         .form-title {
             font-size: 120%;
         }

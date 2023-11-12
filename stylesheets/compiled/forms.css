@@ -24,9 +24,24 @@
   padding: 1rem;
   gap: 1rem;
 }
+.form-main .final-section {
+  flex-wrap: wrap;
+}
 .form-main .form-section, .form-main .final-section {
   flex-direction: column;
   gap: 8px;
+}
+.form-main .form-section .response, .form-main .final-section .response {
+  font-weight: bold;
+}
+.form-main .form-section #error, .form-main .final-section #error {
+  color: #EA0303;
+}
+.form-main .form-section #warning, .form-main .final-section #warning {
+  color: gold;
+}
+.form-main .form-section #success, .form-main .final-section #success {
+  color: #04D007;
 }
 .form-main .form-section .form-title, .form-main .final-section .form-title {
   font-size: 120%;

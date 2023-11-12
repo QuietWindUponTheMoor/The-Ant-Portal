@@ -14,9 +14,12 @@ require($root."/includes/navbar.php");
 
 
 
-                <form class="form-main" action="" method="POST" enctype="multipart/form-data">
+                <form class="form-main" id="nup-flight-form" action="" method="POST" enctype="multipart/form-data">
                     <div class="form-section">
                         <p class="form-title">Submit A Nuptial Flight Observation</p>
+                        <p class="response" id="error"></p>
+                        <p class="response" id="warning"></p>
+                        <p class="response" id="success"></p>
                     </div>
                     <div class="form-section">
                         <label class="main-label" for="species">What species did you observe? Make sure the species is spelled/formatted correctly.</label>
@@ -35,19 +38,19 @@ require($root."/includes/navbar.php");
                     <div class="form-section">
                         <label class="main-label" for="time">Enter the time of the observation.</label>
                         <label>Please use the formatt HH:MMam/pm, like shown below:</label>
-                        <input class="input-main" type="text" id="time" name="time" minlength="10" maxlength="10" placeholder="Example: 06:43pm" required/>
+                        <input class="input-main" type="text" id="time" name="time" minlength="7" maxlength="7" placeholder="Example: 06:43pm" required/>
                     </div>
                     <div class="form-section">
                         <label class="main-label" for="time">Enter the outdoor temperature at the time of the observation.</label>
                         <label>You can use C or F for either celcius or fahrenheit. Please format like shown below (this recording will be translated to celcius or fahrenheit):</label>
-                        <input class="input-main" type="text" id="time" name="time" minlength="10" maxlength="10" placeholder="Example: 76F" required/>
+                        <input class="input-main" type="text" id="temperature" name="temperature" minlength="3" maxlength="4" placeholder="Example: 76F" required/>
                     </div>
                     <div class="form-section">
                         <label class="main-label" for="wind-speed">Please enter the wind speed during the observation.</label>
                         <label>Enter the wind speed as just a number in mph (miles-per-hour). If there was no wind during the observation, please enter "0". Or, if you'd like to opt out, please enter "n/a".</label>
                         <label>You can use a conversion tool below:</label>
                         <label><a class="label-link" href="https://www.unitconverters.net/speed/mph-to-kph.htm" target="_blank">mph -> kmph conversion tool</a></label>
-                        <input class="input-main" type="text" id="wind-speed" name="wind-speed" minlength="1" maxlength="2" placeholder="Example: 76F" required/>
+                        <input class="input-main" type="text" id="wind-speed" name="wind-speed" minlength="1" maxlength="2" placeholder="Example: 5" required/>
                     </div>
                     <div class="form-section">
                         <label class="main-label" for="moon-cycle">Enter the moon cycle at the time of the observation.</label>
@@ -61,8 +64,6 @@ require($root."/includes/navbar.php");
                         <input class="hidden" type="file" id="images" name="images[]" accept="image/*" multiple/>
                         <button class="btn-secondary" type="button" id="select-images" onclick="$('#images').click();">Add Images</button>
                     </div>
-                    
-
                     <div class="form-section" id="tags-container">
                         <label class="main-label" for="tags">Enter relevant tags (separated by spaces or commas):</label>
                         <label>Tags cannot contain non-alphabetical [a-Z] characters.</label>
@@ -74,8 +75,6 @@ require($root."/includes/navbar.php");
                         <label class="main-label" for="selected-tags">Selected tags. Click to delete.</label>
                         <div class="tags-list" id="selected-tags"></div>
                     </div>
-
-                    
                     <div class="final-section">
                         <button class="btn-secondary" id="cancel" type="button">Cancel Post</button>
                         <button class="btn-warning" id="reset" type="reset">Reset Form</button>
@@ -90,104 +89,6 @@ require($root."/includes/navbar.php");
         </div>
     </div>
 </body>
-<script type="text/javascript">
-function getCurrentDate() {
-    let currentDate = new Date();
-    let formattedDate = currentDate.getFullYear() + '-' + ('0' + (currentDate.getDate())).slice(-2) + '-' + ('0' + (currentDate.getMonth() + 1)).slice(-2);
-    return formattedDate;
-}
-function getMinDate() {
-    let currentDate = new Date();
-    let fiveYearsAgo = new Date(currentDate.getFullYear() - 5, currentDate.getMonth(), currentDate.getDate());
-    let formattedDate = fiveYearsAgo.getFullYear() + '-' + ('0' + (fiveYearsAgo.getDate())).slice(-2) + '-' + ('0' + (fiveYearsAgo.getMonth() + 1)).slice(-2);
-    return formattedDate;
-}
-
-
-// Manage tags
-// Initialize tags_array
-let tags_array = [];
-$("#tags").on("keyup", (event) => {
-    // If user presses space or comma (,) to add the tag
-    if (event.key === "," || event.key === " ") {
-        // Check if tag limit is reached
-        if (!tagLimitCheck(tags_array)) {
-            alert("You have reached the max amount of tags (5).");
-            return;
-        }
-        // Get current text in input
-        let input = $("#tags").val().replace(/[^a-zA-Z]/g, "");
-        // Append tag
-        appendTag(input);
-        // Remove text in input box
-        $("#tags").val("");
-        // Now add to array
-        tags_array.push(input);
-    }
-});
-
-// Form submit
-$(".form-main").submit(async (event) => {
-    // Prevent default actions
-    event.preventDefault();
-    // Join tags_array
-    let final_tags = tags_array.join(", ");
-    // Insert into #hidden-tags input
-    $("#hidden-tags").val(final_tags);
-    
-    // Get append values:
-    const body = getBodyValue();
-
-    // Create formData
-    const formData = new FormData(document.getElementById("create-post-form"));
-    formData.append("data-body", body);
-
-    // Execute AJAX
-    await sendAJAX("/php/lib/posts/create.php", formData, "POST", false, false, function (response) {
-        console.log(response)
-        if (response === -1) {
-            console.error("Something went wrong with redirecting you.");
-        } else {
-            window.location.assign("/posts?postID=" + response);
-        }
-    });
-});
-
-
-
-// Helper functions
-function removeTag(element) {
-    // Remove/un-append tag
-    element.remove();
-    // Fetch tags array
-    let new_tags = tags_array;
-    // Get index of item value
-    let value = element.text();
-    new_tags = new_tags.filter((e) => {
-        return e !== value;
-    });
-    // Set tags_array
-    tags_array = new_tags;
-    // Change value of #hidden-tags
-    $("#hidden-tags").val(new_tags.join(", "));
-}
-function appendTag(value) {
-    // Generate element string:
-    let elString = `<p class="tag" onclick="removeTag($(this));">${value}</p>`;
-    // Append tag:
-    $("#selected-tags").append(elString);
-}
-function tagLimitCheck(array) {
-    if (countArrayItems(array) >= 5) {
-        return false;
-    } else {
-        return true;
-    }
-}
-function countArrayItems(array) {
-    return array.length;
-}
-
-</script>
+<script type="text/javascript" src="/js/lib/post_creation/nup_flights.js"></script>
 
 <?php require($root."/includes/footer.php"); ?>
