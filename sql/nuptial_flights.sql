@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS nuptial_flights (
+    flightID BIGINT(44) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    userID BIGINT(44) NOT NULL,
+    text TEXT(30000) NOT NULL,
+    imageArray TEXT(150000),
+    views BIGINT(44) DEFAULT 0 NOT NULL,
+    upvotes BIGINT(44) DEFAULT 0 NOT NULL,
+    downvotes BIGINT(44) DEFAULT 0 NOT NULL,
+    date VARCHAR(128) NOT NULL,
+    time VARCHAR(128) NOT NULL,
+    species VARCHAR(256) NOT NULL,
+    tagOne VARCHAR(50),
+    tagTwo VARCHAR(50),
+    tagThree VARCHAR(50),
+    tagFour VARCHAR(50),
+    tagFive VARCHAR(50)
+);

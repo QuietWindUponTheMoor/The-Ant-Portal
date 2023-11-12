@@ -12,7 +12,7 @@ require($root."/includes/navbar.php");
             <?php require($root."/includes/container_left.php"); ?>
 
             <div class="container_main">
-                <p class="test">Main</p>
+                
             </div>
 
             <?php require($root."/includes/container_right.php"); ?>

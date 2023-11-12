@@ -1,0 +1,79 @@
+@import "theme.scss";
+
+.form-main {
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem;
+    gap: 1rem;
+    .form-section, .final-section {
+        flex-direction: column;
+        gap: 8px;
+        .form-title {
+            font-size: 120%;
+        }
+        label {
+            font-size: 80%;
+            .label-link {
+                color: $link;
+                text-decoration: underline;
+                &:hover {
+                    color: $link-hover;
+                }
+            }
+        }
+        input {
+
+        }
+        textarea {
+
+        }
+        .tags-list {
+            gap: 10px;
+            .tag {
+                padding: 0.3rem;
+                background-color: $theme-10-hover-ultra-ultralight;
+                border-radius: $b-med;
+                border: 1px solid $theme-10-hover-ultra-ultralight;
+                cursor: pointer;
+                &:hover {
+                    border: 1px solid $theme-10;
+                }
+            }
+        }
+        .tags-list {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: $b-med;
+            height: 50px;
+        }
+    }
+    .final-section {
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+}
+
+
+// Misc
+input, select {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+textarea {
+    min-height: 155px;
+}
+input, textarea {
+    font-family: $theme-font;
+}
+.input-main {
+    width: 100%;
+    padding: 0.5rem;
+    border: 2px solid $theme-60-hover-ultradark;
+    border-radius: $b-med;
+    outline: none;
+}
+.input-hidden {
+    display: none;
+}

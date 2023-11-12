@@ -18,6 +18,100 @@
   color: white;
 }
 
+.color-60 {
+  background-color: #FDFDFD;
+  width: 300px;
+  height: 100px;
+}
+
+.color-30 {
+  background-color: #313535;
+  width: 300px;
+  height: 40px;
+  color: white;
+}
+
+.color-10 {
+  background-color: #2AA00A;
+  width: 300px;
+  height: 20px;
+  color: white;
+}
+
+.form-main {
+  flex-direction: column;
+  width: 100%;
+  padding: 1rem;
+  gap: 1rem;
+}
+.form-main .form-section, .form-main .final-section {
+  flex-direction: column;
+  gap: 8px;
+}
+.form-main .form-section .form-title, .form-main .final-section .form-title {
+  font-size: 120%;
+}
+.form-main .form-section label, .form-main .final-section label {
+  font-size: 80%;
+}
+.form-main .form-section label .label-link, .form-main .final-section label .label-link {
+  color: #37d00d;
+  text-decoration: underline;
+}
+.form-main .form-section label .label-link:hover, .form-main .final-section label .label-link:hover {
+  color: #4cf11f;
+}
+.form-main .form-section .tags-list, .form-main .final-section .tags-list {
+  gap: 10px;
+}
+.form-main .form-section .tags-list .tag, .form-main .final-section .tags-list .tag {
+  padding: 0.3rem;
+  background-color: #bffaaf;
+  border-radius: 5px;
+  border: 1px solid #bffaaf;
+  cursor: pointer;
+}
+.form-main .form-section .tags-list .tag:hover, .form-main .final-section .tags-list .tag:hover {
+  border: 1px solid #2AA00A;
+}
+.form-main .form-section .tags-list, .form-main .final-section .tags-list {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 5px;
+  height: 50px;
+}
+.form-main .final-section {
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+input, select {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+textarea {
+  min-height: 155px;
+}
+
+input, textarea {
+  font-family: "Nunito", sans-serif;
+}
+
+.input-main {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid #bdbdbd;
+  border-radius: 5px;
+  outline: none;
+}
+
+.input-hidden {
+  display: none;
+}
+
 * {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -79,12 +173,6 @@ h4 {
   text-align: left;
   font-weight: normal;
   font-size: 16px;
-}
-
-input, select {
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
 }
 
 .btn-main {
@@ -205,18 +293,6 @@ input, select {
   width: 75%;
 }
 
-.input-main {
-  width: 100%;
-  padding: 0.5rem;
-  border: 2px solid #bdbdbd;
-  border-radius: 5px;
-  outline: none;
-}
-
-input, textarea {
-  font-family: "Nunito", sans-serif;
-}
-
 .hidden {
   display: none !important;
 }
@@ -262,7 +338,6 @@ html body {
   flex-wrap: wrap;
   width: 100%;
   max-width: 100%;
-  height: 100%;
   margin: 0;
 }
 html body .container {
@@ -285,13 +360,60 @@ html body .container .container_sub .container_left, html body .container .conta
   flex: 1;
   flex-direction: column;
   padding: 0.5rem;
+  overflow-y: scroll;
+  max-height: 500px;
+}
+html body .container .container_sub .container_left::-webkit-scrollbar, html body .container .container_sub .container_right::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
 }
 html body .container .container_sub .container_main {
+  flex-direction: column;
   flex: 1.5;
   border-inline: 1px solid #a2a9a9;
+  overflow-y: scroll;
+  max-height: 1200px;
+}
+html body .container .container_sub .container_main::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
 }
 html body .main-feed-container {
   padding-bottom: 0 !important;
+}
+
+@media (max-width: 925px) {
+  .container_sub {
+    flex-direction: column;
+    max-width: 100vw;
+    gap: 1rem;
+  }
+  .container_left {
+    order: 0;
+    min-width: 100%;
+    max-height: none;
+  }
+  .container_main {
+    order: 1;
+    min-width: 100%;
+    max-height: none;
+  }
+  .container_right {
+    order: 2;
+    min-width: 100%;
+    max-height: 100%;
+    border-top: 1px solid #a2a9a9;
+  }
+}
+.container-main-title-container {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center !important;
+  padding: 0.5rem;
+  border-top: 1px solid #a2a9a9;
+}
+.container-main-title-container .title {
+  margin: 0;
 }
 
 #news-top {
@@ -901,7 +1023,6 @@ html body .main-feed-container {
 .section .tags-list {
   width: 100%;
   padding: 0.5rem;
-  border: 2px solid #bdbdbd;
   border-radius: 5px;
   height: 50px;
 }

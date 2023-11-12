@@ -8,7 +8,8 @@ $sqlFiles = [
     "/posts.sql",
     "/users.sql",
     "/answers.sql",
-    "/users_archive.sql"
+    "/users_archive.sql",
+    "/nuptial_flights.sql"
 ];
 
 // Create tables_schema if not exists
