@@ -72,6 +72,7 @@ input, textarea {
 }
 .input-main {
     width: 100%;
+    max-width: 100%;
     padding: 0.5rem;
     border: 2px solid $theme-60-hover-ultradark;
     border-radius: $b-med;
