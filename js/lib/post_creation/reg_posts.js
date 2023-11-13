@@ -43,7 +43,7 @@ $("#create-post-form").submit(async (event) => {
         } else if (response > 0) {
             window.location.assign("/posts?postID=" + response);
         } else {
-            console.error(response);
+            console.log(response);
         }
     });
 });

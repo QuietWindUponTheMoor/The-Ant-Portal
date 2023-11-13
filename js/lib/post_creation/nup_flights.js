@@ -21,7 +21,13 @@ $("#tags").on("keyup", (event) => {
 });
 
 // Form submit
-$("#nup-flight-form").submit(async (event) => {
+$("#submit").on("click", (event) => {
+    // Prevent default actions
+    event.preventDefault();
+    // Submit form
+    $("#nup-flight-form").submit();
+});
+$("#nup-flight-form").on("submit", async (event) => {
     // Prevent default actions
     event.preventDefault();
     // Refresh errors/warnings/etc
@@ -31,29 +37,46 @@ $("#nup-flight-form").submit(async (event) => {
     // Insert into #hidden-tags input
     $("#hidden-tags").val(final_tags);
 
-    await validateTime($("#time").val())
-
     // Validate inputs
     let tempValid = await validateTemp($("#temperature").val());
     let moonCycleValid = await validateMoonCycle($("#moon-cycle").val());
     let windSpeedValid = await validateWindSpeed($("#wind-speed").val());
     let timeValid = await validateTime($("#time").val());
-    if (tempValid === false || moonCycleValid === false || windSpeedValid === false || timeValid === false) {
+    let dateValid = await validateDate($("#date").val())
+    if (tempValid === false || moonCycleValid === false || windSpeedValid === false || timeValid === false || dateValid === false) {
         return;
     }
 
     // Append formatted changes to form
-    $("#date").val(await convertDateFormat($("#date").val()));
-    $("#moon-cycle").val(await convertMoonCycleFormat($("#moon-cycle").val()));
-    $("#temperature").val(await convertTemperatureFormat($("#temperature").val()));
-    $("#time").val(await convertTime($("#time").val()));
+    //$("#date").val(await convertDateFormat($("#date").val()));
+    //$("#moon-cycle").val(await convertMoonCycleFormat($("#moon-cycle").val()));
+    //$("#temperature").val(await convertTemperatureFormat($("#temperature").val()));
+    //$("#time").val(await convertTime($("#time").val()));
     
     // Get append values:
+    const species = $("#species").val();
     const body = getBodyValue();
+    const date = await convertDateFormat($("#date").val());
+    const time = await convertTime($("#time").val());
+    const temperature = await convertTemperatureFormat($("#temperature").val());
+    const windSpeed = $("#wind-speed").val();
+    const moonCycle = await convertMoonCycleFormat($("#moon-cycle").val());
+    const tags = $("#final-tags").val();
+    const db = $("#database").val();
+    const userID = $("#user_id").val();
 
     // Create formData
     const formData = new FormData(document.getElementById("nup-flight-form"));
+    formData.append("data-species", species);
     formData.append("data-body", body);
+    formData.append("data-date", date);
+    formData.append("data-time", time);
+    formData.append("data-temperature", temperature);
+    formData.append("data-wind-speed", windSpeed);
+    formData.append("data-moon-cycle", moonCycle);
+    formData.append("data-tags", tags);
+    formData.append("data-db", db);
+    formData.append("data-user_id", userID);
 
     // Execute AJAX
     await sendAJAX("/php/lib/posts/create_nup_flight.php", formData, "POST", false, false, function (response) {
@@ -62,7 +85,7 @@ $("#nup-flight-form").submit(async (event) => {
         } else if (response > 0) {
             window.location.assign("/nup_flights?flightID=" + response);
         } else {
-            console.error(response);
+            console.log(response);
         }
     });
 });
@@ -121,16 +144,48 @@ async function validateDate(input) {
     const minDate = await getMinDate();
 
     // Validate date
-    if (formattedDate < minDate) {
-        $("#error").text(`The input date cannot be earlier than ${minDate}.`);
+    if (await isDateEarlierThanFiveYearsAgo(formattedDate, minDate)) {
+        $("#error").text(`The input date cannot be earlier than ${minDate} You gave: ${formattedDate}`);
         return false;
-    } else if (formattedDate > currentDate) {
-        $("#error").text(`The input date cannot be later than today's date (${currentDate}).`);
+    } else if (await isDateLaterThanToday(formattedDate, currentDate)) {
+        $("#error").text(`The input date cannot be later than today's date (${currentDate}) You gave: ${formattedDate}`);
         return false;
     }
 
     // If all else is good, return true
     return true;
+}
+async function isDateEarlierThanFiveYearsAgo(enteredDate, fiveYearsAgo) {
+    const inputDateObj = new Date(
+        enteredDate.substring(0, 4),
+        enteredDate.substring(8, 10),
+        enteredDate.substring(5, 7)
+    );
+
+    const fiveYearsAgoDate= new Date(
+        fiveYearsAgo.substring(0, 4),
+        fiveYearsAgo.substring(8, 10),
+        fiveYearsAgo.substring(5, 7)
+    );
+
+    return inputDateObj < fiveYearsAgoDate;
+}
+async function isDateLaterThanToday(enteredDate, todaysDate) {
+    // Convert date strings to JavaScript Date objects
+    const date1 = new Date(
+        enteredDate.substring(0, 4),
+        enteredDate.substring(8, 10),
+        enteredDate.substring(5, 7)
+    );
+
+    const date2 = new Date(
+        todaysDate.substring(0, 4),
+        todaysDate.substring(8, 10),
+        todaysDate.substring(5, 7)
+    );
+
+    // Compare Date objects
+    return date1 > date2;
 }
 async function validateWindSpeed(input) {
     // If user opts out

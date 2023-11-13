@@ -4,6 +4,10 @@
 $root = $_SERVER["DOCUMENT_ROOT"];
 require($root."/includes/head.php");
 require($root."/includes/navbar.php");
+
+if ($isLoggedIn === false) {
+    header("Location: /");
+}
 ?>
 
 <body>
@@ -76,13 +80,13 @@ require($root."/includes/navbar.php");
                         <div class="tags-list" id="selected-tags"></div>
                     </div>
                     <div class="form-section hidden" id="hidden-fields">
-                        <input type="hidden" name="user_id" value="<?php echo $userID; ?>" required/>
-                        <input type="hidden" name="database" value="<?php echo $dbHost; ?>" required/>
+                        <input type="hidden" id="user_id" name="user_id" value="<?php echo $userID; ?>" required/>
+                        <input type="hidden" id="database" name="database" value="<?php echo $dbHost; ?>" required/>
                     </div>
                     <div class="final-section">
                         <button class="btn-secondary" id="cancel" type="button" onclick="window.history.back();">Cancel Post</button>
                         <button class="btn-warning" id="reset" type="reset">Reset Form</button>
-                        <button class="btn-main" id="submit" type="submit">Submit Nuptial Flight</button>
+                        <button class="btn-main" id="submit" type="button">Submit Nuptial Flight</button>
                     </div>
                 </form>
 

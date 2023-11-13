@@ -17,5 +17,6 @@ CREATE TABLE IF NOT EXISTS nuptial_flights (
     tagThree VARCHAR(50),
     tagFour VARCHAR(50),
     tagFive VARCHAR(50),
-    datetime VARCHAR(256) NOT NULL
+    datetime VARCHAR(256) NOT NULL,
+    editedByUserID BIGINT(44) DEFAULT 0
 );

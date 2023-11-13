@@ -619,15 +619,15 @@ class CreateNupFlight {
         // Get data "d" short for data
         $d = array_filter($_POST);
         $this->db = new Database($d["database"], "root", "", "main");
-        $this->species = $d["species"];
+        $this->species = $d["data-species"];
         $this->body = $d["data-body"];
-        $this->flightDate = $d["date"];
-        $this->flightTime = $d["time"];
-        $this->temperature = $d["temperature"]."°F";
-        $this->windSpeed = $d["wind-speed"];
-        $this->moonCycle = $d["moon-cycle"];
-        $this->tags = $d["final-tags"];
-        $this->userID = $d["user_id"];
+        $this->flightDate = $d["data-date"];
+        $this->flightTime = $d["data-time"];
+        $this->temperature = $d["data-temperature"]."°F";
+        $this->windSpeed = $d["data-wind-speed"];
+        $this->moonCycle = $d["data-moon-cycle"];
+        $this->tags = $d["data-tags"];
+        $this->userID = $d["data-user_id"];
 
         // Get datetime
         $date = date("M d, Y");
@@ -654,7 +654,7 @@ class CreateNupFlight {
             ini_set('post_max_size', '500M');
             ini_set('max_input_time', 4000); // Play with the values
             ini_set('max_execution_time', 4000); // Play with the values
-            if (!empty($_FILES["images"]["tmp_name"])) {
+            if (!empty(array_filter($_FILES["images"]["tmp_name"]))) {
                 // Count total files:
                 $total = count($_FILES["images"]["name"]);
                 for ($i = 0; $i < $total; $i++) {
@@ -686,6 +686,12 @@ class CreateNupFlight {
                         // Redirect user if all is successful
                         $this->redirectUser();
                     }
+                }
+            } else {
+                // Upload tags
+                if ($this->tagsUpload()) {
+                    // Redirect user if all is successful
+                    $this->redirectUser();
                 }
             }
         } else {
@@ -768,7 +774,7 @@ class CreatePost {
             ini_set('post_max_size', '500M');
             ini_set('max_input_time', 4000); // Play with the values
             ini_set('max_execution_time', 4000); // Play with the values
-            if (!empty($_FILES["images"]["tmp_name"])) {
+            if (!empty(array_filter($_FILES["images"]["tmp_name"]))) {
                 // Count total files:
                 $total = count($_FILES["images"]["name"]);
                 for ($i = 0; $i < $total; $i++) {

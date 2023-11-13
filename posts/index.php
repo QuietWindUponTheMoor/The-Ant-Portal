@@ -7,17 +7,16 @@ require($root."/includes/navbar.php");
 <body>
     <div class="container">
         <div class="container_sub">
-
-
             <?php require($root."/includes/container_left.php"); ?>
-
             <div class="container_main">
-                
+
+
+                <div class="post-page-container">
+                </div>
+
+
             </div>
-
             <?php require($root."/includes/container_right.php"); ?>
-
-
         </div>
     </div>
 </body>
