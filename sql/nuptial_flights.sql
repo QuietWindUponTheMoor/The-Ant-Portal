@@ -9,9 +9,13 @@ CREATE TABLE IF NOT EXISTS nuptial_flights (
     date VARCHAR(128) NOT NULL,
     time VARCHAR(128) NOT NULL,
     species VARCHAR(256) NOT NULL,
+    temperature VARCHAR(50) NOT NULL,
+    wind_speed VARCHAR(50) NOT NULL,
+    moon_cycle VARCHAR(50) NOT NULL,
     tagOne VARCHAR(50),
     tagTwo VARCHAR(50),
     tagThree VARCHAR(50),
     tagFour VARCHAR(50),
-    tagFive VARCHAR(50)
+    tagFive VARCHAR(50),
+    datetime VARCHAR(256) NOT NULL
 );

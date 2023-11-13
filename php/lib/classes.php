@@ -601,6 +601,129 @@ class TimeFormats {
     }
 }
 
+class CreateNupFlight {
+    private object $db;
+    private int $userID;
+    private string $species;
+    private string $body;
+    private string $flightDate;
+    private string $flightTime;
+    private string $temperature;
+    private string $windSpeed;
+    private string $moonCycle;
+    private string $tags;
+    private string $datetime;
+
+
+    public function __construct() {
+        // Get data "d" short for data
+        $d = array_filter($_POST);
+        $this->db = new Database($d["database"], "root", "", "main");
+        $this->species = $d["species"];
+        $this->body = $d["data-body"];
+        $this->flightDate = $d["date"];
+        $this->flightTime = $d["time"];
+        $this->temperature = $d["temperature"]."°F";
+        $this->windSpeed = $d["wind-speed"];
+        $this->moonCycle = $d["moon-cycle"];
+        $this->tags = $d["final-tags"];
+        $this->userID = $d["user_id"];
+
+        // Get datetime
+        $date = date("M d, Y");
+        $timezone = new DateTime('now', new DateTimeZone(date_default_timezone_get()));
+        $timezone = $timezone->format('T');
+        $time = date("h:ia");
+        $time = "$time ($timezone)";
+        $this->datetime = "$date @ $time";
+    }
+
+    public function execute() {
+        if ($this->db->insert("INSERT INTO nuptial_flights (userID, `text`, `date`, `time`, species, `datetime`, temperature, wind_speed, moon_cycle) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);", "issssssss", $this->userID, $this->body, $this->flightDate, $this->flightTime, $this->species, $this->datetime, $this->temperature, $this->windSpeed, $this->moonCycle)) {
+            // If post was successfully inserted into database
+            // Get file name
+            $fileName = preg_replace("/[^A-Za-z0-9 ]/", '', $this->species);
+
+            // Iterate over files, if exist
+            // Initialize pathArray
+            $pathArray = [];
+            //print_r($_FILES);
+            error_reporting(E_ALL);
+            set_time_limit(0);
+            ini_set('upload_max_filesize', '500M');
+            ini_set('post_max_size', '500M');
+            ini_set('max_input_time', 4000); // Play with the values
+            ini_set('max_execution_time', 4000); // Play with the values
+            if (!empty($_FILES["images"]["tmp_name"])) {
+                // Count total files:
+                $total = count($_FILES["images"]["name"]);
+                for ($i = 0; $i < $total; $i++) {
+                    // Get current file
+                    $tmpFilePath = $_FILES["images"]["tmp_name"][$i];
+                    // Get file extension
+                    $ext = pathinfo($_FILES["images"]["name"][$i], PATHINFO_EXTENSION);
+                    // Get path
+                    $displayPath = "/users/uploads/posts/"."$i-".$fileName.".$ext";
+                    // Get full path (target)
+                    $target = $_SERVER["DOCUMENT_ROOT"].$displayPath;
+                    // Upload file
+                    if (!file_exists($target)) {
+                        if (move_uploaded_file($tmpFilePath, $target)) {
+                            array_push($pathArray, $displayPath);
+                        } else {
+                            die("SOMETHING WENT WRONG UPLOADING ONE OR MORE OF YOUR IMAGES!");
+                        }
+                    } else {
+                        die("AN IMAGE ALREADY EXISTS BY THE NAME OF '$target'!!!");
+                    }
+                }
+                // Upload paths to database (with UPDATE statement)
+                $images = implode(", ", $pathArray);
+                if ($this->db->insert("UPDATE nuptial_flights SET imageArray=? WHERE species=? AND userID=?;", "ssi", $images, $this->species, $this->userID)) {
+                    // If image path(s) uploaded to database correctly and everything went smoothly up until this point
+                    // Upload tags
+                    if ($this->tagsUpload()) {
+                        // Redirect user if all is successful
+                        $this->redirectUser();
+                    }
+                }
+            }
+        } else {
+            echo -1;
+        }
+    }
+
+    private function tagsUpload() {
+        $c = 1;
+        foreach (explode(", ", $this->tags) as $tag) {
+            if ($c === 1) {
+                $col = "tagOne";
+            } else if ($c === 2) {
+                $col = "tagTwo";
+            } else if ($c === 3) {
+                $col = "tagThree";
+            } else if ($c === 4) {
+                $col = "tagFour";
+            } else if ($c === 5) {
+                $col = "tagFive";
+            }
+            $this->db->insert("UPDATE nuptial_flights SET $col=? WHERE species=? AND userID=?;", "ssi", $tag, $this->species, $this->userID);
+            $c++;
+        }
+        return true;
+    }
+
+    private function redirectUser() {
+        $res = $this->db->select("SELECT flightID FROM nuptial_flights WHERE userID=? ORDER BY flightID DESC LIMIT 1;", "i", $this->userID);
+        if ($res->num_rows > 0) {
+            $postID = mysqli_fetch_assoc($res)["flightID"];
+            echo $postID;
+        } else {
+            echo -1;
+        }
+    }
+}
+
 class CreatePost {
     private object $db;
     private string $title;

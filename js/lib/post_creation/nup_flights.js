@@ -57,11 +57,12 @@ $("#nup-flight-form").submit(async (event) => {
 
     // Execute AJAX
     await sendAJAX("/php/lib/posts/create_nup_flight.php", formData, "POST", false, false, function (response) {
-        console.log(response) // TESTING, TEMPORARY
         if (response === -1) {
             console.error("Something went wrong with redirecting you.");
-        } else {
+        } else if (response > 0) {
             window.location.assign("/nup_flights?flightID=" + response);
+        } else {
+            console.error(response);
         }
     });
 });
@@ -72,8 +73,6 @@ $("#nup-flight-form").submit(async (event) => {
 async function validateTime(input) {
     // Convert the time
     let checkedInput = await convertTime(input);
-
-    console.log(checkedInput);
 
     // Check that format is correct
     const isValidFormat = /^(0?[1-9]|1[0-2]):([0-5][0-9])(am|pm)$/i.test(checkedInput);
@@ -134,6 +133,11 @@ async function validateDate(input) {
     return true;
 }
 async function validateWindSpeed(input) {
+    // If user opts out
+    if (input.toLowerCase() === "n/a") {
+        return true;
+    }
+
     // Convert to integer, just in case
     let speed = parseInt(input);
 
@@ -150,6 +154,11 @@ async function validateWindSpeed(input) {
     return true;
 }
 async function validateMoonCycle(input) {
+    // If user opts out
+    if (input.toLowerCase() === "n/a") {
+        return true;
+    }
+
     // Format the input
     let formattedCycle = input.toLowerCase().replace(/\s+/g, "-");
 
@@ -223,7 +232,13 @@ async function  convertTemperatureFormat(temp) {
     return fahrenheit;
 }
 async function convertMoonCycleFormat(cycle) {
-    return cycle.toLowerCase().replace(/\s+/g, "-");
+    // If user opts out
+    if (cycle.toLowerCase() === "n/a") {
+        return cycle.toLowerCase();
+    } else {
+        // If the user didn't opt out
+        return cycle.toLowerCase().replace(/\s+/g, "-");
+    }
 }
 async function convertDateFormat(date) {
     return date.replace(/\//g, '-');

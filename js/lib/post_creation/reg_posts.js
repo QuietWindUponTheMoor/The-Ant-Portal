@@ -40,8 +40,10 @@ $("#create-post-form").submit(async (event) => {
     await sendAJAX("/php/lib/posts/create.php", formData, "POST", false, false, function (response) {
         if (response === -1) {
             console.error("Something went wrong with redirecting you.");
-        } else {
+        } else if (response > 0) {
             window.location.assign("/posts?postID=" + response);
+        } else {
+            console.error(response);
         }
     });
 });

@@ -5,5 +5,5 @@ $classes .= "/php/lib/classes.php";
 require($classes);
 
 
-$post = // class initialization goes here
+$post = new CreateNupFlight();
 $post->execute();

@@ -49,15 +49,15 @@ require($root."/includes/navbar.php");
                         <label class="main-label" for="wind-speed">Please enter the wind speed during the observation.</label>
                         <label>Enter the wind speed as just a number in mph (miles-per-hour). If there was no wind during the observation, please enter "0". Or, if you'd like to opt out, please enter "n/a".</label>
                         <label>You can use a conversion tool below:</label>
-                        <label><a class="label-link" href="https://www.unitconverters.net/speed/mph-to-kph.htm" target="_blank">mph -> kmph conversion tool</a></label>
-                        <input class="input-main" type="text" id="wind-speed" name="wind-speed" minlength="1" maxlength="2" placeholder="Example: 5" required/>
+                        <label><a class="label-link" href="https://www.unitconverters.net/speed/kph-to-mph.htm" target="_blank">kmph -> mph conversion tool</a></label>
+                        <input class="input-main" type="text" id="wind-speed" name="wind-speed" minlength="1" maxlength="3" placeholder="Example: 5" required/>
                     </div>
                     <div class="form-section">
                         <label class="main-label" for="moon-cycle">Enter the moon cycle at the time of the observation.</label>
                         <label>Please use the format of "waning-gibbous" and not "waning gibbous" as examples.</label>
                         <label>Please enter "n/a" if you don't know, or want to opt out. Additionally, you can use the tool below to find out:</label>
                         <label><a class="label-link" href="https://nineplanets.org/moon/phase/today/" target="_blank">What is the moon cycle today?</a></label>
-                        <input class="input-main" type="text" id="moon-cycle" name="moon-cycle" minlength="5" maxlength="50" placeholder="Example: waning-gibbous" required/>
+                        <input class="input-main" type="text" id="moon-cycle" name="moon-cycle" minlength="3" maxlength="50" placeholder="Example: waning-gibbous" required/>
                     </div>
                     <div class="form-section">
                         <label class="main-label" for="images">Select any images you have of the observation. (Optional)</label>
@@ -75,8 +75,12 @@ require($root."/includes/navbar.php");
                         <label class="main-label" for="selected-tags">Selected tags. Click to delete.</label>
                         <div class="tags-list" id="selected-tags"></div>
                     </div>
+                    <div class="form-section hidden" id="hidden-fields">
+                        <input type="hidden" name="user_id" value="<?php echo $userID; ?>" required/>
+                        <input type="hidden" name="database" value="<?php echo $dbHost; ?>" required/>
+                    </div>
                     <div class="final-section">
-                        <button class="btn-secondary" id="cancel" type="button">Cancel Post</button>
+                        <button class="btn-secondary" id="cancel" type="button" onclick="window.history.back();">Cancel Post</button>
                         <button class="btn-warning" id="reset" type="reset">Reset Form</button>
                         <button class="btn-main" id="submit" type="submit">Submit Nuptial Flight</button>
                     </div>

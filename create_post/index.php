@@ -51,7 +51,7 @@ require($nav);
                     <input type="hidden" name="database" value="<?php echo $dbHost; ?>" required/>
                 </div>
                 <span class="section buttons">
-                    <button class="btn-secondary" onclick="window.history.back();">Cancel</button>
+                    <button class="btn-secondary" onclick="window.history.back();" type="button">Cancel</button>
                     <button class="btn-main" id="submit" type="submit">Submit</button>
                 </span>
             </form>
