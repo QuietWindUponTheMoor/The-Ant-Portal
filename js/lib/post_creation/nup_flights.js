@@ -46,12 +46,6 @@ $("#nup-flight-form").on("submit", async (event) => {
     if (tempValid === false || moonCycleValid === false || windSpeedValid === false || timeValid === false || dateValid === false) {
         return;
     }
-
-    // Append formatted changes to form
-    //$("#date").val(await convertDateFormat($("#date").val()));
-    //$("#moon-cycle").val(await convertMoonCycleFormat($("#moon-cycle").val()));
-    //$("#temperature").val(await convertTemperatureFormat($("#temperature").val()));
-    //$("#time").val(await convertTime($("#time").val()));
     
     // Get append values:
     const species = $("#species").val();
@@ -61,7 +55,7 @@ $("#nup-flight-form").on("submit", async (event) => {
     const temperature = await convertTemperatureFormat($("#temperature").val());
     const windSpeed = $("#wind-speed").val();
     const moonCycle = await convertMoonCycleFormat($("#moon-cycle").val());
-    const tags = $("#final-tags").val();
+    const tags = $("#hidden-tags").val();
     const db = $("#database").val();
     const userID = $("#user_id").val();
 
@@ -83,7 +77,7 @@ $("#nup-flight-form").on("submit", async (event) => {
         if (response === -1) {
             console.error("Something went wrong with redirecting you.");
         } else if (response > 0) {
-            window.location.assign("/nup_flights?flightID=" + response);
+            window.location.assign("/nup_flight?flightID=" + response);
         } else {
             console.log(response);
         }

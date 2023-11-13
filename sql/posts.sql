@@ -8,11 +8,14 @@ CREATE TABLE IF NOT EXISTS posts (
     views BIGINT(44) DEFAULT 0 NOT NULL,
     upvotes BIGINT(44) DEFAULT 0 NOT NULL,
     downvotes BIGINT(44) DEFAULT 0 NOT NULL,
+    answers BIGINT(44) DEFAULT 0 NOT NULL,
+    replies BIGINT(44) DEFAULT 0 NOT NULL,
     datetime VARCHAR(256) NOT NULL,
     tagOne VARCHAR(50),
     tagTwo VARCHAR(50),
     tagThree VARCHAR(50),
     tagFour VARCHAR(50),
     tagFive VARCHAR(50),
-    editedByUserID BIGINT(44) DEFAULT 0
+    editedByUserID BIGINT(44) DEFAULT 0,
+    editDatetime VARCHAR(256) NOT NULL
 );

@@ -18,12 +18,90 @@
   color: white;
 }
 
+.post-page-container {
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+}
 .post-page-container .section-wrap {
+  flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 }
-.post-page-container .post-section .sub-section .by-link {
+.post-page-container .post-section .user-data {
+  gap: 10px;
+  align-items: center;
+  background-color: #e5fddf;
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: 1px solid #5ff337;
+}
+.post-page-container .post-section .user-data .user-image-container {
+  width: 20px;
+  aspect-ratio: 1/1;
+}
+.post-page-container .post-section .user-data .user-image-container .user-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+}
+.post-page-container .post-section .user-data .by {
+  margin: 0;
+  padding: 0;
+  font-size: 80%;
+}
+.post-page-container .post-section .user-data .by-link {
+  font-size: 80%;
   color: #37d00d;
+  text-decoration: underline;
 }
-.post-page-container .post-section .sub-section .by-link:hover {
+.post-page-container .post-section .user-data .by-link:hover {
   color: #4cf11f;
+}
+.post-page-container .post-section #edited-by .by-link {
+  color: darkorange;
+}
+.post-page-container .post-section #edited-by .by-link:hover {
+  color: #ffaf4d;
+}
+.post-page-container .post-section .post-title {
+  font-size: 120%;
+}
+.post-page-container .post-section .meta {
+  font-size: 80%;
+}
+.post-page-container .post-section .post-image {
+  width: 100%;
+  max-width: 50%;
+}
+.post-page-container .post-meta {
+  border: 1px solid #a2a9a9;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+.post-page-container .post-meta .tag {
+  font-size: 80%;
+  background-color: #e5fddf;
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: 1px solid #5ff337;
+}
+.post-page-container .images-section {
+  gap: 0 !important;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.post-page-container .images-section .image-container {
+  justify-content: center;
+  align-items: center;
+  max-width: 50%;
+  aspect-ratio: 1/1;
+  background-color: #313535;
+}
+.post-page-container .images-section .image-container .post-image {
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
 }/*# sourceMappingURL=posts.css.map */

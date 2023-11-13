@@ -6,6 +6,8 @@ CREATE TABLE IF NOT EXISTS nuptial_flights (
     views BIGINT(44) DEFAULT 0 NOT NULL,
     upvotes BIGINT(44) DEFAULT 0 NOT NULL,
     downvotes BIGINT(44) DEFAULT 0 NOT NULL,
+    answers BIGINT(44) DEFAULT 0 NOT NULL,
+    replies BIGINT(44) DEFAULT 0 NOT NULL,
     date VARCHAR(128) NOT NULL,
     time VARCHAR(128) NOT NULL,
     species VARCHAR(256) NOT NULL,
@@ -18,5 +20,6 @@ CREATE TABLE IF NOT EXISTS nuptial_flights (
     tagFour VARCHAR(50),
     tagFive VARCHAR(50),
     datetime VARCHAR(256) NOT NULL,
-    editedByUserID BIGINT(44) DEFAULT 0
+    editedByUserID BIGINT(44) DEFAULT 0,
+    editDatetime VARCHAR(256) NOT NULL
 );
