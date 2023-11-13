@@ -30,6 +30,30 @@
   align-items: center;
   gap: 1rem;
 }
+.post-page-container .vote-container {
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+.post-page-container .vote-container .vote-subcontainer {
+  flex-direction: column;
+  align-items: center;
+}
+.post-page-container .vote-container .vote-subcontainer .icon-container {
+  width: 20px;
+  aspect-ratio: 1/1;
+}
+.post-page-container .vote-container .vote-subcontainer .icon-container .icon {
+  width: 100%;
+  height: 100%;
+}
+.post-page-container .vote-container .vote-subcontainer .icon-container .icon:hover {
+  cursor: pointer;
+  opacity: 0.75;
+}
+.post-page-container .vote-container .vote-subcontainer .vote-count {
+  font-weight: bold;
+}
 .post-page-container .post-section .user-data {
   gap: 10px;
   align-items: center;

@@ -19,9 +19,7 @@ require($nav);
                     <label for="post-type">What are you posting?</label>
                     <select class="input-main" name="postType" id="post-type" required>
                         <option value="1">Question</option>
-                        <option value="2">Sighting</option>
-                        <option value="3">Nuptial Flight</option>
-                        <!-- Nuptial flight is not an option here, that is a separate page due to needing vastly different formatting. -->
+                        <!-- No other options here because changes how stuff is done. -->
                     </select>
                 </div>
                 <div class="section">

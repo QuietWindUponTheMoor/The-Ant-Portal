@@ -13,6 +13,15 @@
 }
 
 // Misc
+.success {
+    color: $success;
+}
+.warning {
+    color: $warning;
+}
+.error {
+    color: $error;
+}
 #logout-button, #profile-signout {
     color: $warning;
     text-decoration: underline;

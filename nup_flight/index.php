@@ -39,6 +39,17 @@ if (!isset($_GET["flightID"]) || $_GET["flightID"] < 1) {
         $tag4 = $r["tagFour"];
         $tag5 = $r["tagFive"];
         $tagsArray = [$tag1, $tag2, $tag3, $tag4, $tag5];
+        $totalVotes = $upvotes - $downvotes;
+        // Vote count colors:
+        if ($totalVotes < 0) {
+            $color = "success";
+        } else if ($totalVotes > 0 && $totalVotes < 5) {
+            $color = "warning";
+        } else if ($totalVotes >= 5) {
+            $color = "success";
+        } else {
+            $color = "";
+        }
     } else {
         header("Location: /");
     }
@@ -85,6 +96,13 @@ function convertToFToC($inputString) {
                     <div class="post-section">
                         <p class="post-title">Nuptial Flight #<?php echo $flightID; ?>: <?php echo $species; ?></p>
                     </div>
+                    <div class="post-section vote-container">
+                        <div class="vote-subcontainer">
+                            <div class="icon-container"><img class="icon" id="upvote-trigger" src="/web_images/icons/upvote.png"/></div>
+                            <p class="vote-count <?php echo $color; ?>" id="total-votes"><?php echo $totalVotes; ?></p>
+                            <div class="icon-container"><img class="icon" id="downvote-trigger" src="/web_images/icons/downvote.png"/></div>
+                        </div>
+                    </div>
                     <div class="post-section">
                         <p class="body"><?php echo $body; ?></p>
                     </div>
@@ -92,7 +110,7 @@ function convertToFToC($inputString) {
                         <div class="user-data">
                             <p class="by">Posted by</p>
                             <div class="user-image-container"><img class="user-image" src="<?php echo $postersImage; ?>"/></div>
-                            <a class="by by-link" href="/users?userID=<?php echo $posterID; ?>"><?php echo $posterUsername; ?></a>
+                            <a class="by by-link" href="/users/user?userID=<?php echo $posterID; ?>"><?php echo $posterUsername; ?></a>
                             <p class="by">on <?php echo $datePosted; ?></p>
                         </div>
                         <?php
@@ -102,7 +120,7 @@ function convertToFToC($inputString) {
                             <div class="user-data" id="edited-by">
                                 <p class="by">Edited by</p>
                                 <div class="user-image-container"><img class="user-image" src="'.$editedByUserImage.'"/></div>
-                                <a class="by by-link" href="/users?userID=1">'.$editedByUsername.'</a>
+                                <a class="by by-link" href="/users/user?userID=1">'.$editedByUsername.'</a>
                                 <p class="by">on '.$lastEditDatetime.'</p>
                             </div>
                             ';
@@ -125,7 +143,7 @@ function convertToFToC($inputString) {
                     </div>
                     <div class="post-section section-wrap post-meta">
                         <p class="meta">Temperature: <?php echo $tempF; ?> (<?php echo $tempC; ?>)</p>
-                        <p class="meta">Wind Speed: <?php echo $windSpeed; ?></p>
+                        <p class="meta">Wind Speed: <?php echo $windSpeed; ?>mph</p>
                         <p class="meta">Moon Cycle: <?php echo $moonCycle; ?></p>
                     </div>
                     <div class="post-section section-wrap post-meta">
