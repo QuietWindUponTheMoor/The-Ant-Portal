@@ -9,7 +9,9 @@ $sqlFiles = [
     "/users.sql",
     "/answers.sql",
     "/users_archive.sql",
-    "/nuptial_flights.sql"
+    "/nuptial_flights.sql",
+    "/nf_has_voted.sql",
+    "/question_has_voted.sql"
 ];
 
 // Create tables_schema if not exists

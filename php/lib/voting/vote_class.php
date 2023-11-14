@@ -4,8 +4,11 @@ $anchor .= "/php/all_file_anchor.php";
 require($anchor);
 
 class Voting {
+    private static int $type;
     private static string $table;
     private static string $IDCol;
+    private static string $voteTable;
+    private static string $voteIDCol;
     private static int $postID;
     private static int $userID;
     private final static int $upvoteReward = 2;
@@ -15,14 +18,19 @@ class Voting {
         // Initialize properties
         final $this->postID = $postID;
         final $this->userID = $userID;
+        final $this->type = $postType;
         if ($postType === 1) {
             // Post type is "Question"
             final $this->table = "posts";
             final $this->IDCol = "postID";
+            final $this->voteTable = "questions_has_voted";
+            final $this->IDCol = "forPostID";
         } else if ($postType === 2) {
             // Post type is "Nuptial Flight"
             final $this->table = "nuptial_flights";
             final $this->IDCol = "flightID";
+            final $this->voteTable = "nf_has_voted";
+            final $this->IDCol = "forFlightID";
         }
     }
 
@@ -36,9 +44,21 @@ class Voting {
         } catch (\Exception $e) {
             echo "Custom exception: " , $e->getMessage();
         }
+
+        // 
     }
 
     // Private methods
+    private function hasVoted(): bool {
+        string $table = $this->voteTable;
+        string $IDCol = $this->voteIDCol;
+        $res = $db->select("SELECT * FROM $table WHERE $IDCol=? AND userID=?", "ii", int $this->postID, int $this->userID);
+        if ($res->num_rows > 0) {
+            // User HAS voted for this post/etc before
+        } else {
+            // User hasn't voted for this post/etc yet
+        }
+    }
     private function fetchCurrentVoteCount(): int {
         string $table = $this->table;
         string $col = $this->IDCol;
