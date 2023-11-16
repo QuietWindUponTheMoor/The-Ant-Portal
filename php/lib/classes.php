@@ -302,6 +302,8 @@ class Database {
             or die("Could not execute SQL sequence.");
         mysqli_stmt_close($stmt)
             or die("Could not close SQL connection.");
+
+        return true;
     }
 
     public function __generateWhereValueExistsInString() {

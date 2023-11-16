@@ -174,5 +174,72 @@ function convertToFToC($inputString) {
         </div>
     </div>
 </body>
+<script type="text/javascript">
+$("#upvote-trigger").on("click", async () => {
+    await upvote();
+});
+$("#downvote-trigger").on("click", async () => {
+    await downvote();
+});
+
+async function upvote() {
+    $.ajax({  
+        type: "POST",  
+        url: "/php/lib/voting/post_voting.php", 
+        data: {
+            voteType: 2,
+            postID: <?php echo $flightID; ?>,
+            userID: <?php echo $userID; ?>,
+            upvoteOrDownvote: 1
+        },
+        success: function(response) {
+            // ParseInt--if parseInt DOESN'T result in "NaN", then it was a success.
+            if (response === NaN) {
+                // Not successful
+                alert(response);
+            } else if (response !== NaN) {
+                $("#total-votes").text(response);
+            } else {
+                alert(response);
+            }
+        }
+    });
+}
+async function downvote() {
+    $.ajax({  
+        type: "POST",  
+        url: "/php/lib/voting/post_voting.php", 
+        data: {
+            voteType: 2,
+            postID: <?php echo $flightID; ?>,
+            userID: <?php echo $userID; ?>,
+            upvoteOrDownvote: 2
+        },
+        success: function(response) {
+            // ParseInt--if parseInt DOESN'T result in "NaN", then it was a success.
+            if (response === NaN) {
+                // Not successful
+                alert(response);
+            } else if (response !== NaN) {
+                $("#total-votes").text(response);
+            } else {
+                alert(response);
+            }
+        }
+    });
+}
+
+async function sendAJAX(url, dataObj, method, processData, contentType, __callback) {
+    // Execute AJAX
+    await $.ajax({  
+        type: method,  
+        url: url, 
+        data: dataObj,
+        processData: processData,
+        contentType: contentType,
+        success: __callback
+    });
+}
+</script>
 
 <?php require($root."/includes/footer.php"); ?>
