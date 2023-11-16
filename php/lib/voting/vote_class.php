@@ -213,8 +213,8 @@ class Voting {
         $col = $this->IDCol;
         // Fetch current downvote count
         $currentDownvoteCount = $this->fetchDownvoteCount();
-        // Calculate new downvote count (current - 1)
-        $newDownvoteCount = $currentDownvoteCount - 1;
+        // Calculate new downvote count (current + 1)
+        $newDownvoteCount = $currentDownvoteCount + 1;
         return $this->db->insert("UPDATE $table SET downvotes=? WHERE $col=?;", "ii", $newDownvoteCount, $this->postID);
     }
     private function decrementUpvote(): bool {

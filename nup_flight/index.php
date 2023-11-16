@@ -50,6 +50,9 @@ if (!isset($_GET["flightID"]) || $_GET["flightID"] < 1) {
         } else {
             $color = "";
         }
+        $voteButtonOpacities = voteButtonControls($db, $flightID, $userID);
+        $upvoteButtonOpacity = $voteButtonOpacities[0];
+        $downvoteButtonOpacity = $voteButtonOpacities[1];
     } else {
         header("Location: /");
     }
@@ -83,6 +86,24 @@ function convertToFToC($inputString) {
     // Return the original string if the format is not recognized
     return $inputString;
 }
+
+function voteButtonControls($db, $postID, $thisUserID) {
+    $res = $db->select("SELECT * FROM nf_has_voted WHERE forFlightID=? AND userID=?", "ii", $postID, $thisUserID);
+    if ($res->num_rows > 0) {
+        // User HAS voted for this post/etc before
+        $updown = mysqli_fetch_assoc($res)["updown"];
+        if ($updown === 1) {
+            // The vote was an upvote
+            return ["opacity: 1;", "opacity: 0.6;"];
+        } else if ($updown === 0) {
+            // The vote was a downvote
+            return ["opacity: 0.6;", "opacity: 1;"];
+        }
+    } else {
+        // User hasn't voted for this post/etc yet
+        return ["opacity: 0.6;", "opacity: 0.6;"];
+    }
+}
 ?>
 
 <body>
@@ -98,9 +119,9 @@ function convertToFToC($inputString) {
                     </div>
                     <div class="post-section vote-container">
                         <div class="vote-subcontainer">
-                            <div class="icon-container"><img class="icon" id="upvote-trigger" src="/web_images/icons/upvote.png"/></div>
+                            <div class="icon-container"><img class="icon" id="upvote-trigger" style="<?php echo $upvoteButtonOpacity; ?>" src="/web_images/icons/upvote.png"/></div>
                             <p class="vote-count <?php echo $color; ?>" id="total-votes"><?php echo $totalVotes; ?></p>
-                            <div class="icon-container"><img class="icon" id="downvote-trigger" src="/web_images/icons/downvote.png"/></div>
+                            <div class="icon-container"><img class="icon" id="downvote-trigger" style="<?php echo $downvoteButtonOpacity; ?>" src="/web_images/icons/downvote.png"/></div>
                         </div>
                     </div>
                     <div class="post-section">
@@ -183,6 +204,8 @@ $("#downvote-trigger").on("click", async () => {
 });
 
 async function upvote() {
+    $("#upvote-trigger").css("opacity", "0.6");
+    $("#downvote-trigger").css("opacity", "0.6");
     $.ajax({  
         type: "POST",  
         url: "/php/lib/voting/post_voting.php", 
@@ -199,6 +222,7 @@ async function upvote() {
                 alert(response);
             } else if (response !== NaN) {
                 $("#total-votes").text(response);
+                $("#upvote-trigger").css("opacity", "1");
             } else {
                 alert(response);
             }
@@ -206,6 +230,8 @@ async function upvote() {
     });
 }
 async function downvote() {
+    $("#upvote-trigger").css("opacity", "0.6");
+    $("#downvote-trigger").css("opacity", "0.6");
     $.ajax({  
         type: "POST",  
         url: "/php/lib/voting/post_voting.php", 
@@ -222,22 +248,11 @@ async function downvote() {
                 alert(response);
             } else if (response !== NaN) {
                 $("#total-votes").text(response);
+                $("#downvote-trigger").css("opacity", "1");
             } else {
                 alert(response);
             }
         }
-    });
-}
-
-async function sendAJAX(url, dataObj, method, processData, contentType, __callback) {
-    // Execute AJAX
-    await $.ajax({  
-        type: method,  
-        url: url, 
-        data: dataObj,
-        processData: processData,
-        contentType: contentType,
-        success: __callback
     });
 }
 </script>
