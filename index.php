@@ -16,6 +16,15 @@ require($root."/includes/navbar.php");
                     <p class="title">Recent Activity</p>
                     <a class="btn-main" id="create-post-button" href="/create_post/">Create Post</a>
                 </div>
+                <div class="container-main-pagination-container">
+                    <a class="pag-button" href="#">First</a>
+                    <a class="pag-button" href="#">1</a>
+                    <a class="pag-button" href="#">2</a>
+                    <a class="pag-button" href="#">3</a>
+                    <a class="pag-button" href="#">4</a>
+                    <p class="pag-button" id="delimiter">...</p>
+                    <a class="pag-button" href="#">Last</a>
+                </div>
                 <?php
                 $res = $db->selectAll("SELECT * FROM posts ORDER BY postID DESC LIMIT 20;");
                 if ($res->num_rows > 0) {
@@ -99,7 +108,15 @@ require($root."/includes/navbar.php");
                     }
                 }
                 ?>
-
+                <div class="container-main-pagination-container">
+                    <a class="pag-button" href="#">First</a>
+                    <a class="pag-button" href="#">1</a>
+                    <a class="pag-button" href="#">2</a>
+                    <a class="pag-button" href="#">3</a>
+                    <a class="pag-button" href="#">4</a>
+                    <p class="pag-button" id="delimiter">...</p>
+                    <a class="pag-button" href="#">Last</a>
+                </div>
             </div>
 
             <?php require($root."/includes/container_right.php"); ?>

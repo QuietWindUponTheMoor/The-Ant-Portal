@@ -843,3 +843,67 @@ class CreatePost {
         }
     }
 }
+
+class Pagination {
+    private object $db;
+    private int $limit;
+    private string $query;
+    private array $bind_data;
+
+    public function __construct(object $db, int $limit, string $query, ...$bind_data) {
+        $this->db = $db;
+        $this->limit = $limit;
+        $this->query = $query;
+        $this->bind_data = [$bind_data];
+    }
+
+    public function feed(): array {
+        // Easier vars
+        $db = $this->db;
+        $query = $this->query;
+        $limit = $this->limit;
+        $bind_data = $bind_data;
+
+        // Actual pagination stuff ahead:
+
+        // Initialize vars
+        $rows = [];
+        $page_count = 1;
+        $first = 1;
+        $last = 2;
+        $item_count = 0;
+
+        // Static vars
+        $page_limit_before_delimiter = 6;
+        $item_limit_before_new_page = 20;
+
+        // Get data
+        $res = $db->select($query, ...$bind_data);
+        if ($res->num_rows > 0) {
+            // There is at least one page, probably more
+            // Set count of items
+            $item_count = $res->num_rows;
+            while ($row = mysqli_fetch_assoc($res)) {
+                // Push data to $rows array
+                array_push($rows, $row);
+            }
+        } else {
+            // There is no data to display, so there's only one page and it's blank
+            // Set count of items
+            $item_count = $res->num_rows; // Should be 0
+            // Do nothing else here
+        }
+
+        // Process information
+        // Round up 
+        $page_count = ceil($item_count / $item_limit_before_new_page);
+        if ($page_count < 1) {
+            // Modify to be just 1 page
+            $page_count = 1;
+        }
+    }
+
+    public function displayPages() {
+
+    }
+}

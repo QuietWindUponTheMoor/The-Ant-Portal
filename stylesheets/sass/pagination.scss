@@ -1,0 +1,23 @@
+@import "theme.scss";
+
+.container_main {
+    // Do not put anything here.
+    .container-main-pagination-container {
+        flex-direction: row;
+        padding: 1rem;
+        width: 100%;
+        gap: 8px;
+        border-top: 1px solid $theme-30-hover-light !important;
+        .pag-button {
+            font-size: 85%;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+        #delimiter {
+            &:hover {
+                text-decoration: none !important;
+            }
+        }
+    }
+}
