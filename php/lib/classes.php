@@ -982,41 +982,15 @@ class Feed {
 
         // Set properties
         $this->page_count = $page_count;
-        $this->postsArray = $rows;
+        $this->postsArray = $this->sortArray(1, $rows);
     }
 
-    public function feed(): void {
-        // Easier vars
-        $postsArray = $this->postsArray;
-
-        // Split into groups by the type
-        $breakdown = [];
-        foreach ($postsArray as $item) {
-            $breakdown[$item['type']][] = $item;
+    public function feed() {
+        $posts = $this->sortArray(1, $this->postsArray);
+        foreach ($posts as $post) {
+            echo $this->generatePost($post["type"], $post["userID"], $post["postHREF"], $post["title"], $post["text"], $post["upvotes"], $post["downvotes"], $post["views"], $post["answers"], $post["replies"], $post["editedByUserID"], $post["datetime"]);
         }
-        // Sort by the key to create desired order
-        ksort($breakdown);
-
-        $breakSize = 3;
-
-        do {
-            // If flag doesn't changem then run out of content
-            $anyOutput = false;
-            foreach ($breakdown as $key => &$textList) {
-                // Loop while less than the break size but also with something left
-                for ($i = 0; $i < $breakSize && !empty($textList); $i++) {
-                    $new_item = array_shift($textList);
-                    $post = $new_item;
-                    echo $this->generatePost($post["type"], $post["userID"], $post["postHREF"], $post["title"], $post["text"], $post["upvotes"], $post["downvotes"], $post["views"], $post["answers"], $post["replies"], $post["editedByUserID"], $post["datetime"]);
-                    // Flag something put out
-                    $anyOutput = true;
-                }
-            }
-        } while ($anyOutput);
     }
-    
-    //echo $this->generatePost($post["type"], $post["userID"], $post["postHREF"], $post["title"], $post["text"], $post["upvotes"], $post["downvotes"], $post["views"], $post["answers"], $post["replies"], $post["editedByUserID"], $post["datetime"]);
-    
     
     public function displayPages(): void {
         // Easier vars
@@ -1104,5 +1078,22 @@ class Feed {
             $image = $d["image"];
             return [$username, $userID, $image];
         }
+    }
+    public function sortArray(int $maxConsecutive, array $array): array {
+        // Initialize grouper and columns arrays
+        $grouper = [];
+        $column = [];
+
+        // Process items in the array
+        foreach ($array as $row) {
+            $column[] = $row["type"];
+            $encountered[$row["type"]] ??= 0;
+            $grouper[] = intdiv($encountered[$row["type"]]++, $maxConsecutive);
+        }
+
+        // Finally, sort the array
+        array_multisort($grouper, $column, $array);
+
+        return $array;
     }
 }
