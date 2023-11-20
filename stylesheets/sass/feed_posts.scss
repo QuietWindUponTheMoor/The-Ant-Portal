@@ -1,0 +1,81 @@
+@import "theme.scss";
+
+.container-main-feed {
+    flex-direction: column;
+    &:last-child {
+        border-bottom: 1px solid $theme-30-hover-light;
+    }
+    .feed-post {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        padding: 1rem;
+        border-top: 1px solid $theme-30-hover-light;
+        .feed-post-section {
+            .feed-post-title {
+                display: block;
+                font-size: 110%;
+                color: $link;
+                &:hover {
+                    color: $link-hover;
+                    text-decoration: underline;
+                }
+            }
+            .tag {
+                font-size: 80%;
+                background-color: lighten($theme-10-hover-ultra-ultralight, 10%);
+                padding: 0.5rem;
+                border-radius: $b-lg;
+                border: 1px solid $theme-10-hover-ultralight;
+            }
+            .meta {
+                font-size: 80%;
+            }
+            .type {
+                font-weight: bold;
+            }
+        }
+        .feed-post-section-wrap {
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        .feed-post-meta {
+            border: 1px solid $theme-30-hover-light;
+            padding: 0.5rem;
+            border-radius: $b-med;
+        }
+        .feed-post-posted-by {
+            align-items: center;
+            background-color: lighten($theme-10-hover-ultra-ultralight, 10%);
+            border-radius: $b-lg;
+            border: 1px solid $theme-10-hover-ultralight;
+            padding: 0.5rem;
+            .posted-by {
+                flex-direction: row;
+                align-items: center;
+                gap: 10px;
+                .user-image-container {
+                    width: 20px;
+                    aspect-ratio: 1 / 1;
+                    .user-image {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: $b-sm;
+                    }
+                }
+                .text {
+                    font-size: 80%;
+                }
+                .username {
+                    color: $theme-10;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+}

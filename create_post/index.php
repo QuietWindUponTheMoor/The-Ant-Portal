@@ -19,6 +19,8 @@ require($nav);
                     <label for="post-type">What are you posting?</label>
                     <select class="input-main" name="postType" id="post-type" required>
                         <option value="1">Question</option>
+                        <option value="2">Sighting</option>
+                        <option value="3">General</option>
                         <!-- No other options here because changes how stuff is done. -->
                     </select>
                 </div>
