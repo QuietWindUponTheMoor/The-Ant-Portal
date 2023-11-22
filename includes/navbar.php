@@ -12,7 +12,6 @@ const isLoggedIn = <?php if ($isLoggedIn === true) {echo "true";} else {echo "fa
         <a class="main-button" href="/myrecords/">My Records</a>
     </div>
     <div class="navbar-layer layer-two">
-        
         <?php
         if ($isLoggedIn === true) {
             echo 
@@ -22,6 +21,22 @@ const isLoggedIn = <?php if ($isLoggedIn === true) {echo "true";} else {echo "fa
                 <p class="username">'.$username.'</p>
             </div></a>
             ';
+            if ($isAdmin === true) {
+                echo
+                '
+                <div class="nav-admin-controls">
+                    <div class="nav-button" id="admin-controls-trigger">
+                        <div class="button-image-container"><img class="button-image" id="admin-controls-image" src="/web_images/icons/expand_more.png"/></div>
+                        <p class="admin-dropdown-button">Admin Controls</p>
+                    </div>
+                    <div class="admin-controls-dropdown" id="admin-dropdown">
+                        <a class="admin-button" href="/create_news/">Post News</a>
+                        <a class="admin-button" href="#">Button Two</a>
+                        <a class="admin-button" href="#">Button Three</a>
+                    </div>
+                </div>
+                ';
+            }
             echo '<a class="reg-button" id="logout-button" href="/users/logout/">Sign Out</a>';
         } else {
             echo '<a class="reg-button" href="/users/register/">Register</a>';
@@ -30,3 +45,10 @@ const isLoggedIn = <?php if ($isLoggedIn === true) {echo "true";} else {echo "fa
         ?>
     </div>
 </div>
+
+<script type="text/javascript">
+$("#admin-controls-trigger").on("click", () => {
+    $("#admin-dropdown").slideToggle("fast");
+    $("#admin-controls-image").toggleClass("rotate");
+});
+</script>

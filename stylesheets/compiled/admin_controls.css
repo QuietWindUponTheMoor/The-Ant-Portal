@@ -1,0 +1,98 @@
+.color-60 {
+  background-color: #FDFDFD;
+  width: 300px;
+  height: 100px;
+}
+
+.color-30 {
+  background-color: #313535;
+  width: 300px;
+  height: 40px;
+  color: white;
+}
+
+.color-10 {
+  background-color: #2AA00A;
+  width: 300px;
+  height: 20px;
+  color: white;
+}
+
+.nav-admin-controls {
+  position: relative;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0;
+  border-radius: 500px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+.nav-admin-controls .nav-button {
+  border: 1px solid #191b1b;
+  border-radius: 5px;
+  align-items: center;
+}
+.nav-admin-controls .nav-button:hover {
+  background-color: black;
+  border: 1px solid gold;
+}
+.nav-admin-controls .nav-button .button-image-container {
+  width: 25px;
+  height: 25px;
+  aspect-ratio: 1/1;
+}
+.nav-admin-controls .nav-button .button-image-container .button-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 500px;
+  transition: transform 0.3s ease;
+}
+.nav-admin-controls .nav-button .button-image-container .rotate {
+  transform: rotate(180deg);
+}
+.nav-admin-controls .nav-button .admin-dropdown-button {
+  padding: 0.5rem;
+  font-weight: 300;
+  font-size: 80%;
+  color: gold;
+}
+.nav-admin-controls .admin-controls-dropdown {
+  display: none;
+  position: absolute;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  padding: 0.5rem;
+  background-color: #191b1b;
+  top: 185%;
+  gap: 0.5rem;
+  border-radius: 5px;
+}
+.nav-admin-controls .admin-controls-dropdown::before {
+  content: "";
+  position: absolute;
+  top: -5px; /* Adjust the distance from the top as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #191b1b;
+  transform-origin: 0 0;
+}
+.nav-admin-controls .admin-controls-dropdown .admin-button {
+  padding: 0.5rem;
+  font-weight: 300;
+  font-size: 80%;
+  color: gold;
+  border: 1px solid #191b1b;
+  border-radius: 5px;
+}
+.nav-admin-controls .admin-controls-dropdown .admin-button:hover {
+  border: 1px solid gold;
+}/*# sourceMappingURL=admin_controls.css.map */

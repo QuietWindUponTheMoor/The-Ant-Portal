@@ -3,6 +3,7 @@
 @import "posts.scss";
 @import "pagination.scss";
 @import "feed_posts.scss";
+@import "admin_controls.scss";
 
 
 * {
@@ -421,7 +422,6 @@ html {
         }
         .profile-button {
             flex-direction: row;
-            justify-content: flex-start;
             align-items: center;
             gap: 8px;
             padding: 0.5rem;
