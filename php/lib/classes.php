@@ -977,6 +977,8 @@ class Feed {
 
         // Sort the original array
         $posts = $this->sortArray(1, $this->postsArray);
+
+        // Process the posts into a new array
         foreach ($posts as $post) {
             // Push the sorted array into the new array
             $new_item = $this->generatePost($post["type"], $post["userID"], $post["postHREF"], $post["title"], $post["text"], $post["upvotes"], $post["downvotes"], $post["views"], $post["answers"], $post["replies"], $post["editedByUserID"], $post["datetime"]);
@@ -988,28 +990,21 @@ class Feed {
         // Page number
         $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         // Offset
-        if ($current_page < 2) {
-            // If it's the first page
-            $offset = $per_page_limit;
-        } else {
-            $offset = ($per_page_limit * ($current_page - 1));
-        }
+        $offset = ($current_page - 1) * $per_page_limit;
 
-        $posts = array_slice($new_posts_array, $offset, $per_page_limit, false);
+        $new_posts = array_slice($new_posts_array, $offset, $per_page_limit, false);
         
         // Display the items per page
-        foreach ($posts as $post) {
+        foreach ($new_posts as $post) {
             echo $post;
         }
     }
-    
     public function displayPages(): void {
         // Easier vars
         $current_page = $this->current_page;
 
         // Get the current page count
         $page_count = ceil($this->item_count / $this->item_limit);
-
 
         // Get page limit before delimiter
         $page_limit_before_delimiter = 6;
