@@ -27,7 +27,7 @@ const isLoggedIn = <?php if ($isLoggedIn === true) {echo "true";} else {echo "fa
                 <div class="nav-admin-controls">
                     <div class="nav-button" id="admin-controls-trigger">
                         <div class="button-image-container"><img class="button-image" id="admin-controls-image" src="/web_images/icons/expand_more.png"/></div>
-                        <p class="admin-dropdown-button">Admin Controls</p>
+                        <p class="admin-dropdown-button">Admin Actions</p>
                     </div>
                     <div class="admin-controls-dropdown" id="admin-dropdown">
                         <a class="admin-button" href="/create_news/">Post News</a>
