@@ -847,12 +847,13 @@ class CreatePost {
 class Feed {
     // Static
     private object $db;
+    private int $item_limit = 10;
 
     // Static until set
     private int $page_count;
     private array $postsArray;
     private int $current_page;
-    private int $page_limit_before_delimiter;
+    private int $item_count;
 
     public function __construct(object $db) {
         $this->db = $db;
@@ -867,7 +868,6 @@ class Feed {
         $nup_flights_item_count = 0;
 
         // Static vars
-        $this->page_limit_before_delimiter = $page_limit_before_delimiter = 6;
         $item_limit_before_new_page = 5;
 
         // Var control for queries:
@@ -899,8 +899,7 @@ class Feed {
 
         // Check GET data for the current page
         $this->current_page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
-        // Calculate offset for regular posts based on the current page
-        $offset_regular = max(0, ($this->current_page - 1) * $item_limit_before_new_page);
+
 
         // Regular posts
         $postsRes = $this->db->selectAll("SELECT * FROM posts $post_type_string ORDER BY postID $post_order;");
@@ -934,10 +933,7 @@ class Feed {
             // Do nothing else here
         }
 
-        // Calculate offset for nup_flight posts based on the current page
-        $offset_nup_flight = max(0, ($this->current_page - 1) * $item_limit_before_new_page);
-
-        // Now do the same with nup_flight posts
+        // nup_flight posts
         $postsRes = $this->db->selectAll("SELECT * FROM nuptial_flights ORDER BY flightID $post_order;");
         if ($postsRes->num_rows > 0) {
             // There is at least one page, probably more
@@ -969,34 +965,54 @@ class Feed {
             // Do nothing else here
         }
 
-        // Finish setting item counts
-        $item_count = $posts_item_count + $nup_flights_item_count;
-
-        // Process information
-        // Round up 
-        $page_count = ceil($item_count / $item_limit_before_new_page);
-        if ($page_count < 1) {
-            // Modify to be just 1 page
-            $page_count = 1;
-        }
-
         // Set properties
         $this->page_count = $page_count;
         $this->postsArray = $this->sortArray(1, $rows);
+        $this->item_count = count($this->postsArray);
     }
 
     public function feed() {
+        // Initialize the final array
+        $new_posts_array = [];
+
+        // Sort the original array
         $posts = $this->sortArray(1, $this->postsArray);
         foreach ($posts as $post) {
-            echo $this->generatePost($post["type"], $post["userID"], $post["postHREF"], $post["title"], $post["text"], $post["upvotes"], $post["downvotes"], $post["views"], $post["answers"], $post["replies"], $post["editedByUserID"], $post["datetime"]);
+            // Push the sorted array into the new array
+            $new_item = $this->generatePost($post["type"], $post["userID"], $post["postHREF"], $post["title"], $post["text"], $post["upvotes"], $post["downvotes"], $post["views"], $post["answers"], $post["replies"], $post["editedByUserID"], $post["datetime"]);
+            array_push($new_posts_array, $new_item);
+        }
+
+        // Item limit
+        $per_page_limit = $this->item_limit;
+        // Page number
+        $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        // Offset
+        if ($current_page < 2) {
+            // If it's the first page
+            $offset = $per_page_limit;
+        } else {
+            $offset = ($per_page_limit * ($current_page - 1));
+        }
+
+        $posts = array_slice($new_posts_array, $offset, $per_page_limit, false);
+        
+        // Display the items per page
+        foreach ($posts as $post) {
+            echo $post;
         }
     }
     
     public function displayPages(): void {
         // Easier vars
-        $page_count = $this->page_count;
         $current_page = $this->current_page;
-        $page_limit_before_delimiter = $this->page_limit_before_delimiter;
+
+        // Get the current page count
+        $page_count = ceil($this->item_count / $this->item_limit);
+
+
+        // Get page limit before delimiter
+        $page_limit_before_delimiter = 6;
 
         // Process
         echo '<a class="pag-button" href="?page=1">First</a>';
@@ -1007,18 +1023,6 @@ class Feed {
             echo '<p class="pag-button" id="delimiter">...</p>';
         }
         echo '<a class="pag-button" href="?page='.$page_count.'">Last</a>';
-
-        // Echo
-        /*echo
-        '
-        <a class="pag-button" href="#">First</a>
-        <a class="pag-button" href="#">1</a>
-        <a class="pag-button" href="#">2</a>
-        <a class="pag-button" href="#">3</a>
-        <a class="pag-button" href="#">4</a>
-        <p class="pag-button" id="delimiter">...</p>
-        <a class="pag-button" href="#">Last</a>
-        ';*/
     }
     public function generatePost(int $type, int $postedByUserID, string $postHREF, string $title, string $body, int $upvotes, int $downvotes, int $views, int $answers, int $replies, int $editedByUserID, string $datetime): string {
         $rating = $upvotes - $downvotes;
