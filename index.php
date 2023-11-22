@@ -17,7 +17,7 @@ $posts = new Feed($db);
             <div class="container_main">
                 <div class="container-main-title-container">
                     <p class="title">Recent Activity</p>
-                    <a class="btn-main" id="create-post-button" href="/create_post/">Create Post</a>
+                    <?php require($root."/mini-includes/modals/post_type_modal.php"); ?>
                 </div>
                 <div class="container-main-pagination-container">
                     <?php $posts->displayPages(); ?>

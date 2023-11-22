@@ -116,3 +116,45 @@
         }
     }
 }
+
+
+.create-post-button-container, .container-main-title-container {
+    .create-post-ask-type-modal {
+        display: none;
+        position: fixed;
+        flex-direction: column;
+        background-color: white;
+        border-radius: $b-xlg;
+        padding: 1rem;
+        width: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 50000px 50px black;
+        .modal-top {
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            .modal-title {
+                font-size: 100%;
+                font-weight: bold;
+                margin: 0 !important;
+            }
+        }
+        .modal-bottom {
+            flex-direction: column;
+            width: 100%;
+            gap: 20px;
+            .modal-section {
+                flex-direction: row;
+                width: 100%;
+                justify-content: flex-start;
+                gap: 1rem;
+                button, a {
+                    font-size: 70%;
+                }
+            }
+        }
+    }
+}

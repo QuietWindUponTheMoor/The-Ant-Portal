@@ -129,4 +129,43 @@
   width: 100%;
   max-width: 100%;
   max-height: 100%;
+}
+
+.create-post-button-container .create-post-ask-type-modal, .container-main-title-container .create-post-ask-type-modal {
+  display: none;
+  position: fixed;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 15px;
+  padding: 1rem;
+  width: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 50000px 50px black;
+}
+.create-post-button-container .create-post-ask-type-modal .modal-top, .container-main-title-container .create-post-ask-type-modal .modal-top {
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.create-post-button-container .create-post-ask-type-modal .modal-top .modal-title, .container-main-title-container .create-post-ask-type-modal .modal-top .modal-title {
+  font-size: 100%;
+  font-weight: bold;
+  margin: 0 !important;
+}
+.create-post-button-container .create-post-ask-type-modal .modal-bottom, .container-main-title-container .create-post-ask-type-modal .modal-bottom {
+  flex-direction: column;
+  width: 100%;
+  gap: 20px;
+}
+.create-post-button-container .create-post-ask-type-modal .modal-bottom .modal-section, .container-main-title-container .create-post-ask-type-modal .modal-bottom .modal-section {
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+.create-post-button-container .create-post-ask-type-modal .modal-bottom .modal-section button, .create-post-button-container .create-post-ask-type-modal .modal-bottom .modal-section a, .container-main-title-container .create-post-ask-type-modal .modal-bottom .modal-section button, .container-main-title-container .create-post-ask-type-modal .modal-bottom .modal-section a {
+  font-size: 70%;
 }/*# sourceMappingURL=posts.css.map */
