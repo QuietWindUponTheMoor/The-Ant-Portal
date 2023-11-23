@@ -10,6 +10,7 @@ class SystemChecks {
     public string $userPFP;
     private string $profileImageColumnName;
     public string $dbName;
+    public $badging;
 
     /* RANKS:
     2 = admin
@@ -28,6 +29,12 @@ class SystemChecks {
             $this->isModerator = $this->isModerator();
             $this->username = $this->fetchUsername($this->userID);
             $this->fetchProfileImage(); // Assign $userPFP property
+            // Do badging
+            $ownedBadgesTable = "owned_badges";
+            $dbRes = $this->db->selectAll("SHOW TABLES LIKE '$ownedBadgesTable';");
+            if ($dbRes->num_rows > 0) {
+                $this->badging = new Badging($this->db, $this->userID);
+            }
         } else {
             $this->isLoggedIn = false;
             $this->isAdmin = false;
@@ -1094,5 +1101,96 @@ class Feed {
         array_multisort($grouper, $column, $array);
 
         return $array;
+    }
+}
+
+class Badging {
+    // Static
+    private object $db;
+    public array $badges;
+
+    // Dynamic
+    private int $userID;
+    private int $seedsCount;
+    private array $userBadges;
+
+    public function __construct(object $db, int $userID=null) {
+        $this->db = $db;
+        $this->userID = $userID;
+        $this->date = date("m/d/Y");
+        require($_SERVER["DOCUMENT_ROOT"]."/php/settings/badges.php");
+        $this->badges = $badges;
+        // Get a count of user's seeds
+        $seedsRes = $db->select("SELECT seeds FROM users WHERE userID=?;", "i", $userID);
+        if ($seedsRes->num_rows > 0) {
+            $this->seedsCount = mysqli_fetch_assoc($seedsRes)["seeds"];
+        } else {
+            $this->seedsCount = null;
+        }
+        // Get an array of user badges:
+        $userBadges = []; // Initialize array
+        $hasBadgeRes = $this->db->select("SELECT * FROM owned_badges WHERE userID=?;", "i", $userID);
+        if ($hasBadgeRes->num_rows > 0) {
+            while ($badges = mysqli_fetch_assoc($hasBadgeRes)) {
+                array_push($userBadges, $badges["badge"]);
+            }
+        }
+        // Set userBadges property
+        $this->userBadges = $userBadges;
+
+        // Do badges checks
+        $this->automaticBadgesChecks();
+    }
+
+    private function automaticBadgesChecks(): bool {
+        $userID = $this->userID;
+        $badges = $this->badges;
+        $seeds = $this->seedsCount;
+        $userBadges = $this->userBadges;
+
+        // Badge control
+        return $this->badgeControl($badges, $userID, $seeds, $userBadges);
+    }
+
+    public function manualBadgesChecks(int $userID): bool {
+        $badges = $this->badges;
+        $seeds = $this->seedsCount;
+        $userBadges = $this->userBadges;
+
+        // Badge control
+        return $this->badgeControl($badges, $userID, $seeds, $userBadges);
+    }
+
+    public function userHasSpecificBadge(string|int $badgeType, int $userID): bool {
+        $res = $this->db->select("SELECT * count FROM owned_badges WHERE badge=? userID=?;", "ii", $badgeType, $userID);
+        if ($res->num_rows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private function badgeControl(array $badges, int $userID, int $seeds, array $userBadges): bool {
+        foreach ($badges as $badge) {
+            // If the user has enough seeds for this badge
+            $requiredSeeds = $badge["cost"];
+            if ($requiredSeeds <= $seeds) {
+                // Check if user has this badge already or not
+                if (in_array($badge["id"], $userBadges)) {
+                    // User has the badge
+                    $hasThisBadge = true;
+                } else {
+                    // User doesn't have the badge
+                    $hasThisBadge = false;
+                }
+
+                // Give the user this badge if they don't have it already
+                if ($hasThisBadge === false) {
+                    $this->db->insert("INSERT INTO owned_badges (userID, badge, earned_on_date) VALUES (?, ?, ?);", "iis", $userID, $badge["id"], $this->date);
+                }
+            }
+        }
+
+        return true;
     }
 }
