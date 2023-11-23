@@ -27,52 +27,55 @@
 .form-main .final-section {
   flex-wrap: wrap;
 }
-.form-main .form-section, .form-main .final-section {
+.form-main .form-section-dynamic-fields .form-section {
+  padding: 1rem;
+}
+.form-main .form-section, .form-main .final-section, .form-main .form-section-dynamic-fields {
   flex-direction: column;
   gap: 8px;
 }
-.form-main .form-section .response, .form-main .final-section .response {
+.form-main .form-section .response, .form-main .final-section .response, .form-main .form-section-dynamic-fields .response {
   font-weight: bold;
 }
-.form-main .form-section #error, .form-main .final-section #error {
+.form-main .form-section #error, .form-main .final-section #error, .form-main .form-section-dynamic-fields #error {
   color: #EA0303;
 }
-.form-main .form-section #warning, .form-main .final-section #warning {
+.form-main .form-section #warning, .form-main .final-section #warning, .form-main .form-section-dynamic-fields #warning {
   color: gold;
 }
-.form-main .form-section #success, .form-main .final-section #success {
+.form-main .form-section #success, .form-main .final-section #success, .form-main .form-section-dynamic-fields #success {
   color: #04D007;
 }
-.form-main .form-section .form-title, .form-main .final-section .form-title {
+.form-main .form-section .form-title, .form-main .final-section .form-title, .form-main .form-section-dynamic-fields .form-title {
   font-size: 120%;
 }
-.form-main .form-section .main-label, .form-main .final-section .main-label {
+.form-main .form-section .main-label, .form-main .final-section .main-label, .form-main .form-section-dynamic-fields .main-label {
   font-weight: bold;
 }
-.form-main .form-section label, .form-main .final-section label {
+.form-main .form-section label, .form-main .final-section label, .form-main .form-section-dynamic-fields label {
   font-size: 80%;
 }
-.form-main .form-section label .label-link, .form-main .final-section label .label-link {
+.form-main .form-section label .label-link, .form-main .final-section label .label-link, .form-main .form-section-dynamic-fields label .label-link {
   color: #37d00d;
   text-decoration: underline;
 }
-.form-main .form-section label .label-link:hover, .form-main .final-section label .label-link:hover {
+.form-main .form-section label .label-link:hover, .form-main .final-section label .label-link:hover, .form-main .form-section-dynamic-fields label .label-link:hover {
   color: #4cf11f;
 }
-.form-main .form-section .tags-list, .form-main .final-section .tags-list {
+.form-main .form-section .tags-list, .form-main .final-section .tags-list, .form-main .form-section-dynamic-fields .tags-list {
   gap: 10px;
 }
-.form-main .form-section .tags-list .tag, .form-main .final-section .tags-list .tag {
+.form-main .form-section .tags-list .tag, .form-main .final-section .tags-list .tag, .form-main .form-section-dynamic-fields .tags-list .tag {
   padding: 0.3rem;
   background-color: #bffaaf;
   border-radius: 5px;
   border: 1px solid #bffaaf;
   cursor: pointer;
 }
-.form-main .form-section .tags-list .tag:hover, .form-main .final-section .tags-list .tag:hover {
+.form-main .form-section .tags-list .tag:hover, .form-main .final-section .tags-list .tag:hover, .form-main .form-section-dynamic-fields .tags-list .tag:hover {
   border: 1px solid #2AA00A;
 }
-.form-main .form-section .tags-list, .form-main .final-section .tags-list {
+.form-main .form-section .tags-list, .form-main .final-section .tags-list, .form-main .form-section-dynamic-fields .tags-list {
   width: 100%;
   padding: 0.5rem;
   border-radius: 5px;

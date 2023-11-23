@@ -8,7 +8,10 @@
     .final-section {
         flex-wrap: wrap;
     }
-    .form-section, .final-section {
+    .form-section-dynamic-fields .form-section {
+        padding: 1rem;
+    }
+    .form-section, .final-section, .form-section-dynamic-fields {
         flex-direction: column;
         gap: 8px;
         .response {
@@ -38,12 +41,6 @@
                     color: $link-hover;
                 }
             }
-        }
-        input {
-
-        }
-        textarea {
-
         }
         .tags-list {
             gap: 10px;

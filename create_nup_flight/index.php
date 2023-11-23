@@ -18,7 +18,7 @@ if ($isLoggedIn === false) {
 
 
 
-                <form class="form-main" id="nup-flight-form" action="" method="POST" enctype="multipart/form-data">
+                <form class="form-main" id="news-form" action="" method="POST" enctype="multipart/form-data">
                     <div class="form-section">
                         <p class="form-title">Submit A Nuptial Flight Observation</p>
                         <p class="response" id="error"></p>

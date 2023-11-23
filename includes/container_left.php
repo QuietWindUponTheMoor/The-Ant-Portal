@@ -6,57 +6,50 @@
             <a class="title" id="news-collapse" type="button">-</a>
         </div>
     </div>
-
     <div class="news" id="news-bottom">
-        <div class="news_item">
-            <div class="top">
-                <p class="item_title">News title</p>
-                <p class="item_date">11/11/2023</p>
-            </div>
-            <div class="bottom">
-                <div class="section">
-                    <p class="section-title">Topic title #1</p>
-                    <ol>
-                        <li>Did this update</li>
-                        <li>Did that update</li>
-                        <li>Added this feature</li>
-                    </ol>
-                </div>
-                <div class="section">
-                    <p class="section-title">Topic title #2</p>
-                    <ol>
-                        <li>Fixed this bug</li>
-                        <li>Yada yada</li>
-                        <li>Finally, did this thing</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
+        <?php
+        $newsRes = $db->selectAll("SELECT * FROM news ORDER BY newsID LIMIT 3;");
+        if ($newsRes->num_rows > 0) {
+            while ($news = mysqli_fetch_assoc($newsRes)) {
+                $mainTitle = $news["mainTitle"];
+                $newsDatetime = $news["datetime"];
 
-        <div class="news_item">
-            <div class="top">
-                <p class="item_title">News title</p>
-                <p class="item_date">11/11/2023</p>
-            </div>
-            <div class="bottom">
-                <div class="section">
-                    <p class="section-title">Topic title #1</p>
-                    <ol>
-                        <li>Did this update</li>
-                        <li>Did that update</li>
-                        <li>Added this feature</li>
-                    </ol>
+                // Process topics/subjects
+                $topicsArray = explode("‡ ", $news["topics"]);
+                $topicSubjectsArray = explode("‡ ", $news["topicSubjects"]);
+
+                // Echo news
+                echo
+                '
+                <div class="news_item">
+                    <div class="top">
+                        <p class="item_title">'.$mainTitle.'</p>
+                        <p class="item_date">'.$newsDatetime.'</p>
+                    </div>
+                    <div class="bottom">
+                        ';
+                        foreach ($topicsArray as $key => $topic) {
+                            generateTopicAndSubject($topic, $topicSubjectsArray[$key]);
+                        }
+                        echo '
+                    </div>
                 </div>
-                <div class="section">
-                    <p class="section-title">Topic title #2</p>
-                    <ol>
-                        <li>Fixed this bug</li>
-                        <li>Yada yada</li>
-                        <li>Finally, did this thing</li>
-                    </ol>
-                </div>
+                ';
+            }
+        }
+
+        function generateTopicAndSubject(string $topicTitle, string $topicSubject) {
+            echo
+            '
+            <div class="section">
+                <p class="section-title">'.$topicTitle.'</p>
+                <ol>
+                    <li>'.$topicSubject.'</li>
+                </ol>
             </div>
-        </div>
+            ';
+        }
+        ?>
 
 
     </div>
