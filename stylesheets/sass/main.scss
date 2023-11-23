@@ -226,9 +226,14 @@ html {
             margin: 0;
             margin-inline: auto;
             padding: 1rem;
+            padding-top: 0;
+            padding-bottom: 0;
             min-height: 90vh;
             width: 100%;
             flex: 3;
+            background: url("/web_images/backgrounds/main_background_transparent.png");
+            background-repeat: repeat;
+            background-size: 50px;
             .container_sub {
                 flex-direction: row;
                 width: 100%;
@@ -251,6 +256,7 @@ html {
                     border-inline: 1px solid $theme-30-hover-light;
                     overflow-y: scroll;
                     max-height: 1200px;
+                    background-color: white;
                     &::-webkit-scrollbar {
                         width: 0;
                         background: transparent;

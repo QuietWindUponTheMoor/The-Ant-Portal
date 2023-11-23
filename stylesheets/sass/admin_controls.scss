@@ -9,6 +9,7 @@
     border-radius: $circle;
     user-select: none;
     cursor: pointer;
+    z-index: 100;
     .nav-button {
         border: 1px solid $navbar-color;
         border-radius: $b-med;
@@ -50,6 +51,7 @@
         top: 185%;
         gap: 0.5rem;
         border-radius: $b-med;
+        border: 0.5px solid $theme-60-hover-ultradark;
         &::before {
             content: '';
             position: absolute;
