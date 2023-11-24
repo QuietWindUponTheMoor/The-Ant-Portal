@@ -417,50 +417,6 @@ html {
                 background-color: $theme-30-hover;
             }
         }
-        .reg-button {
-            font-weight: 300;
-            padding: 0.5rem;
-            font-size: 95%;
-            border-radius: $circle;
-            &:hover {
-                background-color: $theme-30-hover;
-            }
-        }
-        .profile-button {
-            flex-direction: row;
-            align-items: center;
-            gap: 8px;
-            padding: 0.5rem;
-            border-radius: $circle;
-            &:hover {
-                background-color: $theme-30-hover;
-            }
-            .profile-image-container {
-                width: 25px;
-                aspect-ratio: 1 / 1;
-                max-width: 25px;
-                .profile-image {
-                    width: 100%;
-                    height: 100%;
-                    border-radius: $circle;
-                }
-            }
-            .username-badge-container {
-                width: 23px;
-                aspect-ratio: 1 / 1;
-                max-width: 23px;
-                .username-badge {
-                    width: 100%;
-                    height: 100%;
-                    border-radius: $b-med;
-                }
-            }
-            .username {
-                font-weight: 300;
-                font-size: 80%;
-                color: $theme-10;
-            }
-        }
     }
 }
 

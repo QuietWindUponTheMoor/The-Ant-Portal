@@ -80,7 +80,7 @@ function displayBadgesForUsername(array $badgesOfLastOfType): string {
         $badgeID = $badge["id"];
         $name = $badge["name"];
         $link = $badge["link"];
-        array_push($output, '<div class="username-badge-container" title="Badge: '.$name.'"><img class="username-badge" src="'.$link.'"/></div>');
+        array_push($output, '<a href="/badges?badgeID='.$badgeID.'"><div class="badge-image-container" title="Badge: '.$name.'"><img class="badge-image" src="'.$link.'"/></div></a>');
     }
 
     return implode("", $output);
@@ -96,36 +96,70 @@ function displayBadgesForUsername(array $badgesOfLastOfType): string {
         <a class="main-button" href="/myrecords/">My Records</a>
     </div>
     <div class="navbar-layer layer-two">
-        <?php
-        if ($isLoggedIn === true) {
-            echo 
-            '
-            <a href="/users/user?userID='.$userID.'"><div class="profile-button">
-                <div class="profile-image-container"><img class="profile-image" src="'.$userPFP.'"></div>
-                <p class="username">'.$username.'</p>';
-                echo displayBadgesForUsername($badgesOwned);
-            echo '</div></a>
-            ';
-            if ($isAdmin === true) {
-                echo
-                '
-                <div class="nav-admin-controls">
-                    <div class="nav-button" id="admin-controls-trigger">
-                        <div class="button-image-container"><img class="button-image" id="admin-controls-image" src="/web_images/icons/expand_more.png"/></div>
-                        <p class="admin-dropdown-button">Admin Actions</p>
-                    </div>
-                    <div class="admin-controls-dropdown" id="admin-dropdown">
-                        <a class="admin-button" href="/create_news/">Post News</a>
-                        <a class="admin-button" href="#">Button Two</a>
-                        <a class="admin-button" href="#">Button Three</a>
+        <div class="user-controls">
+            <div class="nav-controls">
+                <div class="nav-button" id="user-controls-trigger">
+                    <div class="button-image-container"><img class="button-image" id="user-controls-image" src="/web_images/icons/expand_more.png"/></div>
+                    <p class="dropdown-button">Your Account</p>
+                </div>
+                <div class="dropdown user-dropdwon" id="user-dropdown">
+                    <?php
+                    if ($isLoggedIn === true) {
+                        echo
+                        '
+                        <div class="user-welcome">
+                            <p class="welcome-message">Welcome,</p>
+                            <a class="username" href="/users/user?userID='.$userID.'">'.$username.'</a>
+                        </div>
+                        <div class="user-meta">
+                            <p class="label">Your recent badges</p>
+                            <div class="badges">';
+                                echo displayBadgesForUsername($badgesOwned);
+                            echo '</div>
+                        </div>
+                        ';
+                    } else {
+                        echo
+                        '
+                        <div class="user-welcome">
+                            <p class="welcome-message">You are not logged in.</p>
+                        </div>
+                        ';
+                    }
+                    ?>
+                    <div class="reg-buttons">
+                        <?php
+                        if ($isLoggedIn === true) {
+                            echo '<a class="reg-button" id="logout-button" href="/users/logout/">Sign Out</a>';
+                        } else {
+                            echo
+                            '
+                            <a class="reg-button" href="/users/register/">Register</a>
+                            <a class="reg-button" href="/users/login/">Sign In</a>
+                            ';
+                        }
+                        ?>
                     </div>
                 </div>
-                ';
-            }
-            echo '<a class="reg-button" id="logout-button" href="/users/logout/">Sign Out</a>';
-        } else {
-            echo '<a class="reg-button" href="/users/register/">Register</a>';
-            echo '<a class="reg-button" href="/users/login/">Sign In</a>';
+            </div>
+        </div>
+
+        <?php
+        if ($isLoggedIn === true && $isAdmin === true) {
+            echo
+            '
+            <div class="nav-controls">
+                <div class="nav-button" id="admin-controls-trigger">
+                    <div class="button-image-container"><img class="button-image" id="admin-controls-image" src="/web_images/icons/expand_more.png"/></div>
+                    <p class="dropdown-button">Admin Actions</p>
+                </div>
+                <div class="dropdown" id="admin-dropdown">
+                    <a class="button" href="/create_news/">Post News</a>
+                    <a class="button" href="#">Button Two</a>
+                    <a class="button" href="#">Button Three</a>
+                </div>
+            </div>
+            ';
         }
         ?>
     </div>
@@ -135,5 +169,10 @@ function displayBadgesForUsername(array $badgesOfLastOfType): string {
 $("#admin-controls-trigger").on("click", () => {
     $("#admin-dropdown").slideToggle("fast");
     $("#admin-controls-image").toggleClass("rotate");
+});
+
+$("#user-controls-trigger").on("click", () => {
+    $("#user-dropdown").slideToggle("fast");
+    $("#user-controls-image").toggleClass("rotate");
 });
 </script>
