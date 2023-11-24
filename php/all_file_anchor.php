@@ -6,7 +6,6 @@ require($classes);
 // Website link:
 $websiteLink = "http://173.25.108.108";
 
-
 // Caleb's version of the hostname
 $cHost = "localhost";
 // Everyone else's version of the hostname
@@ -21,3 +20,4 @@ if (gethostname() === "DESKTOP-HVA05O2" || gethostname() === "3080RBMS39") {
     $dbHost = $eHost;
     $SYSTEM_CHECKS = new SystemChecks("main", "image", "main", $eHost);
 };
+

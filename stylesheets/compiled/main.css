@@ -1009,6 +1009,16 @@ html body .main-feed-container {
   height: 100%;
   border-radius: 500px;
 }
+.navbar .navbar-layer .profile-button .username-badge-container {
+  width: 23px;
+  aspect-ratio: 1/1;
+  max-width: 23px;
+}
+.navbar .navbar-layer .profile-button .username-badge-container .username-badge {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
 .navbar .navbar-layer .profile-button .username {
   font-weight: 300;
   font-size: 80%;
