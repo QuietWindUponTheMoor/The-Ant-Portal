@@ -98,6 +98,7 @@
         .user-meta {
             flex-direction: column;
             gap: 10px;
+            padding: 0.5rem;
             .label {
                 font-size: 90%;
             }
@@ -124,6 +125,18 @@
                 }
             }
         }
+        .sub-section {
+            padding: 0.5rem;
+            border-top: 0.5px solid $theme-60;
+            .section-link {
+                font-size: 90%;
+                color: $warning;
+                &:hover {
+                    text-decoration: underline;
+                    opacity: 0.75;
+                }
+            }
+        }
         .reg-buttons {
             justify-content: space-between;
             align-items: center;
@@ -144,5 +157,6 @@
     .user-dropdown {
         padding-top: 0;
         padding-bottom: 0;
+        gap: 0 !important;
     }
 }

@@ -1,46 +1,41 @@
 <?php
-$head = $_SERVER["DOCUMENT_ROOT"];
-$head .= "/includes/head.php";
-$nav = $_SERVER["DOCUMENT_ROOT"];
-$nav .= "/includes/navbar.php";
-$footer = $_SERVER["DOCUMENT_ROOT"];
-$footer .= "/includes/footer.php";
-require($head);
-require($nav);
+$root = $_SERVER["DOCUMENT_ROOT"];
+require($root."/includes/head.php");
+require($root."/includes/navbar.php");
+
+// Initialize Feed class
+$posts = new QuestionsFeed($db);
 ?>
 
 <body>
     <div class="container">
+        <div class="container_sub">
 
-        <div class="create-post-button-container">
-            <p class="title">Questions</p>
-            <a class="btn-main" id="create-post-button" href="/create_post/">Create Post</a>
-        </div>
 
-        <div class="posts-container">
-            <div class="post">
-                <div class="content">
-                    <a class="post-title ellipsis" href="#">This is an example post.</a>
-                    <p class="text-preview twoline-ellipsis">Here's an example of a post's text content preview.</p>
+            <?php require($root."/includes/container_left.php"); ?>
+
+            <div class="container_main">
+                <div class="container-main-title-container">
+                    <p class="title">Recent Activity</p>
+                    <?php require($root."/mini-includes/modals/post_type_modal.php"); ?>
                 </div>
-                <div class="meta">
-                    <p class="meta-info" id="post-type">Question</p>
+                <div class="container-main-pagination-container">
+                    <?php $posts->displayPages(); ?>
                 </div>
-                <div class="meta">
-                    <p class="meta-info" id="views">? views</p>
-                    <p class="meta-info" id="upvotes">? upvotes</p>
-                    <p class="meta-info" id="downvotes">? downvotes</p>
-                    <p class="meta-info" id="answers">? answers</p>
-                    <a href="#"><div class="user">
-                        <div class="user-image-container"><img class="user-image" src="/users/uploads/profile_images/QuietWind01_user_profile_image_7147288035.png"/></div>
-                        <p class="username">username</p>
-                        <p class="time">posted on ?</p>
-                    </div></a>
+
+                <div class="container-main-feed">
+                    <?php $posts->feed(); ?>
+                </div>
+                <div class="container-main-pagination-container">
+                    <?php $posts->displayPages(); ?>
                 </div>
             </div>
-        </div>
 
+            <?php require($root."/includes/container_right.php"); ?>
+
+
+        </div>
     </div>
 </body>
 
-<?php require($footer); ?>
+<?php require($root."/includes/footer.php"); ?>

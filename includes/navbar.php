@@ -92,8 +92,7 @@ function displayBadgesForUsername(array $badgesOfLastOfType): string {
         <a class="main-button home-link" href="/">THE ANT PORTAL</a>
 
         <a class="main-button" href="/questions/">Questions</a>
-        <a class="main-button" href="/nup_data/">Nuptial Flight Data</a>
-        <a class="main-button" href="/myrecords/">My Records</a>
+        <a class="main-button" href="/flight_data/">Nuptial Flight Data</a>
     </div>
     <div class="navbar-layer layer-two">
         <div class="user-controls">
@@ -102,7 +101,7 @@ function displayBadgesForUsername(array $badgesOfLastOfType): string {
                     <div class="button-image-container"><img class="button-image" id="user-controls-image" src="/web_images/icons/expand_more.png"/></div>
                     <p class="dropdown-button">Your Account</p>
                 </div>
-                <div class="dropdown user-dropdwon" id="user-dropdown">
+                <div class="dropdown user-dropdown" id="user-dropdown">
                     <?php
                     if ($isLoggedIn === true) {
                         echo
@@ -116,6 +115,9 @@ function displayBadgesForUsername(array $badgesOfLastOfType): string {
                             <div class="badges">';
                                 echo displayBadgesForUsername($badgesOwned);
                             echo '</div>
+                        </div>
+                        <div class="user-meta sub-section">
+                            <a class="section-link" href="/myrecords/">My Records</a>
                         </div>
                         ';
                     } else {

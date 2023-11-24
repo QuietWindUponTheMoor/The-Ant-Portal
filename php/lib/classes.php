@@ -1104,6 +1104,679 @@ class Feed {
     }
 }
 
+class MyRecordsFeed {
+    // Static
+    private object $db;
+    private int $userID;
+    private int $item_limit = 10;
+
+    // Static until set
+    private int $page_count;
+    private array $postsArray;
+    private int $current_page;
+    private int $item_count;
+
+    public function __construct(object $db, int $userID) {
+        $this->db = $db;
+        $this->userID = $userID;
+
+        // Initialize vars
+        $rows = [];
+        $page_count = 1;
+        $first = 1;
+        $last = 2;
+        $item_count = 0;
+        $posts_item_count = 0;
+        $nup_flights_item_count = 0;
+
+        // Static vars
+        $item_limit_before_new_page = 5;
+
+        // Var control for queries:
+        // Static variables:
+        $post_type_string = "";
+
+        // Static unless otherwise specified:
+        $post_order = "ASC";
+        $post_type = "1";
+
+        // Check GET data
+        // Order
+        if (isset($_GET["order"]) && $_GET["order"] === "ASC") {
+            $post_order = "ASC";
+        } else if (isset($_GET["order"]) && $_GET["order"] === "DESC") {
+            $post_order = "DESC";
+        }
+        // Type
+        if (isset($_GET["type"]) && is_numeric($_GET["type"])) {
+            $post_type = $_GET["type"];
+            $post_type_string = "WHERE `type`=$post_type_string";
+            /* TYPES:
+            1 = question
+            2 = sighting
+            3 = general
+            4 = nup_flight
+            */
+        }
+
+        // Check GET data for the current page
+        $this->current_page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+
+
+        // Regular posts
+        $postsRes = $this->db->select("SELECT * FROM posts $post_type_string WHERE userID=? ORDER BY postID $post_order;", "i", $this->userID);
+        if ($postsRes->num_rows > 0) {
+            // There is at least one page, probably more
+            // Set count of items
+            $item_count = $postsRes->num_rows;
+            while ($row = mysqli_fetch_assoc($postsRes)) {
+                // Fetch data from DB
+                $postID = $row["postID"];
+                $userID = $row["userID"];
+                $type = $row["type"];
+                $title = $row["title"];
+                $text = $row["text"];
+                $views = $row["views"];
+                $upvotes = $row["upvotes"];
+                $downvotes = $row["downvotes"];
+                $datetime = $row["datetime"];
+                $answers = $row["answers"];
+                $replies = $row["replies"];
+                $editedByUserID = $row["editedByUserID"];
+
+                // Push to $rows array
+                //$post = $this->generatePost($type, $userID, "/posts/?postID=$postID", $title, $text, $upvotes, $downvotes, $views, $answers, $replies, $editedByUserID, $datetime);
+                array_push($rows, ["type" => $type, "userID" => $userID, "postHREF" => "/posts/?postID=$postID", "title" => $title, "text" => $text, "upvotes" => $upvotes, "downvotes" => $downvotes, "views" => $views, "answers" => $answers, "replies" => $replies, "editedByUserID" => $editedByUserID, "datetime" => $datetime]);
+            }
+        } else {
+            // There is no data to display, so there's only one page and it's blank
+            // Set count of items
+            $posts_item_count = $postsRes->num_rows; // Should be 0
+            // Do nothing else here
+        }
+
+        // nup_flight posts
+        $postsRes = $this->db->select("SELECT * FROM nuptial_flights WHERE userID=? ORDER BY flightID $post_order;", "i", $this->userID);
+        if ($postsRes->num_rows > 0) {
+            // There is at least one page, probably more
+            // Set count of items
+            $item_count = $postsRes->num_rows;
+            while ($row = mysqli_fetch_assoc($postsRes)) {
+                // Fetch data from DB
+                $postID = $row["flightID"];
+                $userID = $row["userID"];
+                $type = 4;
+                $species = $row["species"];
+                $text = $row["text"];
+                $views = $row["views"];
+                $upvotes = $row["upvotes"];
+                $downvotes = $row["downvotes"];
+                $datetime = $row["datetime"];
+                $answers = $row["answers"];
+                $replies = $row["replies"];
+                $editedByUserID = $row["editedByUserID"];
+
+                // Push to $rows array
+                //$post = $this->generatePost($type, $userID, "/nup_flight/?flightID=$postID", "Nuptial Flight #$postID: $species", $text, $upvotes, $downvotes, $views, $answers, $replies, $editedByUserID, $datetime);
+                array_push($rows, ["type" => $type, "userID" => $userID, "postHREF" => "/nup_flight/?flightID=$postID", "title" => "Nuptial Flight #$postID: $species", "text" => $text, "upvotes" => $upvotes, "downvotes" => $downvotes, "views" => $views, "answers" => $answers, "replies" => $replies, "editedByUserID" => $editedByUserID, "datetime" => $datetime]);
+            }
+        } else {
+            // There is no data to display, so there's only one page and it's blank
+            // Set count of items
+            $nup_flights_item_count = $postsRes->num_rows; // Should be 0
+            // Do nothing else here
+        }
+
+        // Set properties
+        $this->page_count = $page_count;
+        $this->postsArray = $this->sortArray(1, $rows);
+        $this->item_count = count($this->postsArray);
+    }
+
+    public function feed() {
+        // Initialize the final array
+        $new_posts_array = [];
+
+        // Sort the original array
+        $posts = $this->sortArray(1, $this->postsArray);
+
+        // Process the posts into a new array
+        foreach ($posts as $post) {
+            // Push the sorted array into the new array
+            $new_item = $this->generatePost($post["type"], $post["userID"], $post["postHREF"], $post["title"], $post["text"], $post["upvotes"], $post["downvotes"], $post["views"], $post["answers"], $post["replies"], $post["editedByUserID"], $post["datetime"]);
+            array_push($new_posts_array, $new_item);
+        }
+
+        // Item limit
+        $per_page_limit = $this->item_limit;
+        // Page number
+        $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        // Offset
+        $offset = ($current_page - 1) * $per_page_limit;
+
+        $new_posts = array_slice($new_posts_array, $offset, $per_page_limit, false);
+        
+        // Display the items per page
+        foreach ($new_posts as $post) {
+            echo $post;
+        }
+    }
+    public function displayPages(): void {
+        // Easier vars
+        $current_page = $this->current_page;
+
+        // Get the current page count
+        $page_count = ceil($this->item_count / $this->item_limit);
+
+        // Get page limit before delimiter
+        $page_limit_before_delimiter = 6;
+
+        // Process
+        echo '<a class="pag-button" href="?page=1">First</a>';
+        for ($i = max(1, $current_page - $page_limit_before_delimiter); $i <= min($page_count, $current_page + $page_limit_before_delimiter); $i++) {
+            echo '<a class="pag-button' . ($i == $current_page ? ' current' : '') . '" href="?page=' . $i . '">' . $i . '</a>';
+        }
+        if ($current_page + $page_limit_before_delimiter < $page_count) {
+            echo '<p class="pag-button" id="delimiter">...</p>';
+        }
+        echo '<a class="pag-button" href="?page='.$page_count.'">Last</a>';
+    }
+    public function generatePost(int $type, int $postedByUserID, string $postHREF, string $title, string $body, int $upvotes, int $downvotes, int $views, int $answers, int $replies, int $editedByUserID, string $datetime): string {
+        $rating = $upvotes - $downvotes;
+        $userData = $this->getUserData($postedByUserID);
+        $username = $userData[0];
+        $userID = $userData[1];
+        $userImage = $userData[2];
+        if ($editedByUserID > 0) {
+            $hasBeenEdited = "true";
+        } else {
+            $hasBeenEdited = "false";
+        }
+        if ($type === 1) {
+            $postType = "Question";
+        } else if ($type === 2) {
+            $postType = "Sighting";
+        } else if ($type === 3) {
+            $postType = "General";
+        } else if ($type === 4) {
+            $postType = "Nuptial Flight";
+        }
+        return
+        '
+        <div class="feed-post">
+            <div class="feed-post-section">
+                <a class="feed-post-title" href="'.$postHREF.'">'.$title.'</a>
+            </div>
+            <div class="feed-post-section">
+                <p class="feed-post-body twoline-ellipsis">'.$body.'</p>
+            </div>
+            <div class="feed-post-section">
+                <p class="meta type">'.$postType.'</p>
+            </div>
+            <div class="feed-post-section feed-post-section-wrap feed-post-meta">
+                <p class="meta">Rating: '.$rating.'</p>
+                <p class="meta">Views: '.$views.'</p>
+                <p class="meta">Answers: '.$answers.'</p>
+                <p class="meta">Replies: '.$replies.'</p>
+                <p class="meta">Edited: '.$hasBeenEdited.'</p>
+            </div>
+            <div class="feed-post-section feed-post-posted-by">
+                <div class="posted-by">
+                    <p class="text">Posted by</p>
+                    <div class="user-image-container"><img class="user-image" src="'.$userImage.'"/></div>
+                    <a class="text username" href="/users/user?userID='.$userID.'">'.$username.'</a>
+                    <p class="text">on '.$datetime.'</p>
+                </div>
+            </div>
+        </div>
+        ';
+    }
+    public function getUserData(int $userID): array {
+        $res = $this->db->select("SELECT * FROM users WHERE userID=?;", "i", $userID);
+        if ($res->num_rows > 0) {
+            $d = mysqli_fetch_assoc($res);
+            $username = $d["username"];
+            $image = $d["image"];
+            return [$username, $userID, $image];
+        }
+    }
+    public function sortArray(int $maxConsecutive, array $array): array {
+        // Initialize grouper and columns arrays
+        $grouper = [];
+        $column = [];
+
+        // Process items in the array
+        foreach ($array as $row) {
+            $column[] = $row["type"];
+            $encountered[$row["type"]] ??= 0;
+            $grouper[] = intdiv($encountered[$row["type"]]++, $maxConsecutive);
+        }
+
+        // Finally, sort the array
+        array_multisort($grouper, $column, $array);
+
+        return $array;
+    }
+}
+
+class NupFlightsFeed {
+    // Static
+    private object $db;
+    private int $item_limit = 10;
+
+    // Static until set
+    private int $page_count;
+    private array $postsArray;
+    private int $current_page;
+    private int $item_count;
+
+    public function __construct(object $db) {
+        $this->db = $db;
+
+        // Initialize vars
+        $rows = [];
+        $page_count = 1;
+        $first = 1;
+        $last = 2;
+        $item_count = 0;
+        $posts_item_count = 0;
+        $nup_flights_item_count = 0;
+
+        // Static vars
+        $item_limit_before_new_page = 5;
+
+        // Var control for queries:
+        // Static variables:
+        $post_type_string = "";
+
+        // Static unless otherwise specified:
+        $post_order = "ASC";
+        $post_type = "1";
+
+        // Check GET data
+        // Order
+        if (isset($_GET["order"]) && $_GET["order"] === "ASC") {
+            $post_order = "ASC";
+        } else if (isset($_GET["order"]) && $_GET["order"] === "DESC") {
+            $post_order = "DESC";
+        }
+
+        // Check GET data for the current page
+        $this->current_page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+
+        // nup_flight posts
+        $postsRes = $this->db->selectAll("SELECT * FROM nuptial_flights ORDER BY flightID $post_order;");
+        if ($postsRes->num_rows > 0) {
+            // There is at least one page, probably more
+            // Set count of items
+            $item_count = $postsRes->num_rows;
+            while ($row = mysqli_fetch_assoc($postsRes)) {
+                // Fetch data from DB
+                $postID = $row["flightID"];
+                $userID = $row["userID"];
+                $type = 4;
+                $species = $row["species"];
+                $text = $row["text"];
+                $views = $row["views"];
+                $upvotes = $row["upvotes"];
+                $downvotes = $row["downvotes"];
+                $datetime = $row["datetime"];
+                $answers = $row["answers"];
+                $replies = $row["replies"];
+                $editedByUserID = $row["editedByUserID"];
+
+                // Push to $rows array
+                //$post = $this->generatePost($type, $userID, "/nup_flight/?flightID=$postID", "Nuptial Flight #$postID: $species", $text, $upvotes, $downvotes, $views, $answers, $replies, $editedByUserID, $datetime);
+                array_push($rows, ["type" => $type, "userID" => $userID, "postHREF" => "/nup_flight/?flightID=$postID", "title" => "Nuptial Flight #$postID: $species", "text" => $text, "upvotes" => $upvotes, "downvotes" => $downvotes, "views" => $views, "answers" => $answers, "replies" => $replies, "editedByUserID" => $editedByUserID, "datetime" => $datetime]);
+            }
+        } else {
+            // There is no data to display, so there's only one page and it's blank
+            // Set count of items
+            $nup_flights_item_count = $postsRes->num_rows; // Should be 0
+            // Do nothing else here
+        }
+
+        // Set properties
+        $this->page_count = $page_count;
+        $this->postsArray = $this->sortArray(1, $rows);
+        $this->item_count = count($this->postsArray);
+    }
+
+    public function feed() {
+        // Initialize the final array
+        $new_posts_array = [];
+
+        // Sort the original array
+        $posts = $this->sortArray(1, $this->postsArray);
+
+        // Process the posts into a new array
+        foreach ($posts as $post) {
+            // Push the sorted array into the new array
+            $new_item = $this->generatePost($post["type"], $post["userID"], $post["postHREF"], $post["title"], $post["text"], $post["upvotes"], $post["downvotes"], $post["views"], $post["answers"], $post["replies"], $post["editedByUserID"], $post["datetime"]);
+            array_push($new_posts_array, $new_item);
+        }
+
+        // Item limit
+        $per_page_limit = $this->item_limit;
+        // Page number
+        $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        // Offset
+        $offset = ($current_page - 1) * $per_page_limit;
+
+        $new_posts = array_slice($new_posts_array, $offset, $per_page_limit, false);
+        
+        // Display the items per page
+        foreach ($new_posts as $post) {
+            echo $post;
+        }
+    }
+    public function displayPages(): void {
+        // Easier vars
+        $current_page = $this->current_page;
+
+        // Get the current page count
+        $page_count = ceil($this->item_count / $this->item_limit);
+
+        // Get page limit before delimiter
+        $page_limit_before_delimiter = 6;
+
+        // Process
+        echo '<a class="pag-button" href="?page=1">First</a>';
+        for ($i = max(1, $current_page - $page_limit_before_delimiter); $i <= min($page_count, $current_page + $page_limit_before_delimiter); $i++) {
+            echo '<a class="pag-button' . ($i == $current_page ? ' current' : '') . '" href="?page=' . $i . '">' . $i . '</a>';
+        }
+        if ($current_page + $page_limit_before_delimiter < $page_count) {
+            echo '<p class="pag-button" id="delimiter">...</p>';
+        }
+        echo '<a class="pag-button" href="?page='.$page_count.'">Last</a>';
+    }
+    public function generatePost(int $type, int $postedByUserID, string $postHREF, string $title, string $body, int $upvotes, int $downvotes, int $views, int $answers, int $replies, int $editedByUserID, string $datetime): string {
+        $rating = $upvotes - $downvotes;
+        $userData = $this->getUserData($postedByUserID);
+        $username = $userData[0];
+        $userID = $userData[1];
+        $userImage = $userData[2];
+        if ($editedByUserID > 0) {
+            $hasBeenEdited = "true";
+        } else {
+            $hasBeenEdited = "false";
+        }
+        if ($type === 1) {
+            $postType = "Question";
+        } else if ($type === 2) {
+            $postType = "Sighting";
+        } else if ($type === 3) {
+            $postType = "General";
+        } else if ($type === 4) {
+            $postType = "Nuptial Flight";
+        }
+        return
+        '
+        <div class="feed-post">
+            <div class="feed-post-section">
+                <a class="feed-post-title" href="'.$postHREF.'">'.$title.'</a>
+            </div>
+            <div class="feed-post-section">
+                <p class="feed-post-body twoline-ellipsis">'.$body.'</p>
+            </div>
+            <div class="feed-post-section">
+                <p class="meta type">'.$postType.'</p>
+            </div>
+            <div class="feed-post-section feed-post-section-wrap feed-post-meta">
+                <p class="meta">Rating: '.$rating.'</p>
+                <p class="meta">Views: '.$views.'</p>
+                <p class="meta">Answers: '.$answers.'</p>
+                <p class="meta">Replies: '.$replies.'</p>
+                <p class="meta">Edited: '.$hasBeenEdited.'</p>
+            </div>
+            <div class="feed-post-section feed-post-posted-by">
+                <div class="posted-by">
+                    <p class="text">Posted by</p>
+                    <div class="user-image-container"><img class="user-image" src="'.$userImage.'"/></div>
+                    <a class="text username" href="/users/user?userID='.$userID.'">'.$username.'</a>
+                    <p class="text">on '.$datetime.'</p>
+                </div>
+            </div>
+        </div>
+        ';
+    }
+    public function getUserData(int $userID): array {
+        $res = $this->db->select("SELECT * FROM users WHERE userID=?;", "i", $userID);
+        if ($res->num_rows > 0) {
+            $d = mysqli_fetch_assoc($res);
+            $username = $d["username"];
+            $image = $d["image"];
+            return [$username, $userID, $image];
+        }
+    }
+    public function sortArray(int $maxConsecutive, array $array): array {
+        // Initialize grouper and columns arrays
+        $grouper = [];
+        $column = [];
+
+        // Process items in the array
+        foreach ($array as $row) {
+            $column[] = $row["type"];
+            $encountered[$row["type"]] ??= 0;
+            $grouper[] = intdiv($encountered[$row["type"]]++, $maxConsecutive);
+        }
+
+        // Finally, sort the array
+        array_multisort($grouper, $column, $array);
+
+        return $array;
+    }
+}
+
+class QuestionsFeed {
+    // Static
+    private object $db;
+    private int $item_limit = 10;
+
+    // Static until set
+    private int $page_count;
+    private array $postsArray;
+    private int $current_page;
+    private int $item_count;
+
+    public function __construct(object $db) {
+        $this->db = $db;
+
+        // Initialize vars
+        $rows = [];
+        $page_count = 1;
+        $first = 1;
+        $last = 2;
+        $item_count = 0;
+        $posts_item_count = 0;
+        $nup_flights_item_count = 0;
+
+        // Static vars
+        $item_limit_before_new_page = 5;
+
+        // Var control for queries:
+        // Static variables:
+        $post_type_string = "";
+
+        // Static unless otherwise specified:
+        $post_order = "ASC";
+        $post_type = "1";
+
+        // Check GET data
+        // Order
+        if (isset($_GET["order"]) && $_GET["order"] === "ASC") {
+            $post_order = "ASC";
+        } else if (isset($_GET["order"]) && $_GET["order"] === "DESC") {
+            $post_order = "DESC";
+        }
+
+        // Check GET data for the current page
+        $this->current_page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+
+        // Regular posts
+        $postsRes = $this->db->select("SELECT * FROM posts $post_type_string WHERE `type`=? ORDER BY postID $post_order;", "i", 1);
+        if ($postsRes->num_rows > 0) {
+            // There is at least one page, probably more
+            // Set count of items
+            $item_count = $postsRes->num_rows;
+            while ($row = mysqli_fetch_assoc($postsRes)) {
+                // Fetch data from DB
+                $postID = $row["postID"];
+                $userID = $row["userID"];
+                $type = $row["type"];
+                $title = $row["title"];
+                $text = $row["text"];
+                $views = $row["views"];
+                $upvotes = $row["upvotes"];
+                $downvotes = $row["downvotes"];
+                $datetime = $row["datetime"];
+                $answers = $row["answers"];
+                $replies = $row["replies"];
+                $editedByUserID = $row["editedByUserID"];
+
+                // Push to $rows array
+                //$post = $this->generatePost($type, $userID, "/posts/?postID=$postID", $title, $text, $upvotes, $downvotes, $views, $answers, $replies, $editedByUserID, $datetime);
+                array_push($rows, ["type" => $type, "userID" => $userID, "postHREF" => "/posts/?postID=$postID", "title" => $title, "text" => $text, "upvotes" => $upvotes, "downvotes" => $downvotes, "views" => $views, "answers" => $answers, "replies" => $replies, "editedByUserID" => $editedByUserID, "datetime" => $datetime]);
+            }
+        } else {
+            // There is no data to display, so there's only one page and it's blank
+            // Set count of items
+            $posts_item_count = $postsRes->num_rows; // Should be 0
+            // Do nothing else here
+        }
+
+        // Set properties
+        $this->page_count = $page_count;
+        $this->postsArray = $this->sortArray(1, $rows);
+        $this->item_count = count($this->postsArray);
+    }
+
+    public function feed() {
+        // Initialize the final array
+        $new_posts_array = [];
+
+        // Sort the original array
+        $posts = $this->sortArray(1, $this->postsArray);
+
+        // Process the posts into a new array
+        foreach ($posts as $post) {
+            // Push the sorted array into the new array
+            $new_item = $this->generatePost($post["type"], $post["userID"], $post["postHREF"], $post["title"], $post["text"], $post["upvotes"], $post["downvotes"], $post["views"], $post["answers"], $post["replies"], $post["editedByUserID"], $post["datetime"]);
+            array_push($new_posts_array, $new_item);
+        }
+
+        // Item limit
+        $per_page_limit = $this->item_limit;
+        // Page number
+        $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        // Offset
+        $offset = ($current_page - 1) * $per_page_limit;
+
+        $new_posts = array_slice($new_posts_array, $offset, $per_page_limit, false);
+        
+        // Display the items per page
+        foreach ($new_posts as $post) {
+            echo $post;
+        }
+    }
+    public function displayPages(): void {
+        // Easier vars
+        $current_page = $this->current_page;
+
+        // Get the current page count
+        $page_count = ceil($this->item_count / $this->item_limit);
+
+        // Get page limit before delimiter
+        $page_limit_before_delimiter = 6;
+
+        // Process
+        echo '<a class="pag-button" href="?page=1">First</a>';
+        for ($i = max(1, $current_page - $page_limit_before_delimiter); $i <= min($page_count, $current_page + $page_limit_before_delimiter); $i++) {
+            echo '<a class="pag-button' . ($i == $current_page ? ' current' : '') . '" href="?page=' . $i . '">' . $i . '</a>';
+        }
+        if ($current_page + $page_limit_before_delimiter < $page_count) {
+            echo '<p class="pag-button" id="delimiter">...</p>';
+        }
+        echo '<a class="pag-button" href="?page='.$page_count.'">Last</a>';
+    }
+    public function generatePost(int $type, int $postedByUserID, string $postHREF, string $title, string $body, int $upvotes, int $downvotes, int $views, int $answers, int $replies, int $editedByUserID, string $datetime): string {
+        $rating = $upvotes - $downvotes;
+        $userData = $this->getUserData($postedByUserID);
+        $username = $userData[0];
+        $userID = $userData[1];
+        $userImage = $userData[2];
+        if ($editedByUserID > 0) {
+            $hasBeenEdited = "true";
+        } else {
+            $hasBeenEdited = "false";
+        }
+        if ($type === 1) {
+            $postType = "Question";
+        } else if ($type === 2) {
+            $postType = "Sighting";
+        } else if ($type === 3) {
+            $postType = "General";
+        } else if ($type === 4) {
+            $postType = "Nuptial Flight";
+        }
+        return
+        '
+        <div class="feed-post">
+            <div class="feed-post-section">
+                <a class="feed-post-title" href="'.$postHREF.'">'.$title.'</a>
+            </div>
+            <div class="feed-post-section">
+                <p class="feed-post-body twoline-ellipsis">'.$body.'</p>
+            </div>
+            <div class="feed-post-section">
+                <p class="meta type">'.$postType.'</p>
+            </div>
+            <div class="feed-post-section feed-post-section-wrap feed-post-meta">
+                <p class="meta">Rating: '.$rating.'</p>
+                <p class="meta">Views: '.$views.'</p>
+                <p class="meta">Answers: '.$answers.'</p>
+                <p class="meta">Replies: '.$replies.'</p>
+                <p class="meta">Edited: '.$hasBeenEdited.'</p>
+            </div>
+            <div class="feed-post-section feed-post-posted-by">
+                <div class="posted-by">
+                    <p class="text">Posted by</p>
+                    <div class="user-image-container"><img class="user-image" src="'.$userImage.'"/></div>
+                    <a class="text username" href="/users/user?userID='.$userID.'">'.$username.'</a>
+                    <p class="text">on '.$datetime.'</p>
+                </div>
+            </div>
+        </div>
+        ';
+    }
+    public function getUserData(int $userID): array {
+        $res = $this->db->select("SELECT * FROM users WHERE userID=?;", "i", $userID);
+        if ($res->num_rows > 0) {
+            $d = mysqli_fetch_assoc($res);
+            $username = $d["username"];
+            $image = $d["image"];
+            return [$username, $userID, $image];
+        }
+    }
+    public function sortArray(int $maxConsecutive, array $array): array {
+        // Initialize grouper and columns arrays
+        $grouper = [];
+        $column = [];
+
+        // Process items in the array
+        foreach ($array as $row) {
+            $column[] = $row["type"];
+            $encountered[$row["type"]] ??= 0;
+            $grouper[] = intdiv($encountered[$row["type"]]++, $maxConsecutive);
+        }
+
+        // Finally, sort the array
+        array_multisort($grouper, $column, $array);
+
+        return $array;
+    }
+}
+
 class Badging {
     // Static
     private object $db;

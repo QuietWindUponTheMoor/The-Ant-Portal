@@ -4,11 +4,7 @@ require($root."/includes/head.php");
 require($root."/includes/navbar.php");
 
 // Initialize Feed class
-if ($isLoggedIn === true) {
-    $posts = new MyRecordsFeed($db, $userID);
-} else {
-    header("Location: /");
-}
+$posts = new NupFlightsFeed($db);
 ?>
 
 <body>
