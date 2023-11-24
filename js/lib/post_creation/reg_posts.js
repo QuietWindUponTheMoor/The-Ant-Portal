@@ -1,3 +1,39 @@
+// Placeholder texts
+$questionTitlePH = "Does X species require diapause?";
+$questionBodyPH = "If they require diapause, when should I put them in and for how long? What temperature should I keep them at? Should I still feed them?";
+$sightingTitlePH = "I noticed X species in Y place today";
+$sightingBodyPH = "Found this worker today in <location>, around 3pm.";
+$generalTitlePH = "Today I went queen hunting!";
+$generalBodyPH = "It was a really nice day during peak nuptial-flight season, so I decided to go queen hunting!";
+
+$("#post-type").on("change", () => {
+    let type = parseInt($("#post-type").val());
+    const title = $("#title");
+    const body = $("#body");
+
+    switch (type) {
+        case 1:
+            // Question
+            title.attr("placeholder", $questionTitlePH);
+            body.attr("placeholder", $questionBodyPH);
+            break;
+        case 2:
+            // Sighting
+            title.attr("placeholder", $sightingTitlePH);
+            body.attr("placeholder", $sightingBodyPH);
+            break;
+        case 3:
+            // General
+            title.attr("placeholder", $generalTitlePH);
+            body.attr("placeholder", $generalBodyPH);
+            break;
+        default:
+            title.attr("placeholder", $questionTitlePH);
+            body.attr("placeholder", $questionBodyPH);
+            break;
+    }
+});
+
 // Manage tags
 // Initialize tags_array
 let tags_array = [];

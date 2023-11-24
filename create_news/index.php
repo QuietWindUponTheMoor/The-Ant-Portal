@@ -10,7 +10,7 @@ require($root."/includes/navbar.php");
             <?php require($root."/includes/container_left.php"); ?>
             <div class="container_main">
                 
-                <form class="form-main" id="nup-flight-form" action="" method="POST" enctype="multipart/form-data">
+                <form class="form-main" id="news-form" action="" method="POST" enctype="multipart/form-data">
                     <div class="form-section">
                         <p class="form-title">Submit A News Post</p>
                         <?php

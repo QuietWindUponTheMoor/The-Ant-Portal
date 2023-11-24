@@ -1,5 +1,3 @@
-
-
 <?php
 $root = $_SERVER["DOCUMENT_ROOT"];
 require($root."/includes/head.php");
@@ -18,7 +16,7 @@ if ($isLoggedIn === false) {
 
 
 
-                <form class="form-main" id="news-form" action="" method="POST" enctype="multipart/form-data">
+                <form class="form-main" id="nup-flight-form" action="" method="POST" enctype="multipart/form-data">
                     <div class="form-section">
                         <p class="form-title">Submit A Nuptial Flight Observation</p>
                         <p class="response" id="error"></p>
@@ -66,7 +64,7 @@ if ($isLoggedIn === false) {
                     <div class="form-section">
                         <label class="main-label" for="images">Select any images you have of the observation. (Optional)</label>
                         <input class="hidden" type="file" id="images" name="images[]" accept="image/*" multiple/>
-                        <button class="btn-secondary" type="button" id="select-images" onclick="$('#images').click();">Add Images</button>
+                        <button class="btn-action" type="button" id="select-images" onclick="$('#images').click();">Add Images</button>
                     </div>
                     <div class="form-section" id="tags-container">
                         <label class="main-label" for="tags">Enter relevant tags (separated by spaces or commas):</label>
