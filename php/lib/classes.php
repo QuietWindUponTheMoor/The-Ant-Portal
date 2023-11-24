@@ -1176,13 +1176,7 @@ class Badging {
             $requiredSeeds = $badge["cost"];
             if ($requiredSeeds <= $seeds) {
                 // Check if user has this badge already or not
-                if (in_array($badge["id"], $userBadges)) {
-                    // User has the badge
-                    $hasThisBadge = true;
-                } else {
-                    // User doesn't have the badge
-                    $hasThisBadge = false;
-                }
+                $hasThisBadge = in_array($badge["id"], $userBadges);
 
                 // Give the user this badge if they don't have it already
                 if ($hasThisBadge === false) {
