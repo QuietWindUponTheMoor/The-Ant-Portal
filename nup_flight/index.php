@@ -117,11 +117,39 @@ function voteButtonControls($db, $postID, $thisUserID) {
                     <div class="post-section">
                         <p class="post-title">Nuptial Flight #<?php echo $flightID; ?>: <?php echo $species; ?></p>
                     </div>
+                    <div class="post-section post-flagging">
+                        <div class="flag-image-container">
+                            <img class="flag-image" id="flag-image" src="/web_images/icons/flag.png" title="Flag this post to let us know something is wrong."/>
+                            <div class="flagging-modal modal-main">
+                                <form class="modal-section flagging-form" action="" method="POST">
+                                    <div class="modal-sub-section">
+                                        <p class="modal-title">Please tell us what you're flagging this content for.</p>
+                                    </div>
+                                    <div class="modal-sub-section radio-section">
+                                        <input type="radio" id="irrelevant-content" name="irrelevant-content" value="irrelevant-content"/>
+                                        <label for="irrelevant-content">This post is irrelevant (Spam, off-topic, etc)</label>
+                                    </div>
+                                    <div class="modal-sub-section radio-section">
+                                        <input type="radio" id="irrelevant-content" name="irrelevant-content" value="irrelevant-content"/>
+                                        <label for="irrelevant-content">This post is too confusing or misguided</label>
+                                    </div>
+                                    <div class="modal-sub-section radio-section">
+                                        <input type="radio" id="irrelevant-content" name="irrelevant-content" value="irrelevant-content"/>
+                                        <label for="irrelevant-content">This post promotes the act of buying, selling, or trading illegal (non-native to the OP's location) ants, without proper permits.</label>
+                                    </div>
+                                    <div class="modal-sub-section final-section">
+                                        <button class="btn-secondary" id="cancel-flagging" type="button">Cancel</button>
+                                        <button class="btn-main" id="submit-flagging" type="submit" name="submit">Submit Flag</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     <div class="post-section vote-container">
                         <div class="vote-subcontainer">
-                            <div class="icon-container"><img class="icon" id="upvote-trigger" style="<?php echo $upvoteButtonOpacity; ?>" src="/web_images/icons/upvote.png"/></div>
+                            <div class="icon-container" title="Upvote this post"><img class="icon" id="upvote-trigger" style="<?php echo $upvoteButtonOpacity; ?>" src="/web_images/icons/upvote.png"/></div>
                             <p class="vote-count <?php echo $color; ?>" id="total-votes"><?php echo $totalVotes; ?></p>
-                            <div class="icon-container"><img class="icon" id="downvote-trigger" style="<?php echo $downvoteButtonOpacity; ?>" src="/web_images/icons/downvote.png"/></div>
+                            <div class="icon-container" title="Downvote this post"><img class="icon" id="downvote-trigger" style="<?php echo $downvoteButtonOpacity; ?>" src="/web_images/icons/downvote.png"/></div>
                         </div>
                     </div>
                     <div class="post-section">
@@ -196,6 +224,40 @@ function voteButtonControls($db, $postID, $thisUserID) {
     </div>
 </body>
 <script type="text/javascript">
+// Initial widths of flagging modal
+let sectionWidth = $(".post-flagging").width();
+$(".flagging-modal").css("width", Math.floor(sectionWidth)).css("max-width", Math.floor(sectionWidth) + "px");
+// Dynamic widths
+$(window).on("resize", () => {
+    let sectionWidth = $(".post-flagging").width();
+    $(".flagging-modal").css("width", Math.floor(sectionWidth)).css("max-width", Math.floor(sectionWidth) + "px");
+});
+
+// Selected flagging reasons controls
+let $radioContainers = $(".radio-section");
+$radioContainers.find(":radio").on("change", e => {
+    $radioContainers.removeClass("radio-active"); // remove from all containers
+    $(e.target).closest(".radio-section").addClass("radio-active"); // add class to current
+});
+
+// Opening/closing the flagging modal
+$("#flag-image").on("click", () => {
+    $(".flagging-modal").css("display", "flex").hide().fadeIn();
+});
+$("#cancel-flagging").on("click", () => {
+    $(".flagging-modal").hide();
+});
+
+// Change image color to red upon hover of flag button
+$("#flag-image").hover((event) => {
+    if (event.type === "mouseenter") {
+        $("#flag-image").attr("src", "/web_images/icons/flag_red.png");
+    } else {
+        $("#flag-image").attr("src", "/web_images/icons/flag.png");
+    }
+});
+
+// Upvote triggers
 $("#upvote-trigger").on("click", async () => {
     await upvote();
 });
@@ -203,6 +265,7 @@ $("#downvote-trigger").on("click", async () => {
     await downvote();
 });
 
+// Helpers
 async function upvote() {
     $("#upvote-trigger").css("opacity", "0.6");
     $("#downvote-trigger").css("opacity", "0.6");

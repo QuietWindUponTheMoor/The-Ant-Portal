@@ -1,0 +1,82 @@
+.color-60 {
+  background-color: #FDFDFD;
+  width: 300px;
+  height: 100px;
+}
+
+.color-30 {
+  background-color: #313535;
+  width: 300px;
+  height: 40px;
+  color: white;
+}
+
+.color-10 {
+  background-color: #2AA00A;
+  width: 300px;
+  height: 20px;
+  color: white;
+}
+
+.modal-main {
+  display: none;
+  position: absolute;
+  padding: 0.75rem;
+  background-color: #FDFDFD;
+  border: 0.5px solid #a2a9a9;
+  border-radius: 5px;
+  box-shadow: 0 1px 5px 0px #a2a9a9;
+  z-index: 100;
+}
+.modal-main::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #a2a9a9;
+  transform-origin: 0 0;
+}
+.modal-main .modal-section {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.modal-main .modal-section .modal-sub-section {
+  flex-direction: row;
+  align-items: center;
+}
+.modal-main .modal-section .modal-sub-section .modal-title {
+  font-size: 120%;
+}
+.modal-main .final-section {
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-end !important;
+  align-items: flex-end !important;
+  gap: 0.5rem;
+}
+
+#create-post-ask-type-modal {
+  flex-direction: column;
+  top: 110%;
+  right: 5%;
+  gap: 1rem;
+}
+#create-post-ask-type-modal::before {
+  left: 93% !important;
+}
+#create-post-ask-type-modal #selections {
+  flex-direction: row;
+}
+#create-post-ask-type-modal #selections .option {
+  font-size: 75%;
+}
+#create-post-ask-type-modal .final-section {
+  border-top: 1px solid #a2a9a9;
+  padding-top: 0.75rem;
+}/*# sourceMappingURL=modals.css.map */

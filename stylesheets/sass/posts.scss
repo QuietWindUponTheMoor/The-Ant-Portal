@@ -12,27 +12,82 @@
         gap: 1rem;
     }
     .vote-container {
-        flex-direction: column;
+        flex-direction: row;
         gap: 10px;
         align-items: flex-start;
         .vote-subcontainer {
             flex-direction: column;
             align-items: center;
             .icon-container {
-                width: 20px;
+                width: calc(20px + 0.5rem);
                 aspect-ratio: 1 / 1;
+                border-radius: $circle;
+                &:hover {
+                    cursor: pointer;
+                    opacity: 0.45;
+                }
                 .icon {
                     width: 100%;
                     height: 100%;
                     opacity: 0.6;
-                    &:hover {
-                        cursor: pointer;
-                        opacity: 0.45;
-                    }
                 }
             }
             .vote-count {
                 font-weight: bold;
+            }
+        }
+    }
+    .post-flagging {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        .flag-image-container {
+            position: relative;
+            width: 20px;
+            aspect-ratio: 1 / 1;
+            border-radius: $circle;
+            .flag-image {
+                width: 100%;
+                height: 100%;
+                cursor: pointer;
+            }
+        }
+        .flagging-modal {
+            flex-direction: column;
+            top: 140%;
+            left: 0;
+            padding: 0.75rem;
+            &::before {
+                left: 1% !important;
+            }
+            .flagging-form {
+                .section {
+                    flex-direction: row;
+                    align-items: center;
+                }
+                .radio-active {
+                    background-color: lighten($theme-30-hover-light, 10%);
+                }
+                .radio-section {
+                    gap: 1rem;
+                    align-items: flex-start;
+                    border-radius: $b-med;
+                    padding: 0.5rem;
+                    input {
+                        margin: 0;
+                    }
+                    label {
+                        font-weight: bold;
+                        font-size: 90%;
+                    }
+                }
+                .final-section {
+                    flex-direction: row;
+                    width: 100%;
+                    justify-content: flex-end !important;
+                    align-items: flex-end !important;
+                    gap: 0.5rem;
+                }
             }
         }
     }

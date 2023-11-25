@@ -4,6 +4,7 @@
 @import "pagination.scss";
 @import "feed_posts.scss";
 @import "admin_controls.scss";
+@import "modals.scss";
 
 
 * {
@@ -102,7 +103,7 @@ h4 {
     border-radius: $b-med;
     border: none;
     cursor: pointer;
-    color: black;
+    color: white;
     box-shadow: 0 1px 0 0 $theme-60 inset;
     padding: 0.5rem;
     &:hover {
@@ -309,6 +310,7 @@ html {
 
 .container-main-title-container {
     flex-direction: row;
+    position: relative;
     justify-content: space-between;
     align-items: center !important;
     padding: 0.5rem;
