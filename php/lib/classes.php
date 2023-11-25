@@ -1861,3 +1861,46 @@ class Badging {
         return true;
     }
 }
+
+class Flagging {
+    private $db;
+    private int $userID;
+    private string $date;
+
+    public function __construct($db, $submittedByUserID) {
+        $this->db = new Database($db, "root", "", "main");
+        $this->userID = $submittedByUserID;
+        $this->date = date("m/d/Y");
+    }
+
+    public function flagSubmitted(string $reason, string $itemLink, string $explanation): string {
+        $wasInserted = $this->db->insert("INSERT INTO flagged_items (flaggedByUserID, reason, itemLink, explanation, `datetime`) VALUES (?, ?, ?, ?, ?);", "issss", $this->userID, $reason, $itemLink, $explanation, $this->date);
+        $explanation = str_replace("'", "\'", $explanation);
+        $explanation = str_replace('"', '\"', $explanation);
+        if ($wasInserted === true) {
+            return
+            "
+            {
+                \"code\": 1,
+                \"reason\": \"$reason\",
+                \"reported_from\": \"$itemLink\",
+                \"report_explanation\": \"$explanation\",
+                \"success\": \"Your report for '$reason' was successfully submitted. We will take a look at it.\",
+                \"error\": \"\"
+            }
+            ";
+        } else {
+            return
+            "
+            {
+                \"code\": 2,
+                \"reason\": \"$reason\",
+                \"reported_from\": \"$itemLink\",
+                \"report_explanation\": \"$explanation\",
+                \"success\": \"\",
+                \"error\": \"Something went wrong while submitting your report. Diagnostic data has been sent to the administrators.\"
+            }
+            ";
+        }
+    }
+}

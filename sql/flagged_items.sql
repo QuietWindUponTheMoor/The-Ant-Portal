@@ -3,5 +3,6 @@ CREATE TABLE IF NOT EXISTS flagged_items (
     flaggedByUserID BIGINT(44) NOT NULL,
     reason VARCHAR(256) NOT NULL,
     itemLink TEXT(30000) NOT NULL,
-    explanation TEXT(30000) NOT NULL
+    explanation TEXT(30000) NOT NULL,
+    datetime VARCHAR(256) NOT NULL
 );

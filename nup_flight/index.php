@@ -121,9 +121,9 @@ function voteButtonControls($db, $postID, $thisUserID) {
                         <div class="flag-image-container">
                             <img class="flag-image" id="flag-image" src="/web_images/icons/flag.png" title="Flag this post to let us know something is wrong."/>
                             <div class="flagging-modal modal-main">
-                                <form class="modal-section flagging-form" action="" method="POST">
+                                <form class="modal-section flagging-form" id="flagging-form" action="" method="POST">
                                     <div class="modal-sub-section">
-                                        <p class="modal-title">Please tell us what you're flagging this content for.</p>
+                                        <p class="modal-title" id="flagging-response">Please tell us what you're flagging this content for.</p>
                                     </div>
                                     <div class="modal-sub-section radio-section">
                                         <input type="radio" id="irrelevant-content" name="flag-reason" value="This post is irrelevant (spam, off-topic, etc)" required/>
@@ -146,8 +146,8 @@ function voteButtonControls($db, $postID, $thisUserID) {
                                         <label for="rude-or-abusive">This post has rude or abusive content.</label>
                                     </div>
                                     <div class="modal-sub-section radio-section">
-                                        <input type="radio" id="duplicate" name="flag-reason" value="This post is a duplicate." required/>
-                                        <label for="duplicate">This post is a duplicate.</label>
+                                        <input type="radio" id="duplicate" name="flag-reason" value="This post is a duplicate of another post or is too similar to another post to be relevant." required/>
+                                        <label for="duplicate">This post is a duplicate of another post or is too similar to another post to be relevant.</label>
                                     </div>
                                     <div class="modal-sub-section radio-section">
                                         <input type="radio" id="plagiarism" name="flag-reason" value="This post contains plagiarized content from elsewhere." required/>
@@ -157,11 +157,13 @@ function voteButtonControls($db, $postID, $thisUserID) {
                                         <input type="radio" id="something-else" name="flag-reason" value="Something else (Please write the reason below)." required/>
                                         <label for="something-else">Something else (Please write the reason below).</label>
                                     </div>
-                                    <div class="modal-sub-section exlanation-section">
-                                        <label for="explanation">Explain your report or add additional info here. If your post is in regards to plagiarism, please provide a link. If there is a particular user, answer or reply at fault, please mention those here.</label>
+                                    <div class="modal-sub-section explanation-section">
+                                        <label for="explanation">Explain your report or add additional info here. If your post is in regards to plagiarism, please provide a link. If there is a particular user, answer or reply at fault, please mention those here. If this is a duplicate to a post, please provide a link to the post it's a duplicate of.</label>
                                         <textarea class="input-main" type="text" id="explanation" name="explanation" minlength="35" maxlength="30000" placeholder="Please explain more about your report here." required></textarea>
                                     </div>
                                     <div class="modal-sub-section final-section">
+                                        <input type="hidden" id="user-id" name="userID" value="<?php echo $userID; ?>" required/>
+                                        <input type="hidden" id="db" name="db" value="<?php echo $dbHost; ?>" required/>
                                         <button class="btn-secondary" id="cancel-flagging" type="button">Cancel</button>
                                         <button class="btn-main" id="submit-flagging" type="submit" name="submit">Submit Flag</button>
                                     </div>
@@ -248,7 +250,40 @@ function voteButtonControls($db, $postID, $thisUserID) {
     </div>
 </body>
 <script type="text/javascript">
+// Subitting flags
+const flagging_response = $("#flagging-response");
 let $radioContainers = $(".radio-section");
+$("#flagging-form").on("submit", async (event) => {
+    // Prevent default actions
+    event.preventDefault();
+    // Get form data
+    const formData = new FormData(document.getElementById("flagging-form"));
+
+    // Submit the form
+    await sendAJAX("/php/lib/flagging/submit_report.php", formData, "POST", false, false, function (unparsedResponse) {
+        const response = JSON.parse(unparsedResponse);
+        const resCode = response.code;
+        const reason = response.reason;
+        const link = response.reported_from;
+        const explanation = response.report_explanation;
+        const success = response.success;
+        const error = response.error;
+        if (resCode === 1) {
+            // Success
+            document.getElementById("flagging-form").reset();
+            $radioContainers.hide();
+            $("#submit-flagging").hide();
+            $(".explanation-section").hide();
+            $("#cancel-flagging").text("Finished");
+            flagging_response.html(success).addClass("success");
+        } else {
+            // Error
+            flagging_response.html(error).addClass("error");
+        }
+    });
+});
+
+
 // Initial widths of flagging modal
 let sectionWidth = $(".post-flagging").width();
 $(".flagging-modal").css("width", Math.floor(sectionWidth)).css("max-width", Math.floor(sectionWidth) + "px");
@@ -340,6 +375,17 @@ async function downvote() {
                 alert(response);
             }
         }
+    });
+}
+async function sendAJAX(url, dataObj, method, processData, contentType, __callback) {
+    // Execute AJAX
+    await $.ajax({  
+        type: method,  
+        url: url, 
+        data: dataObj,
+        processData: processData,
+        contentType: contentType,
+        success: __callback
     });
 }
 </script>
