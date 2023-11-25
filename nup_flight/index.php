@@ -126,16 +126,40 @@ function voteButtonControls($db, $postID, $thisUserID) {
                                         <p class="modal-title">Please tell us what you're flagging this content for.</p>
                                     </div>
                                     <div class="modal-sub-section radio-section">
-                                        <input type="radio" id="irrelevant-content" name="irrelevant-content" value="irrelevant-content"/>
-                                        <label for="irrelevant-content">This post is irrelevant (Spam, off-topic, etc)</label>
+                                        <input type="radio" id="irrelevant-content" name="flag-reason" value="This post is irrelevant (spam, off-topic, etc)" required/>
+                                        <label for="irrelevant-content">This post is irrelevant (spam, off-topic, etc)</label>
                                     </div>
                                     <div class="modal-sub-section radio-section">
-                                        <input type="radio" id="irrelevant-content" name="irrelevant-content" value="irrelevant-content"/>
-                                        <label for="irrelevant-content">This post is too confusing or misguided</label>
+                                        <input type="radio" id="confusing-or-misguided" name="flag-reason" value="This post is too confusing or misguided" required/>
+                                        <label for="confusing-or-misguided">This post is too confusing or misguided</label>
                                     </div>
                                     <div class="modal-sub-section radio-section">
-                                        <input type="radio" id="irrelevant-content" name="irrelevant-content" value="irrelevant-content"/>
-                                        <label for="irrelevant-content">This post promotes the act of buying, selling, or trading illegal (non-native to the OP's location) ants, without proper permits.</label>
+                                        <input type="radio" id="illegals" name="flag-reason" value="This post promotes the act of buying, selling, or trading illegal (non-native to the OP's location) ants, without proper permits." required/>
+                                        <label for="illegals">This post promotes the act of buying, selling, or trading illegal (non-native to the OP's location) ants, without proper permits.</label>
+                                    </div>
+                                    <div class="modal-sub-section radio-section">
+                                        <input type="radio" id="bullying" name="flag-reason" value="This post promotes the act of bullying (racism, homophobia, etc)" required/>
+                                        <label for="bullying">This post promotes the act of bullying (racism, homophobia, etc)</label>
+                                    </div>
+                                    <div class="modal-sub-section radio-section">
+                                        <input type="radio" id="rude-or-abusive" name="flag-reason" value="This post has rude or abusive content." required/>
+                                        <label for="rude-or-abusive">This post has rude or abusive content.</label>
+                                    </div>
+                                    <div class="modal-sub-section radio-section">
+                                        <input type="radio" id="duplicate" name="flag-reason" value="This post is a duplicate." required/>
+                                        <label for="duplicate">This post is a duplicate.</label>
+                                    </div>
+                                    <div class="modal-sub-section radio-section">
+                                        <input type="radio" id="plagiarism" name="flag-reason" value="This post contains plagiarized content from elsewhere." required/>
+                                        <label for="plagiarism">This post contains plagiarized content from elsewhere.</label>
+                                    </div>
+                                    <div class="modal-sub-section radio-section">
+                                        <input type="radio" id="something-else" name="flag-reason" value="Something else (Please write the reason below)." required/>
+                                        <label for="something-else">Something else (Please write the reason below).</label>
+                                    </div>
+                                    <div class="modal-sub-section exlanation-section">
+                                        <label for="explanation">Explain your report or add additional info here. If your post is in regards to plagiarism, please provide a link. If there is a particular user, answer or reply at fault, please mention those here.</label>
+                                        <textarea class="input-main" type="text" id="explanation" name="explanation" minlength="35" maxlength="30000" placeholder="Please explain more about your report here." required></textarea>
                                     </div>
                                     <div class="modal-sub-section final-section">
                                         <button class="btn-secondary" id="cancel-flagging" type="button">Cancel</button>
@@ -224,6 +248,7 @@ function voteButtonControls($db, $postID, $thisUserID) {
     </div>
 </body>
 <script type="text/javascript">
+let $radioContainers = $(".radio-section");
 // Initial widths of flagging modal
 let sectionWidth = $(".post-flagging").width();
 $(".flagging-modal").css("width", Math.floor(sectionWidth)).css("max-width", Math.floor(sectionWidth) + "px");
@@ -234,7 +259,6 @@ $(window).on("resize", () => {
 });
 
 // Selected flagging reasons controls
-let $radioContainers = $(".radio-section");
 $radioContainers.find(":radio").on("change", e => {
     $radioContainers.removeClass("radio-active"); // remove from all containers
     $(e.target).closest(".radio-section").addClass("radio-active"); // add class to current
