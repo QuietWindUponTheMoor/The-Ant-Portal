@@ -56,72 +56,6 @@
 .post-page-container .vote-container .vote-subcontainer .vote-count {
   font-weight: bold;
 }
-.post-page-container .post-flagging {
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-.post-page-container .post-flagging .flag-image-container {
-  position: relative;
-  width: 20px;
-  aspect-ratio: 1/1;
-  border-radius: 500px;
-}
-.post-page-container .post-flagging .flag-image-container .flag-image {
-  width: 100%;
-  height: 100%;
-  opacity: 0.5;
-  cursor: pointer;
-}
-.post-page-container .post-flagging .flag-image-container .flag-image:hover {
-  opacity: 1;
-}
-.post-page-container .post-flagging .flagging-modal {
-  flex-direction: column;
-  top: 140%;
-  left: 0;
-  padding: 0.75rem;
-}
-.post-page-container .post-flagging .flagging-modal::before {
-  left: 1% !important;
-}
-.post-page-container .post-flagging .flagging-modal .flagging-form .section {
-  flex-direction: row;
-  align-items: center;
-}
-.post-page-container .post-flagging .flagging-modal .flagging-form .radio-active {
-  background-color: #bdc2c2;
-}
-.post-page-container .post-flagging .flagging-modal .flagging-form .radio-section {
-  gap: 1rem;
-  align-items: flex-start;
-  border-radius: 5px;
-  padding: 0.5rem;
-}
-.post-page-container .post-flagging .flagging-modal .flagging-form .radio-section input {
-  margin: 0;
-}
-.post-page-container .post-flagging .flagging-modal .flagging-form .radio-section label {
-  font-weight: bold;
-  font-size: 90%;
-}
-.post-page-container .post-flagging .flagging-modal .flagging-form .explanation-section {
-  flex-direction: column;
-  gap: 8px;
-}
-.post-page-container .post-flagging .flagging-modal .flagging-form .explanation-section label {
-  font-size: 80%;
-}
-.post-page-container .post-flagging .flagging-modal .flagging-form .explanation-section .input-main {
-  resize: vertical;
-}
-.post-page-container .post-flagging .flagging-modal .flagging-form .final-section {
-  flex-direction: row;
-  width: 100%;
-  justify-content: flex-end !important;
-  align-items: flex-end !important;
-  gap: 0.5rem;
-}
 .post-page-container .post-section .user-data {
   gap: 10px;
   align-items: center;
@@ -198,41 +132,96 @@
   max-height: 100%;
 }
 
-.create-post-button-container .create-post-ask-type-modal, .container-main-title-container .create-post-ask-type-modal {
-  display: none;
-  position: fixed;
+.post-page-comments {
   flex-direction: column;
-  background-color: white;
-  border-radius: 15px;
-  padding: 1rem;
-  width: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 50000px 50px black;
+  padding: 0.5rem;
+  border-top: 1px solid #a2a9a9;
 }
-.create-post-button-container .create-post-ask-type-modal .modal-top, .container-main-title-container .create-post-ask-type-modal .modal-top {
-  flex-direction: row;
-  width: 100%;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-.create-post-button-container .create-post-ask-type-modal .modal-top .modal-title, .container-main-title-container .create-post-ask-type-modal .modal-top .modal-title {
-  font-size: 100%;
-  font-weight: bold;
-  margin: 0 !important;
-}
-.create-post-button-container .create-post-ask-type-modal .modal-bottom, .container-main-title-container .create-post-ask-type-modal .modal-bottom {
+.post-page-comments .comments-list {
   flex-direction: column;
-  width: 100%;
-  gap: 20px;
 }
-.create-post-button-container .create-post-ask-type-modal .modal-bottom .modal-section, .container-main-title-container .create-post-ask-type-modal .modal-bottom .modal-section {
+.post-page-comments .comments-list .comment-container {
   flex-direction: row;
-  width: 100%;
   justify-content: flex-start;
-  gap: 1rem;
+  align-items: flex-start;
+  gap: 0.5rem;
 }
-.create-post-button-container .create-post-ask-type-modal .modal-bottom .modal-section button, .create-post-button-container .create-post-ask-type-modal .modal-bottom .modal-section a, .container-main-title-container .create-post-ask-type-modal .modal-bottom .modal-section button, .container-main-title-container .create-post-ask-type-modal .modal-bottom .modal-section a {
-  font-size: 70%;
+.post-page-comments .comments-list .comment-container .comment-content {
+  flex-direction: column;
+}
+.post-page-comments .comments-list .comment-container .comment-content .comment, .post-page-comments .comments-list .comment-container .comment-content .user-link {
+  font-size: 90%;
+}
+.post-page-comments .comments-list .comment-container .comment-content .user-link {
+  color: #2AA00A;
+}
+.post-page-comments .comments-list .comment-container .comment-content .user-link:hover {
+  opacity: 0.75;
+  text-decoration: underline;
+}
+.post-flagging {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.post-flagging .flag-image-container {
+  position: relative;
+  width: 20px;
+  aspect-ratio: 1/1;
+  border-radius: 500px;
+}
+.post-flagging .flag-image-container .flag-image {
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  cursor: pointer;
+}
+.post-flagging .flag-image-container .flag-image:hover {
+  opacity: 1;
+}
+.post-flagging .flagging-modal {
+  flex-direction: column;
+  top: 140%;
+  left: 0;
+  padding: 0.75rem;
+}
+.post-flagging .flagging-modal::before {
+  left: 1% !important;
+}
+.post-flagging .flagging-modal .flagging-form .section {
+  flex-direction: row;
+  align-items: center;
+}
+.post-flagging .flagging-modal .flagging-form .radio-active {
+  background-color: #bdc2c2;
+}
+.post-flagging .flagging-modal .flagging-form .radio-section {
+  gap: 1rem;
+  align-items: flex-start;
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+.post-flagging .flagging-modal .flagging-form .radio-section input {
+  margin: 0;
+}
+.post-flagging .flagging-modal .flagging-form .radio-section label {
+  font-weight: bold;
+  font-size: 90%;
+}
+.post-flagging .flagging-modal .flagging-form .explanation-section {
+  flex-direction: column;
+  gap: 8px;
+}
+.post-flagging .flagging-modal .flagging-form .explanation-section label {
+  font-size: 80%;
+}
+.post-flagging .flagging-modal .flagging-form .explanation-section .input-main {
+  resize: vertical;
+}
+.post-flagging .flagging-modal .flagging-form .final-section {
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-end !important;
+  align-items: flex-end !important;
+  gap: 0.5rem;
 }/*# sourceMappingURL=posts.css.map */
