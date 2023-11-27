@@ -3,7 +3,13 @@
 .post-page-container {
     flex-direction: column;
     padding: 1rem;
+    padding-bottom: 800px; // testing for now
     gap: 1rem;
+    .page-divider {
+        width: calc(0.75rem + 100%);
+        transform: translateX(-0.35rem);
+        border-top: 1px solid $theme-30-hover-light;
+    }
     .section-wrap {
         flex-direction: row;
         flex-wrap: wrap;
@@ -120,35 +126,100 @@
 
 .post-page-comments {
     flex-direction: column;
-    padding: 0.5rem;
+    padding: 0;
     border-top: 1px solid $theme-30-hover-light;
+    gap: 0.5rem;
     .comments-list {
         flex-direction: column;
+        gap: 0.5rem;
         .comment-container {
             flex-direction: row;
             justify-content: flex-start;
             align-items: flex-start;
             gap: 0.5rem;
-            .comment-options {
-
+            padding: 0.5rem;
+            padding-inline: 0;
+            border-top: 1px solid $theme-30-hover-light;
+            &:first-child {
+                border: none;
             }
+            /*.comment-options {
+                // For later
+            }*/
             .comment-content {
                 flex-direction: column;
-                .comment, .user-link {
-                    font-size: 90%;
+                .comment {
+                    font-size: 70%;
                 }
                 .user-link {
+                    font-size: 85%;
                     color: $theme-10;
                     &:hover {
                         opacity: 0.75;
                         text-decoration: underline;
                     }
                 }
+                .comment_date {
+                    opacity: 0.75;
+                }
             }
         }
     }
-    .comment-box {
-
+    .comment-box-write {
+        flex-direction: column;
+        width: 100%;
+        .textarea-container {
+            flex-direction: row;
+            width: 100%;
+            align-items: center;
+            gap: 0.5rem;
+            .comment-textbox {
+                resize: none;
+                width: 100%;
+                min-height: auto !important;
+                padding: 0.5rem;
+                overflow-y: hidden;
+                outline: 2px solid transparent;
+            }
+        }
+        .textarea-container-active {
+            .comment-textbox {
+                flex: 90;
+                border-radius: $b-med;
+                &:focus {
+                    box-shadow: 0 0 0 2px $theme-10-hover-ultralight;
+                }
+            }
+            .post-comment-button {
+                flex: 10;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+        .textarea-container-inactive {
+            .comment-textbox {
+                flex: 100;
+                border: none;
+                cursor: pointer;
+                &:active {
+                    cursor: text;
+                }
+                &:focus {
+                    cursor: text;
+                }
+                &:hover {
+                    &::placeholder {
+                        color: $theme-10;
+                    }
+                    &::-ms-input-placeholder {
+                        color: $theme-10;
+                    }
+                }
+            }
+            .post-comment-button {
+                display: none;
+            }
+        }
     }
 }
 

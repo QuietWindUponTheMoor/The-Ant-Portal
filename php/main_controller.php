@@ -37,6 +37,7 @@ if ($isLoggedIn === true) {
 } else {
     // 0 userID is automatically invalid but assigns the variable a value at least
     $userID = 0;
+    $isLoggedIn = false;
 }
 
 // Do database health checks

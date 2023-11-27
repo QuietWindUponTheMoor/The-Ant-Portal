@@ -21,7 +21,13 @@
 .post-page-container {
   flex-direction: column;
   padding: 1rem;
+  padding-bottom: 800px;
   gap: 1rem;
+}
+.post-page-container .page-divider {
+  width: calc(0.75rem + 100%);
+  transform: translateX(-0.35rem);
+  border-top: 1px solid #a2a9a9;
 }
 .post-page-container .section-wrap {
   flex-direction: row;
@@ -134,31 +140,100 @@
 
 .post-page-comments {
   flex-direction: column;
-  padding: 0.5rem;
+  padding: 0;
   border-top: 1px solid #a2a9a9;
+  gap: 0.5rem;
 }
 .post-page-comments .comments-list {
   flex-direction: column;
+  gap: 0.5rem;
 }
 .post-page-comments .comments-list .comment-container {
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
   gap: 0.5rem;
+  padding: 0.5rem;
+  padding-inline: 0;
+  border-top: 1px solid #a2a9a9;
+  /*.comment-options {
+      // For later
+  }*/
+}
+.post-page-comments .comments-list .comment-container:first-child {
+  border: none;
 }
 .post-page-comments .comments-list .comment-container .comment-content {
   flex-direction: column;
 }
-.post-page-comments .comments-list .comment-container .comment-content .comment, .post-page-comments .comments-list .comment-container .comment-content .user-link {
-  font-size: 90%;
+.post-page-comments .comments-list .comment-container .comment-content .comment {
+  font-size: 70%;
 }
 .post-page-comments .comments-list .comment-container .comment-content .user-link {
+  font-size: 85%;
   color: #2AA00A;
 }
 .post-page-comments .comments-list .comment-container .comment-content .user-link:hover {
   opacity: 0.75;
   text-decoration: underline;
 }
+.post-page-comments .comments-list .comment-container .comment-content .comment_date {
+  opacity: 0.75;
+}
+.post-page-comments .comment-box-write {
+  flex-direction: column;
+  width: 100%;
+}
+.post-page-comments .comment-box-write .textarea-container {
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  gap: 0.5rem;
+}
+.post-page-comments .comment-box-write .textarea-container .comment-textbox {
+  resize: none;
+  width: 100%;
+  min-height: auto !important;
+  padding: 0.5rem;
+  overflow-y: hidden;
+  outline: 2px solid transparent;
+}
+.post-page-comments .comment-box-write .textarea-container-active .comment-textbox {
+  flex: 90;
+  border-radius: 5px;
+}
+.post-page-comments .comment-box-write .textarea-container-active .comment-textbox:focus {
+  box-shadow: 0 0 0 2px #5ff337;
+}
+.post-page-comments .comment-box-write .textarea-container-active .post-comment-button {
+  flex: 10;
+  justify-content: center;
+  align-items: center;
+}
+.post-page-comments .comment-box-write .textarea-container-inactive .comment-textbox {
+  flex: 100;
+  border: none;
+  cursor: pointer;
+}
+.post-page-comments .comment-box-write .textarea-container-inactive .comment-textbox:active {
+  cursor: text;
+}
+.post-page-comments .comment-box-write .textarea-container-inactive .comment-textbox:focus {
+  cursor: text;
+}
+.post-page-comments .comment-box-write .textarea-container-inactive .comment-textbox:hover::-moz-placeholder {
+  color: #2AA00A;
+}
+.post-page-comments .comment-box-write .textarea-container-inactive .comment-textbox:hover::placeholder {
+  color: #2AA00A;
+}
+.post-page-comments .comment-box-write .textarea-container-inactive .comment-textbox:hover::-ms-input-placeholder {
+  color: #2AA00A;
+}
+.post-page-comments .comment-box-write .textarea-container-inactive .post-comment-button {
+  display: none;
+}
+
 .post-flagging {
   flex-direction: column;
   justify-content: flex-start;

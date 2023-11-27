@@ -104,6 +104,16 @@ function voteButtonControls($db, $postID, $thisUserID) {
         return ["opacity: 0.6;", "opacity: 0.6;"];
     }
 }
+
+// Get flagging modal text
+$flagging_modal = file_get_contents($root."/mini-includes/modals/flag_modal.php");
+
+// Fetch THIS user's username:
+$thisUserData = fetchUserData($userID, $db);
+$thisUsersUsername = $thisUserData[0];
+
+// Initialize reply type
+$replyType = "post";
 ?>
 
 <body>
@@ -118,7 +128,7 @@ function voteButtonControls($db, $postID, $thisUserID) {
                         <p class="post-title">Nuptial Flight #<?php echo $flightID; ?>: <?php echo $species; ?></p>
                     </div>
                     <div class="post-section post-flagging">
-                        <?php require($root."/mini-includes/modals/flag_modal.php"); ?>
+                        <?php echo $flagging_modal; ?>
                     </div>
                     <div class="post-section vote-container">
                         <div class="vote-subcontainer">
@@ -191,22 +201,45 @@ function voteButtonControls($db, $postID, $thisUserID) {
                         <p class="meta"><?php echo $replies; ?> replies</p>
                     </div>
 
-                    <div class="post-page-comments" id="main-comments-container">
+                    <div class="post-page-comments comments-box-main" id="main-comments-container">
                         <div class="comments-list">
-                            <div class="comment-container">
-                                <div class="comment-options post-flagging">
-                                    <?php require($root."/mini-includes/modals/flag_modal.php"); ?>
-                                </div>
-                                <div class="comment-content">
-                                    <a class="user-link" href="#">TestUser</a>
-                                    <p class="comment">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eius laboriosam dolor commodi maxime illo, at tenetur, odit deserunt dolorum odio perferendis, eum impedit ipsam optio!</p>
-                                </div>
+                            <?php
+                            $repliesRes = $db->select("SELECT * FROM replies WHERE for_type=? AND forItemID=?;", "si", "post", $flightID);
+                            if ($repliesRes->num_rows > 0) {
+                                while ($row = mysqli_fetch_assoc($repliesRes)) {
+                                    $byUserID = $row["byUserID"];
+                                    $byUsername = fetchUserData($byUserID, $db);
+                                    $byUsername = $byUsername[0];
+                                    $text = $row["text"];
+                                    $datetime = $row["datetime"];
+
+
+                                    echo
+                                    '
+                                    <div class="comment-container">
+                                        <div class="comment-options post-flagging">
+                                            '.$flagging_modal.'
+                                        </div>
+                                        <div class="comment-content">
+                                            <a class="user-link" href="/users/user?userID='.$byUserID.'">'.$byUsername.'</a>
+                                            <p class="comment">'.$text.'</p>
+                                            <p class="comment comment_date">'.$datetime.'</p>
+                                        </div>
+                                    </div>
+                                    ';
+                                }
+                            }
+                            ?>
+                        </div>
+                        <div class="comment-box-write">
+                            <div class="textarea-container textarea-container-inactive">
+                                <textarea class="comment-textbox" id="comment-textbox" name="comment" minlength="1" maxlength="256" rows="1" placeholder="Add Comment"></textarea>
+                                <button class="btn-action post-comment-button" type="button" onclick='submitReply("<?php echo $replyType; ?>", $(this));'>Reply</button>
                             </div>
                         </div>
-                        <div class="comment-box">
-
-                        </div>
                     </div>
+
+                    <div class="page-divider"><?php $replyType = "answer"; ?></div>
 
                 </div>
 
@@ -217,6 +250,138 @@ function voteButtonControls($db, $postID, $thisUserID) {
     </div>
 </body>
 <script type="text/javascript">
+const $isLoggedIn = <?php if ($isLoggedIn === false) {echo true;} else {echo false;} ?>;
+
+// Replies
+// Initialize current_val:
+let current_textbox_val = "";
+async function submitReply(forType, $this) {
+    // Prevent default actions
+    event.preventDefault();
+
+    // Get comment thread
+    $comment_thread = $this.closest(".comments-box-main").find(".comments-list");
+    // Get textbox
+    $textbox = $this.closest(".textarea-container").find(".comment-textbox");
+
+    // Fetch reply text
+    const reply_text = $textbox.val();
+
+    // Get user's date
+    const userDate = new Date();
+    const options = { timeZone: 'America/Chicago' };
+    const month = (userDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = userDate.getDate().toString().padStart(2, '0');
+    const year = userDate.getFullYear();
+    const hours = userDate.getHours() % 12 || 12;
+    const minutes = userDate.getMinutes().toString().padStart(2, '0');
+    const period = userDate.getHours() < 12 ? 'AM' : 'PM';
+    const timeZone = new Intl.DateTimeFormat('en-US', { timeZoneName: 'short', timeZone: options.timeZone }).format(userDate).split(' ').pop();
+    const timeString = `${month}/${day}/${year} @ ${hours}:${minutes}${period} (${timeZone})`;
+
+    // Initialize reply template
+    const reply_template =
+    `
+    <div class="comment-container">
+        <div class="comment-options post-flagging">
+            <?php echo $flagging_modal; ?>
+        </div>
+        <div class="comment-content">
+            <a class="user-link" href="/users/user?userID=<?php echo $userID; ?>"><?php echo $thisUsersUsername; ?></a>
+            <p class="comment">${reply_text}</p>
+            <p class="comment comment_date">${timeString}</p>
+        </div>
+    </div>
+    `;
+    
+    // Get reply data
+    const reply_data = {
+        db: "<?php echo $dbHost; ?>",
+        userID: <?php echo $userID; ?>,
+        forType: forType,
+        itemID: <?php echo $flightID; ?>,
+        text: reply_text,
+        datetime: timeString,
+    };
+
+    // Submit the reply
+    await $.ajax({  
+        type: "POST",  
+        url: "/php/lib/replies/create_reply.php", 
+        data: reply_data,
+        success: function (response) {
+            response = parseInt(response);
+            if (response === 1) {
+                $comment_thread.append(reply_template);
+                $textbox.val("");
+                // Find the parent of the textbox with class 'textarea-container'
+                $textarea_container = $textbox.closest(".textarea-container");
+                // Reverse the classes for it
+                $textarea_container.addClass("textarea-container-inactive").removeClass("textarea-container-active");
+                // Textbox placeholder change
+                $textbox.attr("placeholder", "Add Comment");
+                // Reset current_textbox_val
+                current_textbox_val = "";
+            } else {
+                // Save the current tetbox value just in case
+                current_textbox_val = $textbox.val();
+                // Display error to user via textbox
+                $textbox.val(response);
+            }
+        }
+    });
+}
+
+// Reply textboxes
+$(".comment-textbox").on("input", function () {
+    $(this).css("height", "auto").css("height", this.scrollHeight + "px");
+});
+$(".textarea-container").on("click", function (event) {
+    // Prevent click propagation
+    event.stopPropagation();
+
+    // Add active class, remove inactive class
+    $(this).addClass("textarea-container-active").removeClass("textarea-container-inactive");
+
+    // Assign $this variable as $(this) to target a specific element later
+    $this = $(this);
+    
+    // Get current textbox
+    $textbox = $this.find(".comment-textbox");
+
+    // Textbox placeholder change
+    $textbox.attr("placeholder", "Write your comment here. Please refrain from needless comments.");
+
+    if ($textbox.val()) {
+        // Textbox has text in it
+        // Save the current text in the box:
+        current_textbox_val = $textbox.val();
+    } else {
+        // Textbox does not have text in it
+        // Re-assign the old text if there was any
+        $textbox.val(current_textbox_val);
+        // Assign current textbox value
+        current_textbox_val = $textbox.val();
+    }
+
+    // If the above is already done, and the user clicks outside of this element, reverse the classes
+    $(document).on("click", () => {
+        // Reverse the classes to original
+        $this.addClass("textarea-container-inactive").removeClass("textarea-container-active");
+        // Textbox placeholder change
+        $textbox.attr("placeholder", "Add Comment");
+
+        if ($textbox.val()) {
+            // Textbox has text in it
+            // Save the current text in the box:
+            current_textbox_val = $textbox.val();
+        }
+        
+        // Remove the text from the textbox
+        $textbox.val("");
+    });
+});
+
 // Subitting flags
 const flagging_response = $("#flagging-response");
 let $radioContainers = $(".radio-section");
@@ -278,21 +443,34 @@ $(".cancel-flagging").on("click", () => {
 });
 
 // Change image color to red upon hover of flag button
-$("#flag-image").hover((event) => {
+$(".flag-image").hover(function (event) {
     if (event.type === "mouseenter") {
-        $("#flag-image").attr("src", "/web_images/icons/flag_red.png");
+        $(this).attr("src", "/web_images/icons/flag_red.png");
     } else {
-        $("#flag-image").attr("src", "/web_images/icons/flag.png");
+        $(this).attr("src", "/web_images/icons/flag.png");
     }
 });
 
 // Upvote triggers
 $("#upvote-trigger").on("click", async () => {
-    await upvote();
+    if ($isLoggedIn === true) {
+        await upvote();
+    } else {
+        alert("Sorry, but you must be logged in to vote.");
+    }
 });
 $("#downvote-trigger").on("click", async () => {
-    await downvote();
+    if ($isLoggedIn === true) {
+        await downvote();
+    } else {
+        alert("Sorry, but you must be logged in to vote.");
+    }
 });
+
+if ($isLoggedIn !== true) {
+    $(".post-flagging").hide();
+    $(".comment-box-write").hide();
+}
 
 // Helpers
 async function upvote() {

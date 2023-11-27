@@ -98,7 +98,7 @@ textarea {
 }
 
 input, textarea {
-  font-family: "Nunito", sans-serif;
+  font-family: "Nunito", sans-serif !important;
 }
 
 .input-main {
@@ -107,7 +107,7 @@ input, textarea {
   padding: 0.5rem;
   border: 2px solid #bdbdbd;
   border-radius: 5px;
-  outline: none;
+  outline: 1px solid transparent;
 }
 
 .input-hidden {

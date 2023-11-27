@@ -15,6 +15,7 @@ $sqlFiles = [
     "/news.sql",
     "/owned_badges.sql",
     "/flagged_items.sql",
+    "/replies.sql",
 ];
 
 // Create tables_schema if not exists
