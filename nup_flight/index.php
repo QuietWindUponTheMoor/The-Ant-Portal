@@ -137,8 +137,9 @@ $replyType = "post";
                             <div class="icon-container" title="Downvote this post"><img class="icon" id="downvote-trigger" style="<?php echo $downvoteButtonOpacity; ?>" src="/web_images/icons/downvote.png"/></div>
                         </div>
                     </div>
-                    <div class="post-section">
-                        <p class="body"><?php echo $body; ?></p>
+                    <div class="post-section body-container">
+                        <!--<p class="body"><?php echo $body; ?></p>-->
+                        <textarea class="body body-editing-mode" id="body-editing-mode" name="body" minlength="5" maxlength="30000" required><?php echo $body; ?></textarea>
                     </div>
                     <div class="post-section section-wrap">
                         <div class="user-data">
@@ -249,6 +250,7 @@ $replyType = "post";
         </div>
     </div>
 </body>
+<script type="text/javascript" src="/js/lib/editing/editing.js"></script>
 <script type="text/javascript">
 const $isLoggedIn = <?php if ($isLoggedIn === false) {echo true;} else {echo false;} ?>;
 
