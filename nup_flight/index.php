@@ -124,8 +124,8 @@ $replyType = "post";
 
 
                 <div class="post-page-container">
-                    <div class="post-section">
-                        <p class="post-title">Nuptial Flight #<?php echo $flightID; ?>: <?php echo $species; ?></p>
+                    <div class="post-section" id="title-container">
+                        <p class="post-title" id="title">Nuptial Flight #<?php echo $flightID; ?>: <?php echo $species; ?></p>
                     </div>
                     <div class="post-section post-flagging">
                         <?php echo $flagging_modal; ?>
@@ -138,10 +138,9 @@ $replyType = "post";
                         </div>
                     </div>
                     <div class="post-section body-container">
-                        <!--<p class="body"><?php echo $body; ?></p>-->
-                        <textarea class="body body-editing-mode" id="body-editing-mode" name="body" minlength="5" maxlength="30000" required><?php echo $body; ?></textarea>
+                        <p class="body" id="body"><?php echo $body; ?></p>
                     </div>
-                    <div class="post-section section-wrap">
+                    <div class="post-section section-wrap" id="user-data-section">
                         <div class="user-data">
                             <p class="by">Posted by</p>
                             <div class="user-image-container"><img class="user-image" src="<?php echo $postersImage; ?>"/></div>
@@ -152,7 +151,7 @@ $replyType = "post";
                         if ($editedByUserID != 0) {
                             echo
                             '
-                            <div class="user-data" id="edited-by">
+                            <div class="user-data" id="post-by">
                                 <p class="by">Edited by</p>
                                 <div class="user-image-container"><img class="user-image" src="'.$editedByUserImage.'"/></div>
                                 <a class="by by-link" href="/users/user?userID=1">'.$editedByUsername.'</a>
@@ -181,7 +180,7 @@ $replyType = "post";
                         <p class="meta">Wind Speed: <?php echo $windSpeed; ?>mph</p>
                         <p class="meta">Moon Cycle: <?php echo $moonCycle; ?></p>
                     </div>
-                    <div class="post-section section-wrap post-meta">
+                    <div class="post-section section-wrap post-meta" id="tags-section">
                         <?php
                         foreach ($tagsArray as $tag) {
                             if ($tag == "NULL" || $tag == "") {
@@ -200,6 +199,11 @@ $replyType = "post";
                     <div class="post-section section-wrap post-meta">
                         <p class="meta"><?php echo $answers; ?> answers</p>
                         <p class="meta"><?php echo $replies; ?> replies</p>
+                    </div>
+                    <div class="post-section" id="control-buttons">
+                        <div class="control-button-container" id="start-editing-container"><img class="control-button" id="start-editing" src="/web_images/icons/editing.png" title="Suggest an edit to this post"/></div>
+                        <button style="display: none;" class="btn-secondary" id="cancel-edits" type="button">Cancel Edits</button>
+                        <button style="display: none;" class="btn-main" id="finish-edits" type="button">Finish Edits</button>
                     </div>
 
                     <div class="post-page-comments comments-box-main" id="main-comments-container">
@@ -250,9 +254,22 @@ $replyType = "post";
         </div>
     </div>
 </body>
-<script type="text/javascript" src="/js/lib/editing/editing.js"></script>
 <script type="text/javascript">
-const $isLoggedIn = <?php if ($isLoggedIn === false) {echo true;} else {echo false;} ?>;
+// Get backend data
+// User
+const $isLoggedIn = <?php if ($isLoggedIn === false) {echo false;} else {echo true;} ?>;
+const user_data = {
+    id: <?php echo $userID; ?>,
+    username: "<?php echo $thisUsersUsername; ?>",
+};
+// Post
+const post_data = {
+    db: "<?php echo $dbHost; ?>",
+    postType: 4, // 4 = nuptial_flight
+    postID: <?php echo $flightID; ?>,
+};
+
+
 
 // Replies
 // Initialize current_val:
@@ -445,31 +462,30 @@ $(".cancel-flagging").on("click", () => {
 });
 
 // Change image color to red upon hover of flag button
-$(".flag-image").hover(function (event) {
-    if (event.type === "mouseenter") {
-        $(this).attr("src", "/web_images/icons/flag_red.png");
-    } else {
-        $(this).attr("src", "/web_images/icons/flag.png");
-    }
+$(".flag-image").on("mouseenter", function () {
+    $(this).attr("src", "/web_images/icons/flag_red.png");
+});
+$(".flag-image").on("mouseleave", function () {
+    $(this).attr("src", "/web_images/icons/flag.png");
 });
 
 // Upvote triggers
 $("#upvote-trigger").on("click", async () => {
-    if ($isLoggedIn === true) {
+    if ($isLoggedIn === 1) {
         await upvote();
     } else {
         alert("Sorry, but you must be logged in to vote.");
     }
 });
 $("#downvote-trigger").on("click", async () => {
-    if ($isLoggedIn === true) {
+    if ($isLoggedIn === 1) {
         await downvote();
     } else {
         alert("Sorry, but you must be logged in to vote.");
     }
 });
 
-if ($isLoggedIn !== true) {
+if ($isLoggedIn !== 1) {
     $(".post-flagging").hide();
     $(".comment-box-write").hide();
 }
@@ -539,5 +555,6 @@ async function sendAJAX(url, dataObj, method, processData, contentType, __callba
     });
 }
 </script>
+<script type="text/javascript" src="/js/lib/editing/editing.js"></script>
 
 <?php require($root."/includes/footer.php"); ?>

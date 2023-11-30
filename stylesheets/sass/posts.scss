@@ -44,6 +44,8 @@
         }
     }
     .post-section {
+        gap: 1rem;
+        align-items: center;
         .user-data {
             gap: 10px;
             align-items: center;
@@ -91,6 +93,26 @@
         .post-image {
             width: 100%;
             max-width: 50%;
+        }
+        .text-editing-mode {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid $theme-30-hover-light;
+            border-radius: $b-med;
+            outline: 1px solid transparent;
+            &:focus {
+                box-shadow: 0 0 0 2px $theme-10-hover-ultralight;
+            }
+        }
+        .control-button-container {
+            width: 20px;
+            height: 20px;
+            aspect-ratio: 1 / 1;
+            .control-button {
+                width: 100%;
+                height: 100%;
+                cursor: pointer;
+            }
         }
     }
     .post-meta {
@@ -230,7 +252,7 @@
 .post-flagging {
     flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: flex-start !important;
     .flag-image-container {
         position: relative;
         width: 20px;
