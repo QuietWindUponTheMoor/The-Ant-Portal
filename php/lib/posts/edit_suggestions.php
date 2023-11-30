@@ -15,4 +15,18 @@ $body = $data["newBody"];
 
 $db->insert("INSERT INTO post_suggestions (suggestedByUserID, postType, postID, newtitle, newBody) VALUES (?, ?, ?, ?, ?);", "iiiss", $userID, $postType, $postID, $title, $body);
 
-echo 1;
+if ($postType === "4") {
+    // Post is nup flight
+    if ($db->insert("UPDATE nuptial_flights SET editedByUserID=? WHERE flightID=?;", "ii", -1, $postID)) {
+        echo 1;
+    } else {
+        echo 0;
+    }
+} else {
+    // Post is anything else (so far, subject to change)
+    if ($db->insert("UPDATE posts SET editedByUserID=? WHERE postID=?;", "ii", -1, $postID)) {
+        echo 1;
+    } else {
+        echo 0;
+    }
+}

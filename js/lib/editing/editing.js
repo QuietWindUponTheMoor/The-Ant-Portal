@@ -1,6 +1,5 @@
 // Initializations
 var globalPostID;
-var globalSpecies = "";
 var globalTitle;
 var globalBody;
 // Methods to extend
@@ -70,7 +69,6 @@ function convertToEditable() {
             saved_text = species;
             // Now assign global variabls 'postID' and 'species' and 'title':
             globalPostID = postID;
-            globalSpecies = species;
             globalTitle = element;
             break;
         case "body":
@@ -109,10 +107,10 @@ function convertToEditable() {
     // Return item
     return this; // move this to onSuccess() later
 }
-function submitWithAJAX(url, method) {
+function submitSuggestion(url, method) {
     /*
     use case of this function:
-    $("#test").submitWithAJAX("url", "test", "POST", false, false).onSuccess(response => {
+    $("#test").submitSuggestion("url", "test", "POST", false, false).onSuccess(response => {
         console.log(response);
     });
     */
@@ -124,11 +122,11 @@ function submitWithAJAX(url, method) {
             // Process data
             var newTitle = globalTitle.val();
             var newBody = globalBody.val();
-            newTitle = "Nuptial Flight #".concat(globalPostID, ": ").concat(globalSpecies);
+            newTitle = "Nuptial Flight #".concat(globalPostID, ": ").concat(newTitle);
             newBody = newBody.replace(/\n/g, "<br>");
             var byUserID = user_data.id;
             var postType = post_data.postType;
-            var postID = post_data.postType;
+            var postID = post_data.postID;
             var db = post_data.db;
             var dataObj = {
                 db: db,
@@ -151,7 +149,7 @@ function submitWithAJAX(url, method) {
             });
         }
         else {
-            console.error("The element: ", _this[0], "is not the correct type of element to call submitWithAJAX on. submitWithAJAX must be called on a JQuery object of type 'BUTTON'.");
+            console.error("The element: ", _this[0], "is not the correct type of element to call submitSuggestion on. submitSuggestion must be called on a JQuery object of type 'BUTTON'.");
         }
     });
     return this;
@@ -164,7 +162,7 @@ $.fn.extend({
     changeAttrOnHover: changeAttrOnHover,
     renderLineBreak: renderLineBreak,
     convertToEditable: convertToEditable,
-    submitWithAJAX: submitWithAJAX,
+    submitSuggestion: submitSuggestion,
     onSuccess: function (callback) {
         this.data("onSuccessCallback", callback);
         return this;
@@ -202,8 +200,16 @@ $("#start-editing").on("click", function () {
         window.location.reload();
     });
 });
-$("#finish-edits").submitWithAJAX("/php/lib/posts/edit_suggestions.php", "POST").onSuccess(function (response) {
+$("#finish-edits").submitSuggestion("/php/lib/posts/edit_suggestions.php", "POST").onSuccess(function (response) {
     // Handle response here
+    if (parseInt(response) === 1) {
+        // Success
+        window.location.reload();
+    }
+    else {
+        // Error
+        console.error(response);
+    }
 });
 // Extras
 $(".control-button").changeAttrOnHover("src", "/web_images/icons/editing_active.png", "/web_images/icons/editing.png");

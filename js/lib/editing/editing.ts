@@ -11,7 +11,6 @@ declare const post_data: {
 
 // Initializations
 let globalPostID: number;
-let globalSpecies: string = "";
 let globalTitle: JQuery<HTMLElement>;
 let globalBody: JQuery<HTMLElement>;
 
@@ -20,7 +19,7 @@ interface JQuery {
     changeAttrOnHover(attrType: string, attrValOnHover: string, attrValWithoutHover: string): JQuery;
     renderLineBreak(): JQuery;
     convertToEditable(): JQuery;
-    submitWithAJAX(url: string, method: string): any;
+    submitSuggestion(url: string, method: string): any;
     getNodeType(): string | undefined;
     onSuccess(callback: (response: any) => boolean): this;
 }
@@ -105,7 +104,6 @@ function convertToEditable(): JQuery {
             saved_text = species;
             // Now assign global variabls 'postID' and 'species' and 'title':
             globalPostID = postID;
-            globalSpecies = species;
             globalTitle = element;
             break;
         case "body":
@@ -148,10 +146,10 @@ function convertToEditable(): JQuery {
     // Return item
     return this; // move this to onSuccess() later
 }
-function submitWithAJAX(url: string, method: string): JQuery {
+function submitSuggestion(url: string, method: string): JQuery {
     /*
     use case of this function:
-    $("#test").submitWithAJAX("url", "test", "POST", false, false).onSuccess(response => {
+    $("#test").submitSuggestion("url", "test", "POST", false, false).onSuccess(response => {
         console.log(response);
     });
     */
@@ -163,11 +161,11 @@ function submitWithAJAX(url: string, method: string): JQuery {
             // Process data
             let newTitle: string | any = globalTitle.val();
             let newBody: string | any = globalBody.val();
-            newTitle = `Nuptial Flight #${globalPostID}: ${globalSpecies}`;
+            newTitle = `Nuptial Flight #${globalPostID}: ${newTitle}`;
             newBody = newBody.replace(/\n/g, "<br>");
             let byUserID: number = user_data.id;
             let postType: number = post_data.postType;
-            let postID: number = post_data.postType;
+            let postID: number = post_data.postID;
             let db: string = post_data.db;
         
             let dataObj: object = {
@@ -177,7 +175,7 @@ function submitWithAJAX(url: string, method: string): JQuery {
                 postID: postID,
                 newTitle: newTitle,
                 newBody: newBody,
-            }
+            };
 
             // Execute AJAX
             $.ajax({  
@@ -191,7 +189,7 @@ function submitWithAJAX(url: string, method: string): JQuery {
                 },
             });
         } else {
-            console.error("The element: ", this[0], "is not the correct type of element to call submitWithAJAX on. submitWithAJAX must be called on a JQuery object of type 'BUTTON'.");
+            console.error("The element: ", this[0], "is not the correct type of element to call submitSuggestion on. submitSuggestion must be called on a JQuery object of type 'BUTTON'.");
         }
     });
 
@@ -206,7 +204,7 @@ $.fn.extend({
     changeAttrOnHover: changeAttrOnHover,
     renderLineBreak: renderLineBreak,
     convertToEditable: convertToEditable,
-    submitWithAJAX: submitWithAJAX,
+    submitSuggestion: submitSuggestion,
     onSuccess: function(callback) {
         this.data("onSuccessCallback", callback);
         return this;
@@ -252,8 +250,15 @@ $("#start-editing").on("click", () => {
     });
 });
 
-$("#finish-edits").submitWithAJAX("/php/lib/posts/edit_suggestions.php", "POST").onSuccess(response => {
+$("#finish-edits").submitSuggestion("/php/lib/posts/edit_suggestions.php", "POST").onSuccess(response => {
     // Handle response here
+    if (parseInt(response) === 1) {
+        // Success
+        window.location.reload();
+    } else {
+        // Error
+        console.error(response);
+    }
 });
     
 // Extras

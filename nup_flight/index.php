@@ -148,7 +148,7 @@ $replyType = "post";
                             <p class="by">on <?php echo $datePosted; ?></p>
                         </div>
                         <?php
-                        if ($editedByUserID != 0) {
+                        if ($editedByUserID > 0) {
                             echo
                             '
                             <div class="user-data" id="post-by">
@@ -156,6 +156,13 @@ $replyType = "post";
                                 <div class="user-image-container"><img class="user-image" src="'.$editedByUserImage.'"/></div>
                                 <a class="by by-link" href="/users/user?userID=1">'.$editedByUsername.'</a>
                                 <p class="by">on '.$lastEditDatetime.'</p>
+                            </div>
+                            ';
+                        } else if ($editedByUserID === -1) {
+                            echo
+                            '
+                            <div class="user-data" id="edited-by">
+                                <p class="by">Pending edits</p>
                             </div>
                             ';
                         } else {
