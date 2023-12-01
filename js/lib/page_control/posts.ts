@@ -105,12 +105,15 @@ function convertToEditable(): JQuery {
             element.attr("id", typeObject.id);
             // Get the element's container
             container = typeObject.container;
-            // Do regex for title to get the number (post ID) & the species name
-            const regex: RegExp = /^.*?#(\d+):\s*([^:]+)$/;
-            let match: object = saved_text.match(regex);
-            let species: string = match[2];
-            let postID: number = parseInt(match[1]);
-            saved_text = species;
+            let postID: number;
+            if (post_data.postType === 4) {
+                // Do regex for title to get the number (post ID) & the species name
+                const regex: RegExp = /^.*?#(\d+):\s*([^:]+)$/;
+                let match: object = saved_text.match(regex);
+                let species: string = match[2];
+                postID = parseInt(match[1]);
+                saved_text = species;
+            }
             // Now assign global variabls 'postID' and 'species' and 'title':
             globalPostID = postID;
             globalTitle = element;
@@ -158,7 +161,7 @@ function convertToEditable(): JQuery {
 function submitSuggestion(url: string, method: string): JQuery {
     /*
     use case of this function:
-    $("#test").submitSuggestion("url", "test", "POST", false, false).onSuccess(response => {
+    $("#test").submitSuggestion("url", "POST").onSuccess(response => {
         console.log(response);
     });
     */
@@ -168,23 +171,44 @@ function submitSuggestion(url: string, method: string): JQuery {
     this.on("click", () => {
         if (elementType === "button") {
             // Process data
-            let newTitle: string | any = globalTitle.val();
-            let newBody: string | any = globalBody.val();
-            newTitle = `Nuptial Flight #${globalPostID}: ${newTitle}`;
-            newBody = newBody.replace(/\n/g, "<br>");
-            let byUserID: number = user_data.id;
-            let postType: number = post_data.postType;
-            let postID: number = post_data.postID;
-            let db: string = post_data.db;
-        
-            let dataObj: object = {
-                db: db,
-                userID: byUserID,
-                postType: postType,
-                postID: postID,
-                newTitle: newTitle,
-                newBody: newBody,
-            };
+            // Initialize dataObj
+            let dataObj: object;
+            if (post_data.postType === 4) {
+                let newTitle: string | any = globalTitle.val();
+                let newBody: string | any = globalBody.val();
+                newTitle = `Nuptial Flight #${globalPostID}: ${newTitle}`;
+                newBody = newBody.replace(/\n/g, "<br>");
+                let byUserID: number = user_data.id;
+                let postType: number = post_data.postType;
+                let postID: number = post_data.postID;
+                let db: string = post_data.db;
+            
+                dataObj = {
+                    db: db,
+                    userID: byUserID,
+                    postType: postType,
+                    postID: postID,
+                    newTitle: newTitle,
+                    newBody: newBody,
+                };
+            } else {
+                let newTitle: string | any = globalTitle.val();
+                let newBody: string | any = globalBody.val();
+                newBody = newBody.replace(/\n/g, "<br>");
+                let byUserID: number = user_data.id;
+                let postType: number = post_data.postType;
+                let postID: number = post_data.postID;
+                let db: string = post_data.db;
+            
+                dataObj = {
+                    db: db,
+                    userID: byUserID,
+                    postType: postType,
+                    postID: postID,
+                    newTitle: newTitle,
+                    newBody: newBody,
+                };
+            }
 
             // Execute AJAX
             $.ajax({  
@@ -442,55 +466,69 @@ function sendAJAX(url: string, dataObj: object, method: string, __callback: any)
     });
 }
 function upvote(): any {
+    // Initialize vote/post type:
+    let voteType: number;
+    if (post_data.postType === 4) {
+        voteType = 2;
+    } else {
+        voteType = 1;
+    }
     $("#upvote-trigger").css("opacity", "0.6");
     $("#downvote-trigger").css("opacity", "0.6");
     $.ajax({  
         type: "POST",  
         url: "/php/lib/voting/post_voting.php", 
         data: {
-            voteType: 2,
+            voteType: voteType,
             postID: post_data.postID,
             userID: user_data.id,
             upvoteOrDownvote: 1
         },
         success: function(response) {
             // ParseInt--if parseInt DOESN'T result in "NaN", then it was a success.
-            response = parseInt(response);
-            if (isNaN(response)) {
+            let parsedResponse: number = parseInt(response);
+            if (isNaN(parsedResponse)) {
                 // Not successful
-                alert(response);
-            } else if (!isNaN(response)) {
+                console.error(response);
+            } else if (!isNaN(parsedResponse)) {
                 $("#total-votes").text(response);
-                $("#upvote-trigger").css("opacity", "1");
+                $("#downvote-trigger").css("opacity", "1");
             } else {
-                alert(response);
+                console.error(response);
             }
         }
     });
 }
 function downvote(): any {
+    // Initialize vote/post type:
+    let voteType: number;
+    if (post_data.postType === 4) {
+        voteType = 2;
+    } else {
+        voteType = 1;
+    }
     $("#upvote-trigger").css("opacity", "0.6");
     $("#downvote-trigger").css("opacity", "0.6");
     $.ajax({  
         type: "POST",  
         url: "/php/lib/voting/post_voting.php", 
         data: {
-            voteType: 2,
+            voteType: voteType,
             postID: post_data.postID,
             userID: user_data.id,
             upvoteOrDownvote: 2
         },
         success: function(response) {
             // ParseInt--if parseInt DOESN'T result in "NaN", then it was a success.
-            response = parseInt(response);
-            if (isNaN(response)) {
+            let parsedResponse: number = parseInt(response);
+            if (isNaN(parsedResponse)) {
                 // Not successful
-                alert(response);
-            } else if (!isNaN(response)) {
+                console.error(response);
+            } else if (!isNaN(parsedResponse)) {
                 $("#total-votes").text(response);
                 $("#downvote-trigger").css("opacity", "1");
             } else {
-                alert(response);
+                console.error(response);
             }
         }
     });

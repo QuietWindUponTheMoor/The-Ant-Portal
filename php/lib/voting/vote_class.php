@@ -25,7 +25,7 @@ class Voting {
             // Post type is "Question"
             $this->table = "posts";
             $this->IDCol = "postID";
-            $this->voteTable = "questions_has_voted";
+            $this->voteTable = "question_has_voted";
             $this->voteIDCol = "forPostID";
         } else if ($postType === 2) {
             // Post type is "Nuptial Flight"
@@ -258,7 +258,11 @@ class Voting {
     private function createVoteRecord(int $updown): bool {
         $table = $this->voteTable;
         $col = $this->voteIDCol;
-        return $this->db->insert("INSERT INTO $table (forFlightID, userID, updown) VALUES (?, ?, ?);", "iii", $this->postID, $this->userID, $updown);
+        if ($this->type === 2) {
+            return $this->db->insert("INSERT INTO $table (forFlightID, userID, updown) VALUES (?, ?, ?);", "iii", $this->postID, $this->userID, $updown);
+        } else {
+            return $this->db->insert("INSERT INTO $table (forPostID, userID, updown) VALUES (?, ?, ?);", "iii", $this->postID, $this->userID, $updown);
+        }
     }
     private function fetchCurrentTotalVotes(): int {
         $table = $this->table;
