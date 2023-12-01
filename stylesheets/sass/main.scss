@@ -99,7 +99,7 @@ h4 {
 
 .btn-action {
     padding: 1%;
-    background-color: darken($warning, 5%);
+    background-color: $action;
     border-radius: $b-med;
     border: none;
     cursor: pointer;

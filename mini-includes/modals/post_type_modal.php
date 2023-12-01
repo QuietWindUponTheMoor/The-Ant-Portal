@@ -25,10 +25,6 @@
         <a class="btn-action option" href="/create_post/">Sighting</a>
         <a class="btn-action option" href="/create_nup_flight/">Nuptial Flight</a>
     </div>
-    <div class="modal-section final-section">
-        <button class="btn-secondary" id="cancel-create-post-modal" type="button">Cancel</button>
-        <button class="btn-main" id="#" type="#" name="#">Submit this thing</button>
-    </div>
 </div>
 
 <script type="text/javascript">
