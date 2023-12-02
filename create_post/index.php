@@ -47,7 +47,7 @@ if ($isLoggedIn === false) {
                     </div>
                     <div class="form-section" id="tags-container">
                         <label class="main-label" for="tags">Enter relevant tags (separated by spaces or commas):</label>
-                        <label>Tags cannot contain non-alphabetical [a-Z] characters.</label>
+                        <label>Tags cannot contain non-alphabetical [a-Z] characters. Tags are separated by a space, or a comma: ','</label>
                         <!-- Max of 5 tags -->
                         <input class="input-main" type="text" id="tags" name="tagsBefore" placeholder="Example: observation, tetramorium"/>
                         <input class="hidden" type="text" id="hidden-tags" name="final-tags" value="null"/>
