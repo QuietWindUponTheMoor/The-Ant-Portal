@@ -60,8 +60,17 @@ $("#tags").on("keyup", (event) => {
 $("#create-post-form").submit(async (event) => {
     // Prevent default actions
     event.preventDefault();
-    // Join tags_array
-    let final_tags = tags_array.join(", ");
+
+    // Initialize final tags
+    let final_tags;
+    
+    if (tags_array.length < 1) {
+        final_tags = "NULL";
+    } else {
+        // Join tags_array
+        final_tags = tags_array.join(", ");
+    }
+
     // Insert into #hidden-tags input
     $("#hidden-tags").val(final_tags);
     

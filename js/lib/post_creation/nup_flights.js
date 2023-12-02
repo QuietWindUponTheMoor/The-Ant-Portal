@@ -55,9 +55,13 @@ $("#nup-flight-form").on("submit", async (event) => {
     const temperature = await convertTemperatureFormat($("#temperature").val());
     const windSpeed = $("#wind-speed").val();
     const moonCycle = await convertMoonCycleFormat($("#moon-cycle").val());
-    const tags = $("#hidden-tags").val();
+    let tags = $("#hidden-tags").val();
     const db = $("#database").val();
     const userID = $("#user_id").val();
+
+    if (tags === "" || tags === " ") {
+        tags = "NULL";
+    }
 
     // Create formData
     const formData = new FormData(document.getElementById("nup-flight-form"));

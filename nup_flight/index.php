@@ -187,16 +187,18 @@ $replyType = "post";
                         <p class="meta">Wind Speed: <?php echo $windSpeed; ?>mph</p>
                         <p class="meta">Moon Cycle: <?php echo $moonCycle; ?></p>
                     </div>
-                    <div class="post-section section-wrap post-meta" id="tags-section">
-                        <?php
-                        foreach ($tagsArray as $tag) {
-                            if ($tag == "NULL" || $tag == "") {
-                                continue;
+                    <?php
+                        if ($tagsArray[0] !== "NULL" && $tagsArray !== "") {
+                            echo '<div class="post-section section-wrap post-meta" id="tags-section">';
+                            foreach ($tagsArray as $tag) {
+                                if ($tag == "NULL" || $tag == "") {
+                                    continue;
+                                }
+                                echo '<a class="tag" href="/tags?name='.$tag.'">'.$tag.'</a>';
                             }
-                            echo '<a class="tag" href="/tags?name='.$tag.'">'.$tag.'</a>';
+                            echo '</div>';
                         }
-                        ?>
-                    </div>
+                    ?>
                     <div class="post-section section-wrap post-meta">
                         <p class="meta"><?php echo $views; ?> views</p>
                         <p class="meta"><?php echo $upvotes; ?> upvotes</p>
