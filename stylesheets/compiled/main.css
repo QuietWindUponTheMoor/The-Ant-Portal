@@ -1114,6 +1114,7 @@ html body {
   width: 100%;
   max-width: 100%;
   margin: 0;
+  background-color: #313535;
 }
 html body .container {
   flex-direction: column;
