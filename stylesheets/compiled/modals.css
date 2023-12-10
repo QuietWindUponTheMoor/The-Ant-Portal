@@ -1,11 +1,11 @@
 .color-60 {
-  background-color: #FDFDFD;
+  background-color: #1A1D23;
   width: 300px;
   height: 100px;
 }
 
 .color-30 {
-  background-color: #313535;
+  background-color: #2E3541;
   width: 300px;
   height: 40px;
   color: white;
@@ -23,9 +23,9 @@
   position: absolute;
   padding: 0.75rem;
   background-color: #FDFDFD;
-  border: 0.5px solid #a2a9a9;
+  border: 0.5px solid #9ca6b9;
   border-radius: 5px;
-  box-shadow: 0 1px 5px 0px #a2a9a9;
+  box-shadow: 0 1px 5px 0px #9ca6b9;
   z-index: 100;
 }
 .modal-main::before {
@@ -37,7 +37,7 @@
   height: 0;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-bottom: 7px solid #a2a9a9;
+  border-bottom: 7px solid #9ca6b9;
   transform-origin: 0 0;
 }
 .modal-main .modal-section {
@@ -77,6 +77,6 @@
   font-size: 75%;
 }
 #create-post-ask-type-modal .final-section {
-  border-top: 1px solid #a2a9a9;
+  border-top: 1px solid #9ca6b9;
   padding-top: 0.75rem;
 }/*# sourceMappingURL=modals.css.map */

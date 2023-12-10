@@ -79,14 +79,16 @@ input, select {
 textarea {
     min-height: 155px;
 }
-input, textarea {
+input, textarea, select {
     font-family: $theme-font !important;
+    background-color: $theme-30;
+    color: darken($theme-white, 20%);
 }
 .input-main {
     width: 100%;
     max-width: 100%;
     padding: 0.5rem;
-    border: 2px solid $theme-60-hover-ultradark;
+    border: 2px solid $theme-white-hover-ultradark;
     border-radius: $b-med;
     outline: 1px solid transparent;
 }

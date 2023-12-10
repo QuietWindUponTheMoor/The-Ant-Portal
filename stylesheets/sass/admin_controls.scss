@@ -50,7 +50,7 @@
         transform: translateX(-50%);
         gap: 0.5rem;
         border-radius: $b-med;
-        border: 0.5px solid $theme-60-hover-ultradark;
+        border: 0.5px solid $theme-white-hover-ultradark;
         min-width: 250px;
         z-index: 100;
         cursor: default;
@@ -82,7 +82,7 @@
             justify-content: center;
             gap: 0.25em;
             align-items: center;
-            border-bottom: 0.5px solid $theme-60;
+            border-bottom: 0.5px solid $theme-white;
             padding: 1rem;
             .welcome-message, .username {
                 font-size: 120%;
@@ -116,7 +116,7 @@
                         transition: width 0.2s, height 0.2s;
                         background-color: $navbar-color !important;
                         &:hover {
-                            border: 1px solid $theme-60;
+                            border: 1px solid $theme-white;
                             height: 100px !important;
                             width: 100px !important;
                             z-index: 150;
@@ -127,7 +127,7 @@
         }
         .sub-section {
             padding: 0.5rem;
-            border-top: 0.5px solid $theme-60;
+            border-top: 0.5px solid $theme-white;
             .section-link {
                 font-size: 90%;
                 color: $warning;
@@ -141,7 +141,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 0.5rem;
-            border-top: 0.5px solid $theme-60;
+            border-top: 0.5px solid $theme-white;
             .reg-button {
                 font-size: 85%;
                 &:hover {

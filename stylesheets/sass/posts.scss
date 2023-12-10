@@ -66,10 +66,11 @@
                 margin: 0;
                 padding: 0;
                 font-size: 80%;
+                color: $theme-60;
             }
             .by-link {
                 font-size: 80%;
-                color: $link;
+                color: $theme-60;
                 text-decoration: underline;
                 &:hover {
                     color: $link-hover;

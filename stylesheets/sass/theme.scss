@@ -4,11 +4,10 @@
 
 // Colors
 
-$theme-60: #FDFDFD; // #FDFDFD
-$theme-30: #313535; // #313535
-//$theme-10: #036AF7; // #036AF7
-//$theme-10: #2AA00A; // #2AA00A
-$theme-30: rgb(21,32,43);
+$theme-white: #FDFDFD; // #FDFDFD
+$theme-60: #1A1D23; // #FDFDFD
+$theme-30: #2E3541;
+$theme-10: #2AA00A; // #2AA00A
 $error: #EA0303;
 $success: #04D007;
 $warning: gold;
@@ -19,14 +18,14 @@ $action: #C2A400;
 
 // Hover colors
 $hover-opacity: 0.75; 
-$theme-60-hover: darken($theme-60, 10%);
-$theme-60-hover-ultradark: darken($theme-60-hover, 15%);
+$theme-white-hover: darken($theme-white, 10%);
+$theme-white-hover-ultradark: darken($theme-white-hover, 15%);
 $theme-30-hover: darken($theme-30, 25%);
 $theme-10-hover: darken($theme-10, 25%);
 $theme-10-hover-ultralight: lighten($theme-10, 25%);
 $theme-10-hover-ultra-ultralight: lighten($theme-10-hover-ultralight, 25%);
 $theme-30-hover-light: lighten($theme-30, 45%);
-$navbar-color: darken($theme-60, 3%); // Old
+$navbar-color: darken($theme-white, 3%); // Old
 $link-hover: lighten($link, 10%);
 $navbar-color: darken($theme-30, 10%);
 $post-it-border: 1px solid $post-it-dark;
@@ -46,7 +45,7 @@ $circle: 500px;
 
 // Testing
 .color-60 {
-    background-color: $theme-60;
+    background-color: $theme-white;
     width: 300px;
     height: 100px;
 }

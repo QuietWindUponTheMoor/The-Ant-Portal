@@ -76,8 +76,8 @@ h4 {
     border-radius: $b-med;
     border: none;
     cursor: pointer;
-    color: $theme-60;
-    box-shadow: 0 1px 0 0 $theme-60 inset;
+    color: $theme-white;
+    box-shadow: 0 1px 0 0 $theme-white inset;
     padding: 0.5rem;
     &:hover {
         opacity: $hover-opacity;
@@ -90,7 +90,7 @@ h4 {
     border: none;
     cursor: pointer;
     color: black;
-    box-shadow: 0 1px 0 0 $theme-60 inset;
+    box-shadow: 0 1px 0 0 $theme-white inset;
     padding: 0.5rem;
     &:hover {
         opacity: $hover-opacity;
@@ -104,7 +104,7 @@ h4 {
     border: none;
     cursor: pointer;
     color: white;
-    box-shadow: 0 1px 0 0 $theme-60 inset;
+    box-shadow: 0 1px 0 0 $theme-white inset;
     padding: 0.5rem;
     &:hover {
         opacity: $hover-opacity;
@@ -117,7 +117,7 @@ h4 {
     border: none;
     cursor: pointer;
     color: white;
-    box-shadow: 0 1px 0 0 $theme-60 inset;
+    box-shadow: 0 1px 0 0 $theme-white inset;
     padding: 0.5rem;
     &:hover {
         opacity: $hover-opacity;
@@ -227,7 +227,7 @@ html {
     margin: 0;
     padding: 0;
     color: $theme-30;
-    background-color: $theme-60;
+    background-color: $theme-white;
     font-family: $theme-font;
     body {
         flex-direction: column;
@@ -247,9 +247,9 @@ html {
             min-height: 90vh;
             width: 100%;
             flex: 3;
-            background: url("/web_images/backgrounds/main_background_transparent.png");
+            /*background: url("/web_images/backgrounds/main_background_transparent.png");
             background-repeat: repeat;
-            background-size: 50px;
+            background-size: 50px;*/
             .container_sub {
                 flex-direction: row;
                 width: 100%;
@@ -272,7 +272,8 @@ html {
                     border-inline: 1px solid $theme-30-hover-light;
                     overflow-y: scroll;
                     max-height: 1200px;
-                    background-color: white;
+                    color: $theme-white;
+                    //background-color: white;
                     &::-webkit-scrollbar {
                         width: 0;
                         background: transparent;
@@ -397,7 +398,7 @@ html {
     justify-content: flex-start;
     width: 100%;
     max-width: 100%;
-    box-shadow: 0 1px 20px 0px $theme-30-hover-light;
+    //box-shadow: 0 1px 20px 0px $theme-30-hover-light;
     .layer-two {
         justify-content: flex-end;
         gap: 1rem !important;
@@ -414,7 +415,7 @@ html {
         padding-bottom: 0.5rem;
         //background-color: $navbar-color;
         background-color: $navbar-color;
-        color: $theme-60;
+        color: $theme-white;
         .home-link {
             font-weight: 600 !important;
             font-size: 110% !important;
@@ -441,12 +442,12 @@ html {
     flex-direction: column;
     width: 100%;
     max-width: 100%;
-    background-color: $theme-30;
+    background-color: $theme-60;
     margin: 0;
     padding: 5rem;
     min-height: 250px;
     flex: 1;
-    color: $theme-60;
+    color: $theme-white;
     justify-content: center;
     align-items: center;
     .footer-sub {
@@ -614,7 +615,7 @@ html {
     justify-content: center;
     align-self: center;
     width: 100%;
-    background-color: $theme-60-hover;
+    background-color: $theme-white-hover;
     #profile-top-minimized {
         position: fixed;
         top: 0;
@@ -633,7 +634,7 @@ html {
         width: 100%;
         border-bottom: 8px solid $theme-10;
         border-bottom-right-radius: 20%;
-        background-color: $theme-60;
+        background-color: $theme-white;
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -683,7 +684,7 @@ html {
                 justify-content: center;
                 align-items: flex-start;
                 margin: 1rem;
-                box-shadow: 0 0px 5px 5px $theme-60-hover-ultradark;
+                box-shadow: 0 0px 5px 5px $theme-white-hover-ultradark;
                 border-radius: $b-lg;
                 padding: 0;
                 gap: 0;
@@ -697,10 +698,10 @@ html {
                 }
                 .meta-section {
                     gap: 15px;
-                    background-color: $theme-60;
+                    background-color: $theme-white;
                     width: 100%;
                     padding: 0.5rem;
-                    border-top: 1px solid $theme-60-hover-ultradark;
+                    border-top: 1px solid $theme-white-hover-ultradark;
                     &:first-child {
                         border-top: none;
                     }
@@ -738,7 +739,7 @@ html {
                     flex-direction: column;
                     justify-content: center;
                     align-items: center;
-                    box-shadow: 0 0px 5px 5px $theme-60-hover-ultradark;
+                    box-shadow: 0 0px 5px 5px $theme-white-hover-ultradark;
                     width: 100% !important;
                     border-top-right-radius: $b-lg;
                     border-top-left-radius: $b-lg;
@@ -752,7 +753,7 @@ html {
                         color: white;
                     }
                     .feed-meta-description {
-                        background-color: $theme-60;
+                        background-color: $theme-white;
                         width: 100%;
                         padding: 0.5rem !important;
                     }
@@ -781,9 +782,9 @@ html {
                     flex-direction: column;
                     width: 100% !important;
                     padding: 1rem;
-                    box-shadow: 0 0px 5px 5px $theme-60-hover-ultradark;
+                    box-shadow: 0 0px 5px 5px $theme-white-hover-ultradark;
                     border-radius: $b-lg;
-                    background-color: $theme-60;
+                    background-color: $theme-white;
                 }
             }
         }
@@ -798,7 +799,7 @@ html {
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                box-shadow: 0 0px 5px 5px $theme-60-hover-ultradark;
+                box-shadow: 0 0px 5px 5px $theme-white-hover-ultradark;
                 border-radius: $b-lg;
                 width: 100% !important;
                 #title {
@@ -814,11 +815,11 @@ html {
                     justify-content: center;
                     padding: 1rem;
                     padding-inline: 3rem;
-                    background-color: $theme-60;
+                    background-color: $theme-white;
                     transition: all 0.25s;
                     width: 100%;
                     cursor: pointer;
-                    border-top: 1px solid $theme-60-hover-ultradark;
+                    border-top: 1px solid $theme-white-hover-ultradark;
                     &:first-child {
                         border-top-right-radius: $b-lg;
                         border-top-left-radius: $b-lg;
@@ -853,7 +854,7 @@ html {
 .create-post-container {
     flex-direction: column;
     justify-self: center;
-    border: 1px solid $theme-60-hover-ultradark;
+    border: 1px solid $theme-white-hover-ultradark;
     border-radius: $b-med;
     padding: 2rem;
     width: 650px;
