@@ -3,35 +3,27 @@
 
 
 // Colors
-
-$theme-white: #FDFDFD; // #FDFDFD
-$theme-60: #1A1D23; // #FDFDFD
-$theme-30: #2E3541;
-$theme-10: #2AA00A; // #2AA00A
+// Theme
+$t60: #101110;
+    $t50: lighten($t60, 10%);
+    $t40: lighten($t50, 10%);
+        $t30: lighten($t40, 10%);
+            $t20: lighten($t30, 10%);
+            $t10: #2AA00A;
+$white-60: white;
+    $white-30: darken($white-60, 10%);
+    $white-10: darken($white-30, 10%);
+// Error/success/warning
+$success: $t10;
 $error: #EA0303;
-$success: #04D007;
 $warning: gold;
-$link: lighten($theme-10, 10%);
-$post-it: #EAE9C4;
-$post-it-dark: darken($post-it, 20%);
-$action: #C2A400;
+// Actions
+$action: gold;
 
 // Hover colors
-$hover-opacity: 0.75; 
-$theme-white-hover: darken($theme-white, 10%);
-$theme-white-hover-ultradark: darken($theme-white-hover, 15%);
-$theme-30-hover: darken($theme-30, 25%);
-$theme-10-hover: darken($theme-10, 25%);
-$theme-10-hover-ultralight: lighten($theme-10, 25%);
-$theme-10-hover-ultra-ultralight: lighten($theme-10-hover-ultralight, 25%);
-$theme-30-hover-light: lighten($theme-30, 45%);
-$navbar-color: darken($theme-white, 3%); // Old
-$link-hover: lighten($link, 10%);
-$navbar-color: darken($theme-30, 10%);
-$post-it-border: 1px solid $post-it-dark;
+$hover-opacity: 0.75;
 
 // Fonts
-//$font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $theme-font: 'Nunito', sans-serif;
 
 
@@ -41,23 +33,3 @@ $b-lg: 10px;
 $b-med: 5px;
 $b-sm: 3px;
 $circle: 500px;
-
-
-// Testing
-.color-60 {
-    background-color: $theme-white;
-    width: 300px;
-    height: 100px;
-}
-.color-30 {
-    background-color: $theme-30;
-    width: 300px;
-    height: 40px;
-    color: white;
-}
-.color-10 {
-    background-color: $theme-10;
-    width: 300px;
-    height: 20px;
-    color: white;
-}

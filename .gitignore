@@ -1,12 +1,1 @@
-users/uploads/posts/*
-!users/uploads/posts/.gitkeep
-
-users/uploads/profile_images/*
-!users/uploads/profile_images/.gitkeep
-
-users/uploads/banner_images/*
-!users/uploads/banner_images/.gitkeep
-
 reference.php
-
-color_scheme.php
