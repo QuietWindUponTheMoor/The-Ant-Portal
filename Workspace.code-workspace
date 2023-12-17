@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "../../../../../NODE SERVERS/The Ant Lab API"
 		}
 	],
 	"settings": {}
