@@ -1,0 +1,29 @@
+.nav {
+    width: 100%;
+    background-color: $t50;
+    padding: 0.5rem;
+    color: $white-10;
+    .nav-sub {
+        justify-content: space-between;
+        align-items: center;
+        .main, .secondary {
+            align-items: center;
+            gap: 1rem;
+            .site-title {
+                font-size: 120%;
+                font-weight: bold;
+            }
+            .site-title, .button {
+                padding: 0.5rem;
+                border: 2px solid $t50;
+                border-radius: $circle;
+            }
+            .nav-hover-animation {
+                transition: border-color 0.3s ease;
+                &:hover {
+                    border-color: $white-10;
+                }
+            }
+        }
+    }
+}

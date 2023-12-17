@@ -1,4 +1,6 @@
 @import "theme.scss";
+@import "misc.scss";
+@import "navbar.scss";
 
 
 * {
@@ -9,129 +11,6 @@
 *:not(input, style, script, noscript, title) {
     display: flex;
 }
-
-// Misc
-.success {
-    color: $success;
-}
-.warning {
-    color: $warning;
-}
-.error {
-    color: $error;
-}
-.title {
-    margin-bottom: 2rem;
-    font-size: 130%;
-    text-transform: uppercase;
-}
-a {
-    text-decoration: none;
-    color: currentColor;
-}
-p {
-    margin: 0;
-    font-size: 15px;
-}
-h1 {
-    margin: 0;
-    text-align: left;
-    font-weight: normal;
-    font-size: 30px;
-}
-h2 {
-    margin: 0;
-    text-align: left;
-    font-weight: normal;
-    font-size: 25px;
-}
-h3 {
-    margin: 0;
-    text-align: left;
-    font-weight: normal;
-    font-size: 20px;
-}
-h4 {
-    margin: 0;
-    text-align: left;
-    font-weight: normal;
-    font-size: 16px;
-}
-.btn-main {
-    padding: 1%;
-    background-color: $t30;
-    border-radius: $b-med;
-    border: none;
-    cursor: pointer;
-    color: $white-60;
-    box-shadow: 0 1px 0 0 $white-60 inset;
-    padding: 0.5rem;
-    &:hover {
-        opacity: $hover-opacity;
-    }
-}
-.btn-secondary {
-    padding: 1%;
-    background-color: lightgray;
-    border-radius: $b-med;
-    border: none;
-    cursor: pointer;
-    color: black;
-    box-shadow: 0 1px 0 0 $white-60 inset;
-    padding: 0.5rem;
-    &:hover {
-        opacity: $hover-opacity;
-    }
-}
-
-.btn-action {
-    padding: 1%;
-    background-color: $action;
-    border-radius: $b-med;
-    border: none;
-    cursor: pointer;
-    color: white;
-    box-shadow: 0 1px 0 0 $white-60 inset;
-    padding: 0.5rem;
-    &:hover {
-        opacity: $hover-opacity;
-    }
-}
-.btn-warning {
-    padding: 1%;
-    background-color: $error;
-    border-radius: $b-med;
-    border: none;
-    cursor: pointer;
-    color: white;
-    box-shadow: 0 1px 0 0 $white-60 inset;
-    padding: 0.5rem;
-    &:hover {
-        opacity: $hover-opacity;
-    }
-}
-.blurred {
-    filter: blur(2rem);
-    user-select: none;
-    pointer-events: none;
-}
-.ellipsis {
-    white-space: nowrap;
-    overflow: hidden;
-    width: 100%;
-    text-overflow: ellipsis;
-}
-.twoline-ellipsis {
-    display: -webkit-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-}
-// Done with misc
-
-
-// Groups:
 html {
     flex-direction: column;
     width: 100%;
@@ -162,4 +41,3 @@ html {
         }
     }
 }
-
