@@ -11,5 +11,17 @@ require($root."/includes/navbar.php");
 
     </div>
 </body>
+<script type="text/javascript">
+$.ajax({  
+    type: "POST",  
+    url: "http://127.0.0.1:81/", 
+    data: {test: "Hello!"},
+    processData: false,
+    contentType: false,
+    success: function (response) {
+        console.log(response);
+    }
+});
+</script>
 
 <?php require($root."/includes/footer.php"); ?>
