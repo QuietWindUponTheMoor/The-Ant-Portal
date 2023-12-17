@@ -1,6 +1,6 @@
 <?php
 $root = $_SERVER["DOCUMENT_ROOT"];
-$root .= "/php/main_controller.php";
+$root .= "/php/main.php";
 require($root);
 ?>
 <!DOCTYPE html>
