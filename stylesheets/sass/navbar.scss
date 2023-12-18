@@ -1,6 +1,8 @@
 .nav {
+    position: fixed;
+    top: 0;
     width: 100%;
-    background-color: $t50;
+    background-color: $t60;
     padding: 0.5rem;
     color: $white-10;
     .nav-sub {

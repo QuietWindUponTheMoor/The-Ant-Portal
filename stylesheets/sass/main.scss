@@ -1,6 +1,7 @@
 @import "theme.scss";
 @import "misc.scss";
 @import "navbar.scss";
+@import "forms.scss";
 
 
 * {
@@ -18,7 +19,7 @@ html {
     margin: 0;
     padding: 0;
     color: $t30;
-    background-color: $white-60;
+    background-color: $t40;
     font-family: $theme-font;
     body {
         flex-direction: column;
@@ -26,7 +27,6 @@ html {
         width: 100%;
         max-width: 100%;
         margin: 0;
-        //background-color: $t60;
         .container {
             flex-direction: column;
             justify-content: flex-start;
@@ -37,7 +37,23 @@ html {
             padding-bottom: 0;
             min-height: 90vh;
             width: 100%;
-            flex: 3;
         }
+    }
+}
+
+.main-object {
+    justify-content: center;
+    background-color: $t50;
+    color: $white-10;
+    gap: 1rem;
+    padding: 1rem;
+}
+.section {
+    gap: 0.25rem;
+    .heading {
+        font-size: 120%;
+    }
+    .subheading {
+        font-size: 90%;
     }
 }

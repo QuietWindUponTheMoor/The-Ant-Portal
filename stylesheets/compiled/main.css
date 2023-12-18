@@ -142,7 +142,7 @@ h4 {
   border-radius: 5px;
   border: none;
   cursor: pointer;
-  color: white;
+  color: #333;
   box-shadow: 0 1px 0 0 white inset;
   padding: 0.5rem;
 }
@@ -187,6 +187,10 @@ h4 {
   -webkit-box-orient: vertical;
 }
 
+.hidden {
+  display: none;
+}
+
 .col {
   flex-direction: column;
 }
@@ -196,8 +200,10 @@ h4 {
 }
 
 .nav {
+  position: fixed;
+  top: 0;
   width: 100%;
-  background-color: #292b29;
+  background-color: #101110;
   padding: 0.5rem;
   color: #cccccc;
 }
@@ -225,6 +231,44 @@ h4 {
   border-color: #cccccc;
 }
 
+.form-main {
+  align-items: center;
+}
+.form-main .section {
+  width: 50%;
+}
+.form-main .section .profile-image-preview-container {
+  width: 10%;
+  aspect-ratio: 1/1;
+}
+.form-main .section .profile-image-preview-container .profile-image-preview {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+input, textarea {
+  font-family: "Nunito", sans-serif;
+}
+
+.input-main {
+  width: 100%;
+  padding: 0.25rem;
+  background-color: #737a73 !important;
+  outline: transparent;
+  border: 2px solid #e6e6e6;
+  border-radius: 5px;
+  color: white;
+}
+.input-main:focus {
+  border: 2px solid #2AA00A;
+}
+
+label {
+  font-size: 75%;
+}
+
 * {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -242,7 +286,7 @@ html {
   margin: 0;
   padding: 0;
   color: #5a605a;
-  background-color: white;
+  background-color: #414641;
   font-family: "Nunito", sans-serif;
 }
 html body {
@@ -262,5 +306,22 @@ html body .container {
   padding-bottom: 0;
   min-height: 90vh;
   width: 100%;
-  flex: 3;
+}
+
+.main-object {
+  justify-content: center;
+  background-color: #292b29;
+  color: #cccccc;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.section {
+  gap: 0.25rem;
+}
+.section .heading {
+  font-size: 120%;
+}
+.section .subheading {
+  font-size: 90%;
 }/*# sourceMappingURL=main.css.map */
