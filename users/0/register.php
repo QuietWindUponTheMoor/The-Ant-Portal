@@ -25,7 +25,7 @@ require($root."/includes/navbar.php");
                 <input type="password" class="input-main" id="pass" name="pass" required/>
             </div>
             <div class="section col">
-                <label for="passrpt">Password</label>
+                <label for="passrpt">Repeat Password</label>
                 <input type="password" class="input-main" id="passrpt" name="passrpt" required/>
             </div>
             <div class="section col">

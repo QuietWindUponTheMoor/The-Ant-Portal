@@ -1,3 +1,4 @@
+// Registration
 $("#profile-image-select").on("click", () => {
     $("#profileImage").trigger("click").on("change", function() {
         if (this.files && this.files[0]) {
@@ -11,10 +12,10 @@ $("#profile-image-select").on("click", () => {
         }
     });
 });
-
-$("#registration-form").on("submit", function(event) {
+$("#registration-form").on("submit", function(event) { // Register submit
     event.preventDefault();
 
+    // Get form data
     const formData = new FormData(this);
 
     // Manage profile image
@@ -25,6 +26,7 @@ $("#registration-form").on("submit", function(event) {
     // Append the time and date
     formData.append("joined", new Date().getTime());
 
+    // Submit to API
     $.ajax({  
         type: "POST",  
         url: "http://127.0.0.1:81/" + encodeURIComponent("register"), 
@@ -37,13 +39,51 @@ $("#registration-form").on("submit", function(event) {
             const status = data.status;
             const message = data.message;
             const details = data.message;
-            const profile_image = data.profile_image_name;
+            const profile_image = data.profile_image_name; // For use later
             if (status === 200) { // OK
                 $("#heading").text(message).css("color", "limegreen");
                 $("#subheading").text("Please wait a moment...");
                 setTimeout(() => {
                     window.location.assign("/users/0/signin");
                 }, 3000);
+            } else {
+                $("#heading").text("Registration failed").css("color", "brightred");
+                $("#subheading").text(details);
+            }
+        }
+    });
+});
+
+// Sign in
+$("#signin-form").on("submit", function(event) { // Sign in submit
+    event.preventDefault();
+
+    // Get form data
+    const formData = new FormData(this);
+
+    // Submit to API
+    $.ajax({  
+        type: "POST",  
+        url: "http://127.0.0.1:81/" + encodeURIComponent("signin"), 
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            // Process response
+            const data = response;
+            const status = data.status;
+            const message = data.message;
+            const details = data.message;
+            const profile_image = data.profile_image_name; // For use later
+            if (status === 200) { // OK
+                $("#heading").text(message).css("color", "limegreen");
+                $("#subheading").text("Please wait a moment...");
+                setTimeout(() => {
+                    window.location.assign("/users/0/signin");
+                }, 3000);
+            } else {
+                $("#heading").text("Registration failed").css("color", "brightred");
+                $("#subheading").text(details);
             }
         }
     });
