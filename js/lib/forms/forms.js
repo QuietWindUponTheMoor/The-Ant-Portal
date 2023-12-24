@@ -38,7 +38,7 @@ $("#registration-form").on("submit", function(event) { // Register submit
             const data = response;
             const status = data.status;
             const message = data.message;
-            const details = data.message;
+            const details = data.details;
             const profile_image = data.profile_image_name; // For use later
             if (status === 200) { // OK
                 $("#heading").text(message).css("color", "limegreen");
@@ -73,16 +73,15 @@ $("#signin-form").on("submit", function(event) { // Sign in submit
             const data = response;
             const status = data.status;
             const message = data.message;
-            const details = data.message;
-            const profile_image = data.profile_image_name; // For use later
+            const details = data.details;
             if (status === 200) { // OK
                 $("#heading").text(message).css("color", "limegreen");
                 $("#subheading").text("Please wait a moment...");
                 setTimeout(() => {
-                    window.location.assign("/users/0/signin");
+                    window.location.assign("/users/1/set_session?set");
                 }, 3000);
             } else {
-                $("#heading").text("Registration failed").css("color", "brightred");
+                $("#heading").text(message).css("color", "brightred");
                 $("#subheading").text(details);
             }
         }

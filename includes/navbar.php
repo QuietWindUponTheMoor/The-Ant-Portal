@@ -1,3 +1,5 @@
+<script type="text/javascript" src="/js/lib/session/fetch_login_data.js"></script>
+
 <div class="nav col">
     <div class="nav-sub row">
         <div class="main row">
