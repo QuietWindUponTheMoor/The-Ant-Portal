@@ -20,12 +20,24 @@
                     <div class="heading-container">
                         <?php
                         if ($isLoggedIn === true && isset($_SESSION["user_id"]) && isset($_SESSION["username"])) {
-                            echo '<p class="heading">Welcome,</p><a class="username" id="account-name" href="/users/1/user?id='.$_SESSION["user_id"].'">'.$_SESSION["username"].'</a>';
+                            echo 
+                            '<p class="heading">Welcome,</p><a class="username" id="account-name" href="/users/1/user?id='.$_SESSION["user_id"].'">'.$_SESSION["username"].'</a>';
+                            
                         } else {
                             echo '<p class="heading">You Need To Sign In</p>';
                         }
                         ?>
                     </div>
+                    <?php 
+                    if ($isLoggedIn === true && isset($_SESSION["profile_image"]) && isset($_SESSION["user_id"])) {
+                        echo
+                        '
+                        <div class="dropdown-section user-image-section">
+                            <div class="user-image-container"><a href="/users/1/user?id='.$_SESSION["user_id"].'"><img class="user-image" id="user-image" src="'.$_SESSION["profile_image"].'" title="Visit your profile"/></a></div>
+                        </div>
+                        ';
+                    }
+                    ?>
                     <div class="dropdown-section user-badges">
                         <p class="label">BADGES</p>
                     </div>

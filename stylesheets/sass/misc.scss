@@ -131,14 +131,14 @@ h4 {
 .dropdown {
     position: absolute;
     top: 3rem;
-    right: clamp(10%, 20%, 20px) !important;
+    right: clamp(0%, 1%, 20px) !important;
     background-color: $t60;
     padding: 0.5rem;
     border: 2px solid $white-10;
     border-radius: $b-med;
     position: relative; // For the ::before pseudo-element (triangle tab)
     z-index: 100;
-    &::before {
+    /*&::before {
         content: '';
         position: absolute;
         left: 90%;
@@ -165,5 +165,5 @@ h4 {
         border-right: 8px solid transparent;
         border-bottom: 8px solid $white-10;
         z-index: 99;
-    }
+    }*/
 }

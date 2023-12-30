@@ -18,5 +18,5 @@ if (
     $email = $_GET["email"];
     $image = $_GET["profile_image"];
     // If all else is good, redirect the user to the main page.
-    header("Location: /users/0/signin?set_session=true&user_id=$id&username=$username&email=$email&profile_image=$image}");
+    header("Location: /users/0/signin?set_session=true&user_id=$id&username=$username&email=$email&profile_image=$image");
 }
