@@ -27,5 +27,60 @@
                 }
             }
         }
+        .account {
+            position: relative;
+            .button {
+                align-items: center;
+                gap: 10px;
+                cursor: pointer;
+                user-select: none;
+                color: $action;
+                .nav-dropdown-image {
+                    width: 20px;
+                    height: 20px;
+                    aspect-ratio: 1 / 1;
+                    transition: transform 0.3s ease;
+                }
+            }
+            #account-dropdown {
+                position: absolute;
+                gap: 1rem;
+                .heading-container {
+                    align-items: center;
+                    gap: 2px;
+                    letter-spacing: 1px;
+                    .heading, .username {
+                        font-size: 120%;
+                    }
+                    .username {
+                        color: cyan;
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+                .dropdown-section {
+                    border-bottom: 1px solid $white-10;
+                    .label {
+                        font-weight: bold;
+                    }
+                }
+                .user-badges {
+
+                }
+                .login-status-section {
+                    border-top: 1px solid $white-10;
+                    .reg-button {
+                        margin: 0.75rem;
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                    #signout {
+                        color: $action;
+                    }
+                }
+            }
+        }
     }
 }

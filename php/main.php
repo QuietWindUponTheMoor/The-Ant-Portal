@@ -2,6 +2,71 @@
 session_start();
 $root = $_SERVER["DOCUMENT_ROOT"];
 
+if (isset($_SESSION["isLoggedIn"])) {
+    $isLoggedIn = $_SESSION["isLoggedIn"];
+} else {
+    $isLoggedIn = false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 session_start();

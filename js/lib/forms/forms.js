@@ -74,11 +74,12 @@ $("#signin-form").on("submit", function(event) { // Sign in submit
             const status = data.status;
             const message = data.message;
             const details = data.details;
+            const user_data = data.user_data;
             if (status === 200) { // OK
                 $("#heading").text(message).css("color", "limegreen");
                 $("#subheading").text("Please wait a moment...");
                 setTimeout(() => {
-                    window.location.assign("/users/1/set_session?set");
+                    window.location.assign(`/users/0/session_ini_set?set_session=true&user_id=${user_data.user_id}&username=${user_data.username}&email=${user_data.email}&profile_image=${user_data.image}`);
                 }, 3000);
             } else {
                 $("#heading").text(message).css("color", "brightred");

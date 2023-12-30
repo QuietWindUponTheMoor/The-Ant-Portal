@@ -199,6 +199,52 @@ h4 {
   flex-direction: row;
 }
 
+.rotate {
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  top: 3rem;
+  right: clamp(10%, 20%, 20px) !important;
+  background-color: #101110;
+  padding: 0.5rem;
+  border: 2px solid #cccccc;
+  border-radius: 5px;
+  position: relative;
+  z-index: 100;
+}
+.dropdown::before {
+  content: "";
+  position: absolute;
+  left: 90%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  transform-origin: 0 0;
+  top: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #101110;
+  z-index: 100;
+}
+.dropdown::after {
+  content: "";
+  position: absolute;
+  left: 90%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  transform-origin: 0 0;
+  top: -8px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid #cccccc;
+  z-index: 99;
+}
+
 .nav {
   position: fixed;
   top: 0;
@@ -229,6 +275,60 @@ h4 {
 }
 .nav .nav-sub .main .nav-hover-animation:hover, .nav .nav-sub .secondary .nav-hover-animation:hover {
   border-color: #cccccc;
+}
+.nav .nav-sub .account {
+  position: relative;
+}
+.nav .nav-sub .account .button {
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  color: gold;
+}
+.nav .nav-sub .account .button .nav-dropdown-image {
+  width: 20px;
+  height: 20px;
+  aspect-ratio: 1/1;
+  transition: transform 0.3s ease;
+}
+.nav .nav-sub .account #account-dropdown {
+  position: absolute;
+  gap: 1rem;
+}
+.nav .nav-sub .account #account-dropdown .heading-container {
+  align-items: center;
+  gap: 2px;
+  letter-spacing: 1px;
+}
+.nav .nav-sub .account #account-dropdown .heading-container .heading, .nav .nav-sub .account #account-dropdown .heading-container .username {
+  font-size: 120%;
+}
+.nav .nav-sub .account #account-dropdown .heading-container .username {
+  color: cyan;
+}
+.nav .nav-sub .account #account-dropdown .heading-container .username:hover {
+  text-decoration: underline;
+}
+.nav .nav-sub .account #account-dropdown .dropdown-section {
+  border-bottom: 1px solid #cccccc;
+}
+.nav .nav-sub .account #account-dropdown .dropdown-section .label {
+  font-weight: bold;
+}
+.nav .nav-sub .account #account-dropdown .login-status-section {
+  border-top: 1px solid #cccccc;
+}
+.nav .nav-sub .account #account-dropdown .login-status-section .reg-button {
+  margin: 0.75rem;
+}
+.nav .nav-sub .account #account-dropdown .login-status-section .reg-button:hover {
+  text-decoration: underline;
+}
+.nav .nav-sub .account #account-dropdown .login-status-section #signout {
+  color: gold;
 }
 
 .form-main {
