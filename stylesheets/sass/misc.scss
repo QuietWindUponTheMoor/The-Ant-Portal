@@ -138,6 +138,7 @@ h4 {
     border-radius: $b-med;
     position: relative; // For the ::before pseudo-element (triangle tab)
     z-index: 100;
+    min-width: 350px;
     /*&::before {
         content: '';
         position: absolute;

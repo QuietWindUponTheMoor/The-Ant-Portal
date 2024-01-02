@@ -215,6 +215,7 @@ h4 {
   border-radius: 5px;
   position: relative;
   z-index: 100;
+  min-width: 350px;
   /*&::before {
       content: '';
       position: absolute;
