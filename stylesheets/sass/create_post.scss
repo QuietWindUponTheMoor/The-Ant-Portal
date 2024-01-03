@@ -1,0 +1,32 @@
+.fields-list {
+    width: 100%;
+    gap: 1rem;
+    align-items: center;
+}
+.tag {
+    padding: 0.25rem;
+    border: 1px solid lighten($t10, 30%);
+    border-radius: $b-med;
+    background-color: $t10;
+    color: white;
+    cursor: pointer;
+    &:hover {
+        opacity: $hover-opacity;
+    }
+}
+#selected-images {
+    gap: 0.5rem;
+    .image-preview-container {
+        align-items: center;
+        gap: 0.75rem;
+        .image-preview {
+            width: 25px;
+            height: 25px;
+            aspect-ratio: 1 / 1;
+            border-bottom: $b-lg;
+        }
+        .image-name {
+            font-weight: bold;
+        }
+    }
+}

@@ -1,6 +1,0 @@
-CREATE TABLE IF NOT EXISTS nf_has_voted (
-    recordID BIGINT(44) PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    forFlightID BIGINT(44) NOT NULL,
-    userID BIGINT(44) NOT NULL,
-    updown INT(1) NOT NULL
-);

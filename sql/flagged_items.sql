@@ -1,8 +1,0 @@
-CREATE TABLE IF NOT EXISTS flagged_items (
-    flagID BIGINT(44) PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    flaggedByUserID BIGINT(44) NOT NULL,
-    reason VARCHAR(256) NOT NULL,
-    itemLink TEXT(30000) NOT NULL,
-    explanation TEXT(30000) NOT NULL,
-    datetime VARCHAR(256) NOT NULL
-);

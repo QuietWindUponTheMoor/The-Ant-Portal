@@ -23,6 +23,10 @@
 input, textarea {
     font-family: $theme-font;
 }
+textarea {
+    resize: vertical;
+    height: 200px;
+}
 .input-main {
     width: 100%;
     padding: 0.25rem;
@@ -37,4 +41,20 @@ input, textarea {
 }
 label {
     font-size: 75%;
+}
+input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    margin: 0;
+    margin-right: 10px;
+    width: 15px;
+    height: 15px;
+    aspect-ratio: 1 / 1;
+    border: 1px solid $white-10;
+    border-radius: $b-med;
+    outline: none;
+    &:checked {
+        background-color: $action;
+    }
 }
