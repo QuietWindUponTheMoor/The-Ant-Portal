@@ -4,9 +4,16 @@ $root = $_SERVER["DOCUMENT_ROOT"];
 
 if (isset($_SESSION["isLoggedIn"])) {
     $isLoggedIn = $_SESSION["isLoggedIn"];
+    echo var_dump($_SESSION["isLoggedIn"]);
 } else {
-    $isLoggedIn = false;
+    $isLoggedIn = 0;
 }
+
+// Get JS imports
+$jsImports = [
+    "functions" => '<script type="text/javascript" src="/js/lib/system/functions_list.js"></script>',
+
+];
 
 
 

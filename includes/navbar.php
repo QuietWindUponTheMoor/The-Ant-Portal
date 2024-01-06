@@ -56,4 +56,6 @@
     </div>
 </div>
 
+<script type="text/javascript">const isLoggedIn = <?php echo $isLoggedIn; ?>;</script>
+
 <script type="text/javascript" src="/js/lib/page_control/navbar.js"></script>

@@ -1,0 +1,166 @@
+.post-object {
+    justify-content: flex-start !important;
+    flex-wrap: wrap;
+    .content {
+        flex: 3;
+        gap: 1rem;
+        .content-header {
+            font-weight: bold;
+        }
+        .body-content {
+            gap: 1rem;
+            .post-text {
+                justify-content: flex-start;
+            }
+            #title {
+                font-size: 120%;
+                padding-bottom: 0.25rem;
+                border-bottom: 2px solid $white-30;
+            }
+            #post-time {
+                margin-top: -0.75rem;
+                font-weight: bold;
+                font-size: 75%;
+            }
+            #body {
+                font-size: 85%;
+                line-height: 20px;
+            }
+        }
+        .post-images {
+            justify-content: flex-start;
+            align-items: flex-start;
+            background-color: $t20;
+            padding: 0.75rem;
+            border: 2px solid $white-30;
+            border-radius: $b-sm;
+            color: $white-60;
+            flex-wrap: wrap;
+            max-width: 100%;
+            .post-image-container {
+                flex: 1 0 25%;
+                height: 300px;
+                max-height: 300px;
+                min-width: 200px;
+                background-color: $t60;
+                justify-content: center;
+                .post-image {
+                    max-width: 100%;
+                    height: auto;
+                }
+            }
+        }
+    }
+    .comments, #comments-container {
+        flex: 1;
+        border-left: 1px solid $white-30;
+        padding-inline: 0.75rem;
+        max-height: 1000px;
+        min-height: 500px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        gap: 1rem;
+        .comments-header {
+            font-weight: bold;
+        }
+        .replies-list {
+            gap: 1rem;
+            .reply {
+                gap: 10px;
+                .user-link, .comment-text {
+                    display: inline;
+                }
+                .user-link {
+                    color: $action;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+                .comment-text {
+                    font-size: 85%;
+                }
+            }
+        }
+        .textbox-container {
+            align-items: flex-start;
+            justify-content: flex-start;
+            .textbox-content {
+                width: 100%;
+                gap: 10px;
+            }
+        }
+    }
+}
+
+
+.post-actions {
+    justify-content: space-between;
+    background-color: $t20;
+    padding: 0.75rem;
+    border: 2px solid $white-30;
+    border-radius: $b-sm;
+    gap: 1rem;
+    color: $white-60;
+    max-width: 100%;
+    flex-wrap: wrap;
+    .action-container {
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        .action-title {
+            font-size: 80%;
+        }
+        .action-contents { 
+            align-items: center;
+            gap: 10px;
+        }
+    }
+}
+#voting {
+    .action-contents {
+        flex-wrap: wrap;
+        .vote-image-container {
+            width: 25px;
+            height: 25px;
+            aspect-ratio: 1 / 1;
+            .vote-image {
+                width: 100%;
+                height: 100%;
+                cursor: pointer;
+                &:hover {
+                    opacity: $hover-opacity;
+                }
+            }
+        }
+    }
+}
+#tags-list {
+    gap: 5px;
+    .action-contents {
+        flex-wrap: wrap;
+    }
+}
+#research-details {
+    .data-container {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        .research-item {
+            gap: 10px;
+            .item-data {
+                font-size: 70%;
+            }
+        }
+    }
+}
+#edit-info {
+    align-items: center;
+    .action-contents {
+        * {
+            font-size: 75% !important;
+        }
+        .edit-info {
+            align-items: center;
+            gap: 0.25em;
+        }
+    }
+}

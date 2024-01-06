@@ -8,14 +8,19 @@
     .nav-sub {
         justify-content: space-between;
         align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
         .main, .secondary {
             align-items: center;
             gap: 1rem;
+            flex-wrap: wrap;
             .site-title {
                 font-size: 120%;
                 font-weight: bold;
             }
             .site-title, .button {
+                justify-content: center;
+                align-items: center;
                 padding: 0.5rem;
                 border: 2px solid $t50;
                 border-radius: $circle;

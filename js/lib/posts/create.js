@@ -28,7 +28,7 @@ $("#post-creation-form").on("submit", function(event) {
     $(form.elements).each(function() {
         const input = $(this);
         // Iterate over inputs and exclude certain names
-        if (input.attr("name") !== "type" && input.attr("name") !== "tags-input" && input.attr("name") !== undefined) {
+        if (input.attr("name") !== "type" && input.attr("name") !== "tags-input" && input.attr("name") !== "body" && input.attr("name") !== undefined) {
             // If it's not a file
             if (input.attr("type") !== "file") {
                 form_data.append(input.attr("name"), input.val());
@@ -37,6 +37,7 @@ $("#post-creation-form").on("submit", function(event) {
     });
 
     // Append manual items
+    form_data.append("body", $("#body").val().replace(/\n/g, "<br>")); // Replace newline chars with HTML break characters
     form_data.append("post_type", post_type);
     form_data.append("all_tags", all_tags);
     all_images.forEach((image, index) => {
@@ -59,11 +60,12 @@ $("#post-creation-form").on("submit", function(event) {
             const message = data.message;
             const details = data.details;
             const post_id = data.post_id;
+            const post_type = data.post_type;
             if (status === 200) { // OK
                 $("#heading").text(message).css("color", "limegreen");
                 $("#subheading").text("Please wait a moment...");
                 setTimeout(() => {
-                    window.location.assign(`/post?id=${post_id}`);
+                    window.location.assign(`/post?post_id=${post_id}`);
                 }, 3000);
             } else {
                 $("#heading").text(message).css("color", "brightred");

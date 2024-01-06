@@ -26,7 +26,6 @@ if ($isLoggedIn !== true) {
                     2 = informative
                     3 = observation
                     4 = nuptial_flight
-
                     -->
                     <div class="row" style="align-items: center;">
                         <input class="type-select" type="radio" id="type-question" name="type" value="0" required/>

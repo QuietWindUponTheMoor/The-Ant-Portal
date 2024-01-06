@@ -1,0 +1,13 @@
+
+@media (max-width: 1230px) {
+    .post-object {
+        flex-direction: column !important;
+    }
+}
+
+@media (max-width: 557px) {
+    .dropdown {
+        right: 0 !important;
+        left: 0;
+    }
+}

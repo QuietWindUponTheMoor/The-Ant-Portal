@@ -1,0 +1,9 @@
+.post-object {
+  justify-content: flex-start !important;
+}
+.post-object .content {
+  flex: 3;
+}
+.post-object .comments {
+  flex: 1;
+}/*# sourceMappingURL=posts.css.map */
