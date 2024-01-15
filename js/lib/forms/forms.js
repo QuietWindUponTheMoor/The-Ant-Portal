@@ -29,7 +29,7 @@ $("#registration-form").on("submit", function(event) { // Register submit
     // Submit to API
     $.ajax({  
         type: "POST",  
-        url: "http://127.0.0.1:81/" + encodeURIComponent("register"), 
+        url: API_addr + encodeURIComponent("register"), 
         data: formData,
         processData: false,
         contentType: false,
@@ -64,7 +64,7 @@ $("#signin-form").on("submit", function(event) { // Sign in submit
     // Submit to API
     $.ajax({  
         type: "POST",  
-        url: "http://127.0.0.1:81/" + encodeURIComponent("signin"), 
+        url: API_addr + encodeURIComponent("signin"), 
         data: formData,
         processData: false,
         contentType: false,

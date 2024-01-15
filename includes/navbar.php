@@ -56,6 +56,10 @@
     </div>
 </div>
 
-<script type="text/javascript">const isLoggedIn = <?php echo $isLoggedIn; ?>;</script>
+<script type="text/javascript">
+const isLoggedIn = <?php echo $isLoggedIn; ?>;
+const device_addr = "<?php echo $device; ?>";
+const API_addr = "<?php echo $API_host; ?>";
+</script>
 
 <script type="text/javascript" src="/js/lib/page_control/navbar.js"></script>

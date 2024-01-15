@@ -6,23 +6,27 @@ $("#account-trigger").on("click", () => {
 });
 
 // Account name color
-if ($("#account-name").length > 0) {
-    const acct_colors = [
-        "cyan",
-        "purple",
-        "pink",
-        "red",
-        "green",
-        "limegreen",
-        "yellow",
-        "gold",
-        "teal",
-        "blue",
-        "darkblue"
-    ];
-
+const acct_colors = [
+    "cyan",
+    "purple",
+    "pink",
+    "red",
+    "green",
+    "limegreen",
+    "yellow",
+    "gold",
+    "teal",
+    "blue",
+    "darkblue"
+];
+/*if ($("#account-name").length > 0) {
     // Generate random number
     const color_length = acct_colors.length;
     const color = acct_colors[Math.floor(Math.random() * color_length)];
     $("#account-name").css("color", color);
-}
+}*/
+
+// Generate random number
+const color_length = acct_colors.length;
+const acct_color = acct_colors[Math.floor(Math.random() * color_length)];
+$("#account-name").css("color", acct_color);

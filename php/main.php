@@ -4,7 +4,6 @@ $root = $_SERVER["DOCUMENT_ROOT"];
 
 if (isset($_SESSION["isLoggedIn"])) {
     $isLoggedIn = $_SESSION["isLoggedIn"];
-    echo var_dump($_SESSION["isLoggedIn"]);
 } else {
     $isLoggedIn = 0;
 }
@@ -18,7 +17,13 @@ $jsImports = [
 
 
 
-
+// Get client device, ONLY USE THIS FOR DEVELOPMENT
+$device = $_SERVER["REMOTE_ADDR"];
+if ($device === "::1") {// If client is lead dev's device, use localhost address for node server
+    $API_host = "http://127.0.0.1:81/";
+} else { // If client is a team member's device
+    $API_host = "http://173.25.108.108:81/";
+}
 
 
 

@@ -482,9 +482,10 @@ input[type=radio]:checked {
   font-size: 85%;
   line-height: 20px;
 }
-.post-object .content .post-images {
+.post-object .content .post-images, .post-object .content .poster-info, .post-object .content .has-edit-info {
   justify-content: flex-start;
   align-items: flex-start;
+  align-self: flex-end !important;
   background-color: #737a73;
   padding: 0.75rem;
   border: 2px solid #e6e6e6;
@@ -493,7 +494,7 @@ input[type=radio]:checked {
   flex-wrap: wrap;
   max-width: 100%;
 }
-.post-object .content .post-images .post-image-container {
+.post-object .content .post-images .post-image-container, .post-object .content .poster-info .post-image-container, .post-object .content .has-edit-info .post-image-container {
   flex: 1 0 25%;
   height: 300px;
   max-height: 300px;
@@ -501,7 +502,7 @@ input[type=radio]:checked {
   background-color: #101110;
   justify-content: center;
 }
-.post-object .content .post-images .post-image-container .post-image {
+.post-object .content .post-images .post-image-container .post-image, .post-object .content .poster-info .post-image-container .post-image, .post-object .content .has-edit-info .post-image-container .post-image {
   max-width: 100%;
   height: auto;
 }
@@ -547,6 +548,7 @@ input[type=radio]:checked {
 
 .post-actions {
   justify-content: space-between;
+  align-self: flex-start !important;
   background-color: #737a73;
   padding: 0.75rem;
   border: 2px solid #e6e6e6;
@@ -567,6 +569,17 @@ input[type=radio]:checked {
 .post-actions .action-container .action-contents {
   align-items: center;
   gap: 10px;
+}
+
+.poster-info, .has-edit-info {
+  justify-content: flex-start !important;
+  align-self: flex-end !important;
+  width: auto !important;
+  flex-shrink: 0 !important;
+}
+.poster-info .views-and-answers, .has-edit-info .views-and-answers {
+  align-items: center;
+  gap: 1rem;
 }
 
 #voting .action-contents {

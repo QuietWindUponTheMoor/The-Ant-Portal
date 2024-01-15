@@ -79,10 +79,6 @@ console.log(`Login status ${login_status}`);
                     </div>
                 </div>
 
-                <div class="post-actions row has-edit-info">
-                    
-                </div>
-
                 <div class="body-content col">
                     <p class="post-text" id="title">-</p>
                 <p id="post-time">--</p>
@@ -90,6 +86,14 @@ console.log(`Login status ${login_status}`);
                 </div>
 
                 <div class="post-images" id="images-container"></div>
+
+                <div class="post-actions row poster-info has-edit-info">
+                    <div class="views-and-answers">
+                        <p class="views-and-answers-count" id="view-count">null</p>
+                        <p class="views-and-answers-count" id="answer-count">null</p>
+                    </div>
+                    <!-- If the post has edit info, edit data will display here as well -->
+                </div>
 
             </div>
 

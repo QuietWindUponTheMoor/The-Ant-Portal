@@ -6,7 +6,7 @@ form_data.append("login_status", login_status);
 form_data.append("post_id", post_id);
 $.ajax({  
     type: "POST",  
-    url: "http://127.0.0.1:81/" + encodeURIComponent("fetch_post_data"), 
+    url: API_addr + encodeURIComponent("fetch_post_data"), 
     data: form_data,
     processData: false,
     contentType: false,
@@ -65,11 +65,29 @@ $.ajax({
             });
 
             // Set title and body
-            $("#title").text(title);
+            // Title
+            const types_without_using_species = [0, 1, 2];
+            if (types_without_using_species.includes(type)) { // If post type doesn't need to use the species name
+                $("#title").text(title);
+            } else {
+                const title_with_species = `${calculatePostType(type)}: ${species}`;
+                $("#title").text(title_with_species);
+            }
             $("#post-time").text(`Posted on ${timeCalc(time, "MM-DD-YYYY HH:MMa")}`);
             $("#body").html(body);
 
             // Set edit information
+            const poster_info_template = 
+            `
+            <div class="action-container col" id="edit-info" onclick="window.location.assign('/users/1/user?user_id=${user_id}')">
+                <div class="action-contents">
+                    <div class="edit-info row highlighted" id="edited-true">
+                        <p class="label">Posted by</p>
+                        <a class="user-link" id="posted-user" href="#">TestUser</a>
+                    </div>
+                </div>
+            </div>
+            `;
             const edit_info_template = 
             `
             <div class="action-container col" id="edit-info" onclick="window.location.assign('/users/1/user?user_id=${editedBy}')">
@@ -83,9 +101,20 @@ $.ajax({
                 </div>
             </div>
             `;
-            if (editedBy !== null && editTime !== null) {
+            // Set user info first
+            $(".poster-info").append(poster_info_template);
+            // Then set edit info
+            if (editedBy !== 0 && editTime !== null) {
                 $(".has-edit-info").append(edit_info_template);
             }
+
+            // Set name color:
+            $("#posted-user").css("color", acct_color);
+
+            // Set view count
+            $("#view-count").text(views + " views");
+            // Set answer count
+            $("#answer-count").text(answers + " answers");
             
 
             // Manage images

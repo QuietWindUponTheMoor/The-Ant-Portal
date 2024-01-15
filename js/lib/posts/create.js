@@ -49,7 +49,7 @@ $("#post-creation-form").on("submit", function(event) {
     // Submit to API
     $.ajax({  
         type: "POST",  
-        url: "http://127.0.0.1:81/" + encodeURIComponent("post_create"), 
+        url: API_addr + encodeURIComponent("post_create"), 
         data: form_data,
         processData: false,
         contentType: false,
