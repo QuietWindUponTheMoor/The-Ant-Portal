@@ -21,7 +21,8 @@ Types:
 4 = nuptial_flight
 -->
 <script type="text/javascript">
-const post_id = "<?php echo $_GET["post_id"]; ?>" ?? null;
+const post_id = "<?php echo $_GET["post_id"] ?? null; ?>";
+const thisUserID = "<?php echo $_SESSION["user_id"] ?? null; ?>";
 let login_status = 400;
 if (isLoggedIn == 1) {
     login_status = 200;
@@ -32,8 +33,9 @@ if (isLoggedIn == 1) {
 console.log(`Login status ${login_status}`);
 </script>
 <body>
-    <div class="container">
+    <div class="container" id="post-page-container">
     
+        <!-- ORIGINAL POST SECTION -->
         <div class="main-object row post-object">
 
             <div class="content col">
@@ -44,7 +46,7 @@ console.log(`Login status ${login_status}`);
                         <p class="action-title">Vote for this post</p>
                         <div class="action-contents">
                             <div class="vote-image-container"><img class="vote-image" id="upvote" src="/web_images/icons/upvote.png"/></div>
-                            <p id="vote-count">0</p>
+                            <p class="vote-count" id="vote-count">--</p>
                             <div class="vote-image-container"><img class="vote-image" id="downvote" src="/web_images/icons/downvote.png"/></div>
                         </div>
                     </div>
@@ -53,23 +55,23 @@ console.log(`Login status ${login_status}`);
                         <div class="data-container row">
                             <div class="research-item row" id="temperature">
                                 <p class="item-data" id="label">Temperature:</p>
-                                <p class="item-data" id="data">74°F</p>
+                                <p class="item-data" id="data">--</p>
                             </div>
                             <div class="research-item row" id="wind-speed">
                                 <p class="item-data" id="label">Wind Speed:</p>
-                                <p class="item-data" id="data">10MPH</p>
+                                <p class="item-data" id="data">--</p>
                             </div>
                             <div class="research-item row" id="moon-cycle">
                                 <p class="item-data" id="label">Moon Cycle:</p>
-                                <p class="item-data" id="data">Waning-Crescent</p>
+                                <p class="item-data" id="data">--</p>
                             </div>
                             <div class="research-item row" id="latitude">
                                 <p class="item-data" id="label">Latitude:</p>
-                                <p class="item-data" id="data">211° 22´30"</p>
+                                <p class="item-data" id="data">--</p>
                             </div>
                             <div class="research-item row" id="longitude">
                                 <p class="item-data" id="label">Longitude:</p>
-                                <p class="item-data" id="data">211° 22´30"</p>
+                                <p class="item-data" id="data">--</p>
                             </div>
                         </div>
                     </div>
@@ -80,7 +82,7 @@ console.log(`Login status ${login_status}`);
                 </div>
 
                 <div class="body-content col">
-                    <p class="post-text" id="title">-</p>
+                    <p class="post-text" id="title">--</p>
                 <p id="post-time">--</p>
                     <p class="post-text" id="body">--</p>
                 </div>
@@ -89,11 +91,14 @@ console.log(`Login status ${login_status}`);
 
                 <div class="post-actions row poster-info has-edit-info">
                     <div class="views-and-answers">
-                        <p class="views-and-answers-count" id="view-count">null</p>
-                        <p class="views-and-answers-count" id="answer-count">null</p>
+                        <p class="views-and-answers-count" id="view-count">--</p>
+                        <p class="views-and-answers-count" id="answer-count">--</p>
                     </div>
                     <!-- If the post has edit info, edit data will display here as well -->
                 </div>
+
+                <!-- Create answer button -->
+                <button class="btn-action" type="button" id="open-answer-form">Answer This Question</button>
 
             </div>
 
@@ -129,10 +134,13 @@ console.log(`Login status ${login_status}`);
             </div>
 
         </div>
-
+        <!-- CREATE ANSWER FORM SHALL BE APPENDED HERE -->
     </div>
 </body>
+<script type="text/javascript" src="/js/lib/posts/create.js"></script>
+<script type="text/javascript" src="/js/lib/posts/type_select.js"></script>
 <script type="text/javascript" src="/js/lib/posts/fetch_data.js"></script>
 <?php echo $jsImports["functions"]; ?>
+<script type="text/javascript" src="/js/lib/posts/post_and_answer_voting.js"></script>
 
 <?php require($root."/includes/footer.php"); ?>

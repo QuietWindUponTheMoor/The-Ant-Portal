@@ -451,38 +451,42 @@ input[type=radio]:checked {
   font-weight: bold;
 }
 
-.post-object {
+#post-page-container {
+  gap: 5rem;
+}
+
+.post-object, .answer-object {
   justify-content: flex-start !important;
   flex-wrap: wrap;
 }
-.post-object .content {
+.post-object .content, .answer-object .content {
   flex: 3;
   gap: 1rem;
 }
-.post-object .content .content-header {
+.post-object .content .content-header, .answer-object .content .content-header {
   font-weight: bold;
 }
-.post-object .content .body-content {
+.post-object .content .body-content, .answer-object .content .body-content {
   gap: 1rem;
 }
-.post-object .content .body-content .post-text {
+.post-object .content .body-content .post-text, .answer-object .content .body-content .post-text {
   justify-content: flex-start;
 }
-.post-object .content .body-content #title {
+.post-object .content .body-content #title, .answer-object .content .body-content #title {
   font-size: 120%;
   padding-bottom: 0.25rem;
   border-bottom: 2px solid #e6e6e6;
 }
-.post-object .content .body-content #post-time {
+.post-object .content .body-content #post-time, .answer-object .content .body-content #post-time {
   margin-top: -0.75rem;
   font-weight: bold;
   font-size: 75%;
 }
-.post-object .content .body-content #body {
+.post-object .content .body-content #body, .answer-object .content .body-content #body {
   font-size: 85%;
   line-height: 20px;
 }
-.post-object .content .post-images, .post-object .content .poster-info, .post-object .content .has-edit-info {
+.post-object .content .post-images, .post-object .content .poster-info, .post-object .content .has-edit-info, .answer-object .content .post-images, .answer-object .content .poster-info, .answer-object .content .has-edit-info {
   justify-content: flex-start;
   align-items: flex-start;
   align-self: flex-end !important;
@@ -494,7 +498,7 @@ input[type=radio]:checked {
   flex-wrap: wrap;
   max-width: 100%;
 }
-.post-object .content .post-images .post-image-container, .post-object .content .poster-info .post-image-container, .post-object .content .has-edit-info .post-image-container {
+.post-object .content .post-images .post-image-container, .post-object .content .poster-info .post-image-container, .post-object .content .has-edit-info .post-image-container, .answer-object .content .post-images .post-image-container, .answer-object .content .poster-info .post-image-container, .answer-object .content .has-edit-info .post-image-container {
   flex: 1 0 25%;
   height: 300px;
   max-height: 300px;
@@ -502,11 +506,14 @@ input[type=radio]:checked {
   background-color: #101110;
   justify-content: center;
 }
-.post-object .content .post-images .post-image-container .post-image, .post-object .content .poster-info .post-image-container .post-image, .post-object .content .has-edit-info .post-image-container .post-image {
+.post-object .content .post-images .post-image-container .post-image, .post-object .content .poster-info .post-image-container .post-image, .post-object .content .has-edit-info .post-image-container .post-image, .answer-object .content .post-images .post-image-container .post-image, .answer-object .content .poster-info .post-image-container .post-image, .answer-object .content .has-edit-info .post-image-container .post-image {
   max-width: 100%;
   height: auto;
 }
-.post-object .comments, .post-object #comments-container {
+.post-object .content .post-images, .answer-object .content .post-images {
+  align-self: flex-start !important;
+}
+.post-object .comments, .post-object #comments-container, .answer-object .comments, .answer-object #comments-container {
   flex: 1;
   border-left: 1px solid #e6e6e6;
   padding-inline: 0.75rem;
@@ -516,32 +523,32 @@ input[type=radio]:checked {
   overflow-x: hidden;
   gap: 1rem;
 }
-.post-object .comments .comments-header, .post-object #comments-container .comments-header {
+.post-object .comments .comments-header, .post-object #comments-container .comments-header, .answer-object .comments .comments-header, .answer-object #comments-container .comments-header {
   font-weight: bold;
 }
-.post-object .comments .replies-list, .post-object #comments-container .replies-list {
+.post-object .comments .replies-list, .post-object #comments-container .replies-list, .answer-object .comments .replies-list, .answer-object #comments-container .replies-list {
   gap: 1rem;
 }
-.post-object .comments .replies-list .reply, .post-object #comments-container .replies-list .reply {
+.post-object .comments .replies-list .reply, .post-object #comments-container .replies-list .reply, .answer-object .comments .replies-list .reply, .answer-object #comments-container .replies-list .reply {
   gap: 10px;
 }
-.post-object .comments .replies-list .reply .user-link, .post-object .comments .replies-list .reply .comment-text, .post-object #comments-container .replies-list .reply .user-link, .post-object #comments-container .replies-list .reply .comment-text {
+.post-object .comments .replies-list .reply .user-link, .post-object .comments .replies-list .reply .comment-text, .post-object #comments-container .replies-list .reply .user-link, .post-object #comments-container .replies-list .reply .comment-text, .answer-object .comments .replies-list .reply .user-link, .answer-object .comments .replies-list .reply .comment-text, .answer-object #comments-container .replies-list .reply .user-link, .answer-object #comments-container .replies-list .reply .comment-text {
   display: inline;
 }
-.post-object .comments .replies-list .reply .user-link, .post-object #comments-container .replies-list .reply .user-link {
+.post-object .comments .replies-list .reply .user-link, .post-object #comments-container .replies-list .reply .user-link, .answer-object .comments .replies-list .reply .user-link, .answer-object #comments-container .replies-list .reply .user-link {
   color: gold;
 }
-.post-object .comments .replies-list .reply .user-link:hover, .post-object #comments-container .replies-list .reply .user-link:hover {
+.post-object .comments .replies-list .reply .user-link:hover, .post-object #comments-container .replies-list .reply .user-link:hover, .answer-object .comments .replies-list .reply .user-link:hover, .answer-object #comments-container .replies-list .reply .user-link:hover {
   text-decoration: underline;
 }
-.post-object .comments .replies-list .reply .comment-text, .post-object #comments-container .replies-list .reply .comment-text {
+.post-object .comments .replies-list .reply .comment-text, .post-object #comments-container .replies-list .reply .comment-text, .answer-object .comments .replies-list .reply .comment-text, .answer-object #comments-container .replies-list .reply .comment-text {
   font-size: 85%;
 }
-.post-object .comments .textbox-container, .post-object #comments-container .textbox-container {
+.post-object .comments .textbox-container, .post-object #comments-container .textbox-container, .answer-object .comments .textbox-container, .answer-object #comments-container .textbox-container {
   align-items: flex-start;
   justify-content: flex-start;
 }
-.post-object .comments .textbox-container .textbox-content, .post-object #comments-container .textbox-container .textbox-content {
+.post-object .comments .textbox-container .textbox-content, .post-object #comments-container .textbox-container .textbox-content, .answer-object .comments .textbox-container .textbox-content, .answer-object #comments-container .textbox-container .textbox-content {
   width: 100%;
   gap: 10px;
 }

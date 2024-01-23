@@ -1,4 +1,10 @@
-.post-object {
+#post-page-container {
+    gap: 5rem;
+}
+
+
+// Original post elements
+.post-object, .answer-object {
     justify-content: flex-start !important;
     flex-wrap: wrap;
     .content {
@@ -50,6 +56,9 @@
                     height: auto;
                 }
             }
+        }
+        .post-images {
+            align-self: flex-start !important;
         }
     }
     .comments, #comments-container {
@@ -175,4 +184,11 @@
             gap: 0.25em;
         }
     }
+}
+
+
+
+// Answer elements
+.answer-object {
+
 }

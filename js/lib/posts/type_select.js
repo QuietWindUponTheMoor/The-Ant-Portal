@@ -39,8 +39,7 @@ const types = {
         </div>
         <div class="section col">
             <label for="select-images">Select Images (Optional) [Right-click to remove]</label>
-            <div class="section col" id="selected-images">
-            </div>
+            <div class="section col" id="selected-images"></div>
             <input class="hidden" type="file" id="image" name="image[]" accept="image/*" multiple/>
             <button class="btn-action" type="button" id="select-images" onclick="$('#image').trigger('click');">Select Images (Optional)</button>
         </div>

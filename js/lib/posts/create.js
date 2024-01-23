@@ -150,6 +150,76 @@ $("#fields-list").on("contextmenu", ".image-preview-container", function(event) 
 
 
 
+
+
+
+
+// For answers to questions/etc
+$("#answer-creation-form").on("submit", function(event) {
+    // Prevent default
+    event.preventDefault();
+
+    // Fetch append data
+    // Get images
+    const all_images = images_obj;
+
+    // Initialize form data class
+    const form_data = new FormData();
+
+    // Append items to form_data
+    const form = $("#answer-creation-form")[0];
+    $(form.elements).each(function() {
+        const input = $(this);
+        // Iterate over inputs and exclude certain names
+        if (input.attr("name") !== undefined && input.attr("name") !== "body-answer-input") {
+            // If it's not a file
+            if (input.attr("type") !== "file") {
+                form_data.append(input.attr("name"), input.val());
+            }
+        }
+    });
+
+    // Append manual items
+    form_data.append("body", $("#body-answer-input").val().replace(/\n/g, "<br>")); // Replace newline chars with HTML break characters
+    all_images.forEach((image, index) => {
+        form_data.append(`image_${index}`, image.file, image.name);
+    });
+    // Append the time and date
+    form_data.append("joined", new Date().getTime());
+    form_data.append("for_post_id", post_id);
+
+    // Submit to API
+    $.ajax({  
+        type: "POST",  
+        url: API_addr + encodeURIComponent("answer_create"), 
+        data: form_data,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            // Process response
+            const data = response;
+            const status = data.status;
+            const message = data.message;
+            const details = data.details;
+            const post_id = data.post_id;
+            const post_type = data.post_type;
+            if (status === 200) { // OK
+                $("#heading").text(message).css("color", "limegreen");
+                $("#subheading").text("Please wait a moment...");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 3000);
+            } else {
+                $("#heading").text(message).css("color", "brightred");
+                $("#subheading").text(details);
+            }
+        }
+    });
+});
+
+
+
+
 // Functions
 function fetchStrippedTagValue($item_value) {
     return $item_value.toLowerCase().replace(/[^a-zA-Z0-9-]/g, ""); // Strips everything except alphanumeric characters and dashes
