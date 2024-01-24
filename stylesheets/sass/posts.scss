@@ -1,3 +1,5 @@
+@import "theme.scss";
+
 #post-page-container {
     gap: 5rem;
 }
@@ -74,26 +76,48 @@
             font-weight: bold;
         }
         .replies-list {
-            gap: 1rem;
+            gap: 1.25rem;
             .reply {
+                position: relative;
+                display: inline !important;
                 gap: 10px;
+                &::before {
+                    content: attr(data-time);
+                    font-size: 60%;
+                    opacity: 0.5;
+                    position: absolute;
+                    top: -10px;
+                    left: 0;
+                }
                 .user-link, .comment-text {
-                    display: inline;
+                    font-size: 80%;
                 }
                 .user-link {
                     color: $action;
+                    display: inline !important;
                     &:hover {
                         text-decoration: underline;
                     }
+                    &::after {
+                        display: inline-block;
+                        content: '\2022';
+                        margin-inline: 4px;
+                        margin-left: 8px;
+                        color: $white-10;
+                        text-decoration: none !important;
+                    }
                 }
                 .comment-text {
-                    font-size: 85%;
+                    display: inline !important;
+                    max-width: fill-available;
+                    word-wrap: break-word;
                 }
             }
         }
         .textbox-container {
             align-items: flex-start;
             justify-content: flex-start;
+            margin-top: auto;
             .textbox-content {
                 width: 100%;
                 gap: 10px;

@@ -28,7 +28,25 @@ function timeCalc(timestamp, format) { // Edit this one a bit. It works for now 
     return formattedDate;
 }
 
-async function query(desQuery, data, __callback) {
+function gen_rand_string(length = 32) {
+    // List of available characters
+    const valid_chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+    // Initialize result
+    let result = "";
+    
+    // Iterate over available characters 'length' times
+    for (let i = 0; i < length; i++) {
+        // Get a random character
+        const rand_index = Math.floor(Math.random() * valid_chars.length);
+        // Append to result variable
+        result += valid_chars.charAt(rand_index);
+    }
+    
+    // Return
+    return result;
+}
+
+async function query(desQuery, data) {
   
     // Disguise as form_data
     const form_data = new FormData();
@@ -56,19 +74,7 @@ async function query(desQuery, data, __callback) {
         const err_str = `Request failed: ${error}`;
         console.error(err_str);
         throw err_str;
-    }/*
-
-    // Make request
-    await $.ajax({  
-        type: "POST",  
-        url: API_addr + encodeURIComponent("manual_queries"), 
-        data: form_data,
-        processData: false,
-        contentType: false,
-        success: function(response) {
-          __callback(response);
-        }
-    });*/
+    }
 }
 
 class PostVoting {
@@ -199,5 +205,94 @@ class PostVoting {
         const $target = $siblings.first();
         // Now return
         return $target;
+    }
+}
+
+class Comment {
+    forItemID = "";
+    itemType = -1;
+    userID = "";
+
+    // Dynamic
+    generatedReplyID = "";
+    generatedContent = "";
+    generatedTime = -1;
+    generatedUsername = "";
+
+    constructor(forItemID, itemType, userID) {
+        this.forItemID = forItemID;
+        this.itemType = itemType;
+        this.userID = userID;
+    }
+
+    async create(content) {
+        /*
+        itemType:
+        0 = Comment/reply for a post
+        5 = Comment/reply for an answer to a question (only applies to questions)
+        */
+       switch (this.itemType) {
+        case 0:
+            return await this.postComment(content);
+        default:
+            throw new Error(`Request failed: Unknown 'itemType'`);
+       }
+    }
+
+    async postComment(content) {
+        try {
+            this.generatedReplyID = gen_rand_string();
+            this.generatedTime = new Date().getTime();
+            const replyData = await query("INSERT INTO replies (replyID, forItemID, userID, `type`, `time`, content) VALUES (?, ?, ?, ?, ?, ?);", [this.generatedReplyID, this.forItemID, this.userID, this.itemType, this.generatedTime, content]);
+            if (replyData.status !== 200) {
+                throw new Error(`Request failed: Failed to create reply.`);
+            } else {
+                this.generatedContent = content; // Temporary, need to add bad word filter later
+                return this.generatedContent;
+            }
+        } catch (error) {
+            console.error(`There was an issue creating the reply: ${error}`);
+            return;
+        }
+    }
+
+    async fetchUsername() {
+        try {
+            // Get the postedBy username
+            let postedByData = await query("SELECT username FROM users WHERE userID=?;", [this.userID]);
+            postedByData = postedByData.data;
+            this.generatedUsername = postedByData.username;
+            return this.generatedUsername ?? postedByData.username;
+        } catch (error) {
+            console.error(`Error fetching answer's 'posted-by' information for answer ${this.answerID}: ${error}`);
+            return;
+        }
+    }
+}
+
+class PostComments extends Comment {
+    async append($appendTo, $textboxToClear) {
+        if (this.generatedContent === "") {
+            throw new Error(`Cannot append reply with content '${content}'`);
+        }
+
+        // Create template
+        const template = 
+        `
+        <div class="reply" id="reply-${this.generatedReplyID}" data-time="${timeCalc(this.generatedTime, "MM-DD-YYYY HH:MMa")}">
+            <a class="user-link" href="/users/1/user?user_id=${this.userID}">${await this.fetchUsername()}</a>
+            <p class="comment-text">${this.generatedContent}</p>
+        </div>
+        `;
+
+        // Create JQuery element based on template
+        const $reply = $(template);
+        // Append but initially hide it
+        $reply.hide().appendTo($appendTo);
+        // Animate append
+        $reply.fadeIn("fast");
+
+        // Clear textbox
+        $textboxToClear.val("");
     }
 }

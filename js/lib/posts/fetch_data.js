@@ -178,6 +178,31 @@ $.ajax({
                 });
             }
 
+            // Manage comments
+            (async () => {
+                const repliesData = await query("SELECT * FROM replies WHERE `type`=? AND forItemID=? ORDER BY `time` ASC;", [0 /* Post coment */, post_id]);
+                const replies = repliesData.data;
+                replies.forEach(async (reply) => {
+                    // Get data
+                    let r_replyID = reply.replyID;
+                    let r_content = reply.content;
+                    let r_forItemID = reply.forItemID; // Unused, for now, but it's an option
+                    let r_userID = reply.userID;
+                    let r_time = timeCalc(reply.time, "MM-DD-YYYY HH:MMa");
+
+                    // Create template
+                    const template = 
+                    `
+                    <div class="reply" id="reply-${r_replyID}" data-time="${r_time}">
+                        <a class="user-link" href="/users/1/user?user_id=${r_userID}">${await fetchUsername(r_userID)}</a>
+                        <p class="comment-text">${r_content}</p>
+                    </div>
+                    `;
+
+                    // Append the reply/comment
+                    $("#main-replies-list").append(template);
+                });
+            })()
 
             // Now check to see if the page needs an answers section
             const allowed_types_for_answers = [0];
@@ -193,6 +218,17 @@ $.ajax({
     }
 });
 
+async function fetchUsername(userID) {
+    try {
+        // Get the postedBy username
+        let postedByData = await query("SELECT username FROM users WHERE userID=?;", [userID]);
+        postedByData = postedByData.data;
+        return postedByData.username;
+    } catch (error) {
+        console.error(`Error fetching username: ${error}`);
+        return;
+    }
+}
 function splitArray(string) {
     return string.split(",");
 }
@@ -440,7 +476,7 @@ class ProcessAnswers {
                     <label for="reply-textbox">Post a comment</label>
                     <div class="textbox-content row">
                         <input type="text" class="input-main" id="reply-textbox"/>
-                        <button class="btn-action" type="button" id="create-reply">Reply</button>
+                        <button class="btn-white" type="button" id="create-reply">Reply</button>
                     </div>
                 </div>
             </div>

@@ -98,7 +98,7 @@ console.log(`Login status ${login_status}`);
                 </div>
 
                 <!-- Create answer button -->
-                <button class="btn-action" type="button" id="open-answer-form">Answer This Question</button>
+                <button class="btn-white" type="button" id="open-answer-form">Answer This Question</button>
 
             </div>
 
@@ -106,31 +106,14 @@ console.log(`Login status ${login_status}`);
 
             <div class="comments col" id="comments-container">
                 <p class="comments-header">User Replies</p>
-
-
-                <div class="replies-list col">
-
-                    <div class="reply row">
-                        <a class="user-link" href="#">TestAdmin</a>
-                        <p class="comment-text">Lorem ipsum dolor sit amet.</p>
-                    </div>
-
-                    <div class="reply">
-                        <a class="user-link" href="#">TestAdmin</a>
-                        <p class="comment-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi iste distinctio facilis. Quam.</p>
-                    </div>
-
-                </div>
-
+                <div class="replies-list col" id="main-replies-list"></div>
                 <div class="textbox-container col">
                     <label for="reply-textbox">Post a comment</label>
                     <div class="textbox-content row">
                         <input type="text" class="input-main" id="reply-textbox"/>
-                        <button class="btn-action" type="button" id="create-reply">Reply</button>
+                        <button class="btn-white" type="button" id="create-reply">Reply</button>
                     </div>
                 </div>
-
-
             </div>
 
         </div>
@@ -142,5 +125,6 @@ console.log(`Login status ${login_status}`);
 <script type="text/javascript" src="/js/lib/posts/fetch_data.js"></script>
 <?php echo $jsImports["functions"]; ?>
 <script type="text/javascript" src="/js/lib/posts/post_and_answer_voting.js"></script>
+<script type="text/javascript" src="/js/lib/posts/create_reply.js"></script>
 
 <?php require($root."/includes/footer.php"); ?>
